@@ -1,38 +1,34 @@
 ﻿using System;
 
-namespace sws.TAIFDriver.b
+namespace sws.TAIFDriver.ClassB
 {
-	using b = sws.TAIFDriver.a.b;
+	using b = sws.TAIFDriver.ClassA.ab;
 
-	public class a : Exception
+	public class ba : Exception
 	{
 //JAVA TO C# CONVERTER NOTE: Members cannot have the same name as their enclosing type:
 	  private const long a_Conflict = -5771960360292389271L;
 
 	  private b b;
 
-	  public a()
+	  public ba()
 	  {
 	  }
 
-	  public a(b paramb)
+	  public ba(b paramb)
 	  {
 		  this.b = paramb;
 	  }
 
-	  public a(Exception paramThrowable, b paramb) : base(paramThrowable)
+	  public ba(string paramThrowable, b paramb) : base(paramThrowable)
 	  {
 		this.b = paramb;
 	  }
 
-	  public a(string paramString) : base(paramString)
+	  public ba(string paramString) : base(paramString)
 	  {
 	  }
 
-	  public a(string paramString, b paramb) : base(paramString)
-	  {
-		this.b = paramb;
-	  }
 
 	  public b a()
 	  {

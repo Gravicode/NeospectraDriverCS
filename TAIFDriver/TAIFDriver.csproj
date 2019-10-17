@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\p2AppManager\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,26 +45,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="a.cs" />
-    <Compile Include="a\a.cs" />
-    <Compile Include="a\b.cs" />
-    <Compile Include="a\c.cs" />
-    <Compile Include="a\d.cs" />
-    <Compile Include="a\e.cs" />
-    <Compile Include="a\f.cs" />
-    <Compile Include="a\g.cs" />
-    <Compile Include="a\h.cs" />
-    <Compile Include="a\i.cs" />
-    <Compile Include="a\j.cs" />
-    <Compile Include="a\k.cs" />
+    <Compile Include="ClassA\aa.cs" />
+    <Compile Include="ClassA\ab.cs" />
+    <Compile Include="ClassA\ac.cs" />
+    <Compile Include="ClassA\ad.cs" />
+    <Compile Include="ClassA\ae.cs" />
+    <Compile Include="ClassA\af.cs" />
+    <Compile Include="ClassA\ag.cs" />
+    <Compile Include="ClassA\ah.cs" />
+    <Compile Include="ClassA\ai.cs" />
+    <Compile Include="ClassA\aj.cs" />
+    <Compile Include="ClassA\ak.cs" />
     <Compile Include="ByteBuffer.cs" />
-    <Compile Include="b\a.cs" />
-    <Compile Include="c\a.cs" />
-    <Compile Include="c\b.cs" />
-    <Compile Include="c\c.cs" />
+    <Compile Include="ClassB\ba.cs" />
+    <Compile Include="ClassC\ca.cs" />
+    <Compile Include="ClassC\cb.cs" />
+    <Compile Include="ClassC\cc.cs" />
     <Compile Include="GlobalRandom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="TAIFBoard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="log4net.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

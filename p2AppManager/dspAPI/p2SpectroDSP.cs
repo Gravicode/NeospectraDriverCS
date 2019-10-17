@@ -49,151 +49,151 @@ namespace sws.p2AppManager.dspAPI
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean spectro_spectrometerDSP_init();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean spectrometerDSP_clean();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_initialization(double[] paramArrayOfDouble1, int paramInt1, bool paramBoolean1, bool paramBoolean2, bool paramBoolean3, double[] paramArrayOfDouble2, int paramInt2);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_preprocessing(int paramInt1, int paramInt2, double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_capToDistance(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, int paramInt, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_interpolation(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern int interferogram_findLPF_Length();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern int interferogram_findLPF_Index();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_removeMovingAverage(double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_wavelengthSelfCorrection(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, int[] paramArrayOfInt1, int[] paramArrayOfInt2, double[] paramArrayOfDouble7);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern int interferogram_apodizationGetSize();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern int interferogram_findFFT_Length(int paramInt1, int paramInt2);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_apodization(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt, double[] paramArrayOfDouble3);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_powerSpectralDensityCalculation(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, int[] paramArrayOfInt);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_integration(bool paramBoolean1, bool paramBoolean2, bool paramBoolean3, double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double[] paramArrayOfDouble3, int paramInt3, double[] paramArrayOfDouble4, int paramInt4, int paramInt5, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, int paramInt6, int paramInt7, int paramInt8, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8, double[] paramArrayOfDouble9, double[] paramArrayOfDouble10, double[] paramArrayOfDouble11, double[] paramArrayOfDouble12, int[] paramArrayOfInt1, double[] paramArrayOfDouble13, double[] paramArrayOfDouble14, double[] paramArrayOfDouble15, double[] paramArrayOfDouble16, int[] paramArrayOfInt2, int[] paramArrayOfInt3, int[] paramArrayOfInt4);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_endFFT(bool paramBoolean1, bool paramBoolean2, bool paramBoolean3, double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, int paramInt3, double[] paramArrayOfDouble5, int paramInt4, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean capInterp(double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, int paramInt3, double paramDouble1, double paramDouble2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8, double[] paramArrayOfDouble9);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean delayCompSearching(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt1, double[] paramArrayOfDouble3, int paramInt2, double[] paramArrayOfDouble4, int paramInt3, int paramInt4, int paramInt5, bool paramBoolean, int paramInt6, int[] paramArrayOfInt1, int[] paramArrayOfInt2, bool[] paramArrayOfBoolean);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean SpectrometerDSP_Calib(double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, int paramInt3, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, int paramInt4, double[] paramArrayOfDouble7, int paramInt5, double[] paramArrayOfDouble8, int paramInt6, double[] paramArrayOfDouble9, int paramInt7, double[] paramArrayOfDouble10, int paramInt8, double[] paramArrayOfDouble11, int paramInt9, double paramDouble1, double paramDouble2, double paramDouble3, bool paramBoolean1, double paramDouble4, double paramDouble5, double paramDouble6, double paramDouble7, int paramInt10, int paramInt11, double paramDouble8, bool paramBoolean2, double[] paramArrayOfDouble12, int paramInt12, int paramInt13, int paramInt14, int paramInt15, double[] paramArrayOfDouble13, double[] paramArrayOfDouble14, double[] paramArrayOfDouble15, double[] paramArrayOfDouble16, double[] paramArrayOfDouble17, double[] paramArrayOfDouble18, int[] paramArrayOfInt, double[] paramArrayOfDouble19, double[] paramArrayOfDouble20);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean SpectrometerDSP_capAndCurrent(double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double[] paramArrayOfDouble3, int paramInt3, double paramDouble1, double paramDouble2, double paramDouble3, double paramDouble4, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8, double[] paramArrayOfDouble9, double[] paramArrayOfDouble10, double[] paramArrayOfDouble11, double[] paramArrayOfDouble12, double[] paramArrayOfDouble13);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_initialization(double[] paramArrayOfDouble, int paramInt);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_capAmpCalc(double[] paramArrayOfDouble1, int paramInt, double[] paramArrayOfDouble2);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_signalPreprocessing(int paramInt, double paramDouble1, double paramDouble2, double paramDouble3, double paramDouble4, double[] paramArrayOfDouble);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_memsParametersDetection(double[] paramArrayOfDouble1, int paramInt, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_fwdGainCalc(double[] paramArrayOfDouble1, int paramInt, double paramDouble1, double paramDouble2, double paramDouble3, double paramDouble4, double[] paramArrayOfDouble2);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_loopCoefficientsCalc(double paramDouble1, double paramDouble2, double paramDouble3, double paramDouble4, double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt, double paramDouble5, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8, double[] paramArrayOfDouble9, double[] paramArrayOfDouble10, double[] paramArrayOfDouble11, double[] paramArrayOfDouble12, double[] paramArrayOfDouble13, double[] paramArrayOfDouble14, double[] paramArrayOfDouble15, double[] paramArrayOfDouble16);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_phaseConversion(double paramDouble1, double paramDouble2, double[] paramArrayOfDouble);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_phaseValidation(double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double paramDouble, double[] paramArrayOfDouble3);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_optimumPhaseDetection(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, int paramInt, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, int[] paramArrayOfInt, double[] paramArrayOfDouble6);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_optimumPhaseDetectionFast(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, int[] paramArrayOfInt, double[] paramArrayOfDouble5);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_settingsCheck(double[] paramArrayOfDouble1, int paramInt1, double[] paramArrayOfDouble2, int paramInt2, double paramDouble1, double paramDouble2, double paramDouble3, double paramDouble4, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8, double[] paramArrayOfDouble9);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_calculateKdigFromRegisterValue(double paramDouble, double[] paramArrayOfDouble);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean abstractClosedLoop_closedLoop_gainMarginCalc(double[] paramArrayOfDouble1, int paramInt1, double paramDouble1, int paramInt2, double paramDouble2, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_SNR_Measurement(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt1, int paramInt2, double paramDouble1, double paramDouble2, double paramDouble3, int paramInt3, double paramDouble4, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8, double[] paramArrayOfDouble9, double[] paramArrayOfDouble10, double[] paramArrayOfDouble11, double[] paramArrayOfDouble12, double[] paramArrayOfDouble13, double[] paramArrayOfDouble14, double[] paramArrayOfDouble15, double[] paramArrayOfDouble16, double[] paramArrayOfDouble17, double[] paramArrayOfDouble18, double[] paramArrayOfDouble19);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_wavelengthCorrect(double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt1, double[] paramArrayOfDouble3, int paramInt2, int paramInt3, int paramInt4, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_repeatabilityAndStability(double[] paramArrayOfDouble1, int paramInt1, int paramInt2, double[] paramArrayOfDouble2, double[] paramArrayOfDouble3, int paramInt3, int paramInt4, double[] paramArrayOfDouble4, double[] paramArrayOfDouble5, double[] paramArrayOfDouble6, double[] paramArrayOfDouble7, double[] paramArrayOfDouble8);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
+	  [DllImport("spectrometerDSP.dll")]
 	  private extern boolean interferogram_commonWavenumberGeneration(double paramDouble1, double paramDouble2, int paramInt1, double[] paramArrayOfDouble1, double[] paramArrayOfDouble2, int paramInt2, double[] paramArrayOfDouble3, double[] paramArrayOfDouble4);
 
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:

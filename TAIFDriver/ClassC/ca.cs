@@ -1,7 +1,7 @@
-﻿namespace sws.TAIFDriver.c
+﻿namespace sws.TAIFDriver.ClassC
 {
 
-	public class a
+	public class ca
 	{
 	  public static sbyte[] a(long paramLong)
 	  {

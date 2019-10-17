@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace sws.TAIFDriver.c
+namespace sws.TAIFDriver.ClassC
 {
-	public class c
+	public class cc
 	{
 	  public const int a = 89;
 

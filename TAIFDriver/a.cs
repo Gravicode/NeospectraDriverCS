@@ -5,16 +5,16 @@ using System.Threading;
 namespace sws.TAIFDriver
 {
 	using Logger = org.apache.log4j.Logger;
-	using a = sws.TAIFDriver.a.a;
-	using b = sws.TAIFDriver.a.b;
-	using c = sws.TAIFDriver.a.c;
-	using d = sws.TAIFDriver.a.d;
-	using e = sws.TAIFDriver.a.e;
-	using i = sws.TAIFDriver.a.i;
-	using j = sws.TAIFDriver.a.j;
-	using k = sws.TAIFDriver.a.k;
-	using a = sws.TAIFDriver.b.a;
-	using a = sws.TAIFDriver.c.a;
+	using a = sws.TAIFDriver.ClassA.aa;
+	using b = sws.TAIFDriver.ClassA.ab;
+	using c = sws.TAIFDriver.ClassA.ac;
+	using d = sws.TAIFDriver.ClassA.ad;
+	using e = sws.TAIFDriver.ClassA.ae;
+	using i = sws.TAIFDriver.ClassA.ai;
+	using j = sws.TAIFDriver.ClassA.aj;
+	using k = sws.TAIFDriver.ClassA.ak;
+	using a = sws.TAIFDriver.ClassB.ba;
+	using a = sws.TAIFDriver.ClassC.ca;
 
 	public class a
 	{

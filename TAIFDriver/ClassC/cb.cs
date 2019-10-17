@@ -1,6 +1,6 @@
-﻿namespace sws.TAIFDriver.c
+﻿namespace sws.TAIFDriver.ClassC
 {
-	public class b
+	public class cb
 	{
 	  public const int a = 64;
 

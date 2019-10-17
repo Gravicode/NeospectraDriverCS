@@ -47,7 +47,6 @@
     <Compile Include="ByteBuffer.cs" />
     <Compile Include="b\a.cs" />
     <Compile Include="b\b.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="c\a.cs" />
     <Compile Include="c\b.cs" />
     <Compile Include="c\c.cs" />

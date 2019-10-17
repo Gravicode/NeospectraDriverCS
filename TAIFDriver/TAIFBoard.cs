@@ -3,31 +3,35 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using sws.TAIFDriver.ClassA;
 
 namespace sws.TAIFDriver
 {
-	using Logger = org.apache.log4j.Logger;
-	using a = sws.TAIFDriver.a.a;
-	using b = sws.TAIFDriver.a.b;
-	using c = sws.TAIFDriver.a.c;
-	using d = sws.TAIFDriver.a.d;
-	using e = sws.TAIFDriver.a.e;
-	using f = sws.TAIFDriver.a.f;
-	using g = sws.TAIFDriver.a.g;
-	using h = sws.TAIFDriver.a.h;
-	using i = sws.TAIFDriver.a.i;
-	using j = sws.TAIFDriver.a.j;
-	using k = sws.TAIFDriver.a.k;
+    using Logger = log4net;// org.apache.log4j.Logger;
+    /*
+	using a = sws.TAIFDriver.ClassA.aa;
+	using b = sws.TAIFDriver.ClassA.b;
+	using c = sws.TAIFDriver.ClassA.c;
+	using d = sws.TAIFDriver.ClassA.d;
+	using e = sws.TAIFDriver.ClassA.ae;
+	using f = sws.TAIFDriver.ClassA.af;
+	using ag = sws.TAIFDriver.ClassA.ag;
+	using h = sws.TAIFDriver.ClassA.ah;
+	using i = sws.TAIFDriver.ClassA.ai;
+	using j = sws.TAIFDriver.ClassA.aj;
+	using k = sws.TAIFDriver.ClassA.ak;
 	using a = sws.TAIFDriver.b.a;
-	using a = sws.TAIFDriver.c.a;
+	using a = sws.TAIFDriver.c.a;*/
 
 	public class TAIFBoard
 	{
+        
+        
 //JAVA TO C# CONVERTER NOTE: Fields cannot have the same name as methods:
-	  private static Logger b_Conflict = Logger.getLogger(typeof(TAIFBoard));
-
-//JAVA TO C# CONVERTER NOTE: Fields cannot have the same name as methods:
-	  private string c_Conflict;
+	  //private static Logger.LogManager b_Conflict = Logger.getLogger(typeof(TAIFBoard));
+        private static readonly log4net.ILog b_Conflict = log4net.LogManager.GetLogger(typeof(TAIFBoard));
+        //JAVA TO C# CONVERTER NOTE: Fields cannot have the same name as methods:
+        private string c_Conflict;
 
 //JAVA TO C# CONVERTER NOTE: Fields cannot have the same name as methods:
 	  private int d_Conflict;
@@ -42,96 +46,96 @@ namespace sws.TAIFDriver
 	  public string a_Conflict;
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_init();
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_init();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_connect(short paramShort, sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_connect(short paramShort, sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_close();
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_close();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_dataOutTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_dataOutTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_asyncDataOutTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_asyncDataOutTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_dataInTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_dataInTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_asyncDataInTransfer(int paramInt1, int paramInt2, int paramInt3);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_asyncDataInTransfer(int paramInt1, int paramInt2, int paramInt3);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_asyncDataInGetData(sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_asyncDataInGetData(sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_controlOutTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_controlOutTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_controlInTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_controlInTransfer(int paramInt1, int paramInt2, int paramInt3, sbyte[] paramArrayOfByte);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_selfTest();
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_selfTest();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern double cyDriver_getDataInProgress();
+	  [DllImport("cyDriver.dll")]
+	  private static extern double cyDriver_getDataInProgress();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern double cyDriver_getDataOutProgress();
+	  [DllImport("cyDriver.dll")]
+	  private static extern double cyDriver_getDataOutProgress();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern double cyDriver_getControlInProgress();
+	  [DllImport("cyDriver.dll")]
+	  private static extern double cyDriver_getControlInProgress();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern double cyDriver_getControlOutProgress();
+	  [DllImport("cyDriver.dll")]
+	  private static extern double cyDriver_getControlOutProgress();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern byte cyDriver_isAsyncDataInDone();
+	  [DllImport("cyDriver.dll")]
+	  private static extern byte cyDriver_isAsyncDataInDone();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern byte cyDriver_isAsyncDataOutDone();
+	  [DllImport("cyDriver.dll")]
+	  private static extern byte cyDriver_isAsyncDataOutDone();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_getAsyncDataInErrorCode();
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_getAsyncDataInErrorCode();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_getAsyncDataOutErrorCode();
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_getAsyncDataOutErrorCode();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_resetDevice();
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_resetDevice();
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern int cyDriver_checkDeviceStatus(short paramShort);
+	  [DllImport("cyDriver.dll")]
+	  private static extern int cyDriver_checkDeviceStatus(short paramShort);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern void cyDriver_setDataTimeoutMilliSec(int paramInt);
+	  [DllImport("cyDriver.dll")]
+	  private static extern void cyDriver_setDataTimeoutMilliSec(int paramInt);
 
 //JAVA TO C# CONVERTER TODO TASK: Replace 'unknown' with the appropriate dll name:
-	  [DllImport("unknown")]
-	  private extern void cyDriver_setControlTimeoutMilliSec(short paramShort);
+	  [DllImport("cyDriver.dll")]
+	  private static extern void cyDriver_setControlTimeoutMilliSec(short paramShort);
 
 	  public TAIFBoard(int paramInt)
 	  {
@@ -142,7 +146,9 @@ namespace sws.TAIFDriver
 
 	  public TAIFBoard(int paramInt, string paramString)
 	  {
-		this.e_Conflict = paramInt;
+            sws.TAIFDriver.ClassA
+
+        this.e_Conflict = paramInt;
 		this.a_Conflict = paramString;
 		cyDriver_init();
 	  }
@@ -860,8 +866,8 @@ namespace sws.TAIFDriver
 	  }
 
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in C#:
-//ORIGINAL LINE: private byte[] a(sws.TAIFDriver.a.g paramg) throws a
-	  private sbyte[] a(g paramg)
+//ORIGINAL LINE: private byte[] a(sws.TAIFDriver.ClassA.g paramg) throws a
+	  private sbyte[] a(ag paramg)
 	  {
 		sbyte[] arrayOfByte = null;
 		switch (null.a[paramg.ordinal()])
