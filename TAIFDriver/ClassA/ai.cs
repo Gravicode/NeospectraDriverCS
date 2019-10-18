@@ -76,7 +76,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ai af = new ai(4);
         public static readonly ai ag = new ai(4);
         public static readonly ai ah = new ai(4);
-        public static readonly ai _ai = new ai(4);
+        public static readonly ai ai_ = new ai(4);
         public static readonly ai aj = new ai(4);
         public static readonly ai ak = new ai(4);
         public static readonly ai al = new ai(4);
@@ -86,7 +86,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ai ap = new ai(4);
         public static readonly ai aq = new ai(5);
         public static readonly ai ar = new ai(5);
-        public static readonly ai _as = new ai(5);
+        public static readonly ai as_ = new ai(5);
         public static readonly ai at = new ai(5);
         public static readonly ai au = new ai(5);
         public static readonly ai av = new ai(5);
@@ -238,7 +238,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ai dl = new ai(44);
         public static readonly ai dm = new ai(45);
         public static readonly ai dn = new ai(45);
-        public static readonly ai _do = new ai(45);
+        public static readonly ai do_ = new ai(45);
         public static readonly ai dp = new ai(46);
         public static readonly ai dq = new ai(46);
         public static readonly ai dr = new ai(46);

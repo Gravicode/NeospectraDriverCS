@@ -77,8 +77,8 @@ W  ,
 X  ,
 Y  ,
 Z  ,
-_aa,
-_ab,
+aa_,
+ab_,
 ac ,
 ad ,
 ae ,
@@ -95,7 +95,7 @@ ao ,
 ap ,
 aq ,
 ar ,
-_as,
+as_,
 at ,
 au ,
 av ,
@@ -173,8 +173,8 @@ aQ
         public static readonly ab X = new ab(71);
         public static readonly ab Y = new ab(72);
         public static readonly ab Z = new ab(73);
-        public static readonly ab _aa = new ab(74);
-        public static readonly ab _ab = new ab(200);
+        public static readonly ab aa_ = new ab(74);
+        public static readonly ab ab_ = new ab(200);
         public static readonly ab ac = new ab(201);
         public static readonly ab ad = new ab(202);
         public static readonly ab ae = new ab(203);
@@ -191,7 +191,7 @@ aQ
         public static readonly ab ap = new ab(214);
         public static readonly ab aq = new ab(215);
         public static readonly ab ar = new ab(216);
-        public static readonly ab _as = new ab(217);
+        public static readonly ab as_ = new ab(217);
         public static readonly ab at = new ab(218);
         public static readonly ab au = new ab(219);
         public static readonly ab av = new ab(220);

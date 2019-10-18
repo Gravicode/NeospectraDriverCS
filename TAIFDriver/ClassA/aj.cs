@@ -76,7 +76,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly aj ag= new aj(6);
         public static readonly aj ah= new aj(7);
         public static readonly aj ai= new aj(8);
-        public static readonly aj _aj= new aj(9);
+        public static readonly aj aj_= new aj(9);
         public static readonly aj ak= new aj(10);
         public static readonly aj al= new aj(11);
         public static readonly aj am= new aj(12);
@@ -85,7 +85,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly aj ap= new aj(15);
         public static readonly aj aq= new aj(0);
         public static readonly aj ar= new aj(1);
-        public static readonly aj _as= new aj(2);
+        public static readonly aj as_= new aj(2);
         public static readonly aj at= new aj(3);
         public static readonly aj au= new aj(4);
         public static readonly aj av= new aj(5);
@@ -237,7 +237,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly aj dl= new aj(294);
         public static readonly aj dm= new aj(05);
         public static readonly aj dn= new aj(25);
-        public static readonly aj _do= new aj(155);
+        public static readonly aj do_= new aj(155);
         public static readonly aj dp= new aj(06);
         public static readonly aj dq= new aj(136);
         public static readonly aj dr= new aj(266);

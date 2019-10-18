@@ -77,7 +77,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ak ah = new ak(1);
         public static readonly ak ai = new ak(1);
         public static readonly ak aj = new ak(1);
-        public static readonly ak _ak = new ak(1);
+        public static readonly ak ak_ = new ak(1);
         public static readonly ak al = new ak(1);
         public static readonly ak am = new ak(1);
         public static readonly ak an = new ak(1);
@@ -85,7 +85,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ak ap = new ak(1);
         public static readonly ak aq = new ak(1);
         public static readonly ak ar = new ak(1);
-        public static readonly ak _as = new ak(1);
+        public static readonly ak as_ = new ak(1);
         public static readonly ak at = new ak(1);
         public static readonly ak au = new ak(1);
         public static readonly ak av = new ak(1);
@@ -237,7 +237,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ak dl = new ak(3);
         public static readonly ak dm = new ak(2);
         public static readonly ak dn = new ak(13);
-        public static readonly ak _do = new ak(5);
+        public static readonly ak do_ = new ak(5);
         public static readonly ak dp = new ak(13);
         public static readonly ak dq = new ak(13);
         public static readonly ak dr = new ak(2);

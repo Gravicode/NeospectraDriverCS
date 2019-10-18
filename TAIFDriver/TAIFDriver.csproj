@@ -61,6 +61,7 @@
     <Compile Include="ClassC\ca.cs" />
     <Compile Include="ClassC\cb.cs" />
     <Compile Include="ClassC\cc.cs" />
+    <Compile Include="FileHelpers.cs" />
     <Compile Include="GlobalRandom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringHelper.cs" />
@@ -71,6 +72,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TAIFBoard.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

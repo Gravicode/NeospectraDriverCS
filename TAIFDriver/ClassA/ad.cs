@@ -70,7 +70,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ad aa = new ad(0);
         public static readonly ad ab = new ad(0);
         public static readonly ad ac = new ad(0);
-        public static readonly ad _ad = new ad(0);
+        public static readonly ad ad_ = new ad(0);
         public static readonly ad ae = new ad(0);
         public static readonly ad af = new ad(0);
         public static readonly ad ag = new ad(0);
@@ -85,7 +85,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ad ap = new ad(0);
         public static readonly ad aq = new ad(0);
         public static readonly ad ar = new ad(0);
-        public static readonly ad _as = new ad(0);
+        public static readonly ad as_ = new ad(0);
         public static readonly ad at = new ad(0);
 
     }

@@ -72,7 +72,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ae ab = new ae(16);
         public static readonly ae ac = new ae(16);
         public static readonly ae ad = new ae(16);
-        public static readonly ae _ae = new ae(16);
+        public static readonly ae ae_ = new ae(16);
         public static readonly ae af = new ae(16);
         public static readonly ae ag = new ae(4);
         public static readonly ae ah = new ae(16);
@@ -86,7 +86,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ae ap = new ae(16);
         public static readonly ae aq = new ae(2);
         public static readonly ae ar = new ae(2);
-        public static readonly ae _as = new ae(2);
+        public static readonly ae as_ = new ae(2);
         public static readonly ae at = new ae(2);
        
     }

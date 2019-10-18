@@ -69,7 +69,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ac Z = new ac(32);
         public static readonly ac aa = new ac(33);
         public static readonly ac ab = new ac(34);
-        public static readonly ac _ac = new ac(35);
+        public static readonly ac ac_ = new ac(35);
         public static readonly ac ad = new ac(36);
         public static readonly ac ae = new ac(37);
         public static readonly ac af = new ac(38);
@@ -85,7 +85,7 @@ namespace sws.TAIFDriver.ClassA
         public static readonly ac ap = new ac(48);
         public static readonly ac aq = new ac(49);
         public static readonly ac ar = new ac(50);
-        public static readonly ac _as = new ac(51);
+        public static readonly ac as_ = new ac(51);
         public static readonly ac at = new ac(52);
 
      
