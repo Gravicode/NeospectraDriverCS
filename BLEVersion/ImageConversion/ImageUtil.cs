@@ -1,18 +1,33 @@
-package com.gravicode.neospectralib.ImageConversion;
-using android.graphics.Bitmap;
-using android.graphics.BitmapFactory;
-using android.util.Base64;
-using java.io.ByteArrayOutputStream;
-public class ImageUtil {
-    
-    public static Bitmap convert(String base64Str) {
-        byte[] decodedBytes = Base64.decode(base64Str.substring((base64Str.indexOf(",") + 1)), Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-    }
-    
-    public static String convert(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+using System;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Text;
+
+namespace com.gravicode.neospectralib.ImageConversion
+{
+    public class ImageUtil
+    {
+        public static Bitmap convert(string base64Str)
+        {
+            byte[] decodedBytes = Convert.FromBase64String(
+                base64Str.Substring(base64Str.IndexOf(",") + 1));
+
+            using (MemoryStream ms = new MemoryStream(decodedBytes))
+            {
+                return new Bitmap(ms);
+            }
+        }
+
+        public static string convert(Bitmap bitmap)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+
+                return "data:image/png;base64," + Convert.ToBase64String(imageBytes);
+            }
+        }
     }
 }
