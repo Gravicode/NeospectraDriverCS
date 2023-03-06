@@ -122,6 +122,12 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DispatcherTaskExtensions.cs" />
     <Compile Include="DisplayHelpers.cs" />
+    <Compile Include="Driver\BluetoothSDK\SWS_P3Packet.cs" />
+    <Compile Include="Driver\BluetoothSDK\SWS_P3PacketResponse.cs" />
+    <Compile Include="Driver\Global\GlobalVariables.cs" />
+    <Compile Include="Driver\Global\MethodsFactory.cs" />
+    <Compile Include="Driver\ImageConversion\ImageUtil.cs" />
+    <Compile Include="Driver\Models\dbReading.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -194,10 +200,14 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
+    <PackageReference Include="System.Drawing.Common">
+      <Version>7.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\microsoft-logo.glb" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
