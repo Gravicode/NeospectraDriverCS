@@ -364,8 +364,9 @@ namespace NeospectraApp.Driver
         }
 
         #endregion
-        public SWS_P3ConnectionServices()
+        public SWS_P3ConnectionServices(CoreDispatcher dispatcher)
         {
+            this.Dispatcher = dispatcher;
             StartWatcher();
         }
     }

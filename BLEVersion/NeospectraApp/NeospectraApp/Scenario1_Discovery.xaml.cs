@@ -41,6 +41,7 @@ namespace NeospectraApp
         public Scenario1_Discovery()
         {
             InitializeComponent();
+            
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
