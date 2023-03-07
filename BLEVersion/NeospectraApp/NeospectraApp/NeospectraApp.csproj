@@ -122,6 +122,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DispatcherTaskExtensions.cs" />
     <Compile Include="DisplayHelpers.cs" />
+    <Compile Include="Driver\BluetoothSDK\SWS_P3BLEDevice.cs" />
+    <Compile Include="Driver\BluetoothSDK\SWS_P3ConnectionServices.cs" />
     <Compile Include="Driver\BluetoothSDK\SWS_P3Packet.cs" />
     <Compile Include="Driver\BluetoothSDK\SWS_P3PacketResponse.cs" />
     <Compile Include="Driver\Global\GlobalVariables.cs" />

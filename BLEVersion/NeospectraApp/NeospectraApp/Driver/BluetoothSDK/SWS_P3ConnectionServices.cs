@@ -1,79 +1,126 @@
-//*********************************************************
-//
-// Copyright (c) Microsoft. All rights reserved.
-// This code is licensed under the MIT License (MIT).
-// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-//
-//*********************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Enumeration;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
-namespace NeospectraApp
+namespace NeospectraApp.Driver
 {
-    // This scenario uses a DeviceWatcher to enumerate nearby Bluetooth Low Energy devices,
-    // displays them in a ListView, and lets the user select a device and pair it.
-    // This device will be used by future scenarios.
-    // For more information about device discovery and pairing, including examples of
-    // customizing the pairing process, see the DeviceEnumerationAndPairing sample.
-    public sealed partial class Scenario1_Discovery : Page
+    public class SWS_P3ConnectionServices
     {
-        private MainPage rootPage = MainPage.Current;
+        static private List<SWS_P3BLEDevice> bleDevices;
+        private static String TAG = "P3_Connection";
 
+
+        bool mHeaderPacketDone = false;
+        private bool mHeaderMemPacketDone = false;
+        private bool mHeaderSysPacketDone = false;
+        private byte[] scanBytes;
+        private int scanBytesIterator;
+        private int packetsType = 0;
+        int mNumberOfPackets = 0;
+        int mDataLength = 0;
+        int mReceivedPacketsCounter = 0;
+        SWS_P3PacketResponse mPacketResponse;
+        bool still_fail = true;
+        bool isConnectedToGatt = false;
+        int status;
+
+        // flag to connection process
+        public enum ConnectionStatus
+        {
+            ready,
+            findingChannel,
+            failedToGetChannel,
+            gotChannel,
+            connecting,
+            failedToConnect,
+            connected,
+            disconnected
+        }
+
+        public ConnectionStatus connectionStatus = ConnectionStatus.ready;
+
+        public ConnectionStatus getConnectionStatus()
+        {
+            return connectionStatus;
+        }
+
+        public void setConnectionStatus(ConnectionStatus connectionStatus)
+        {
+            this.connectionStatus = connectionStatus;
+        }
+
+        // =====================================================================
+        // RxAndroidBLE related variables
+        //private RxBleClient mRxBleClient;
+        private BluetoothLEDevice mRxBleDevice;
+        //private Disposable scanSubscription;
+        private ObservableCollection<BluetoothLEDeviceDisplay> mRxBleConnection;
+
+
+
+
+        List<SWS_P3BLEDevice> DevicesList = new List<SWS_P3BLEDevice>();
+
+        List<String> DevicesMacAddress = new List<string>();
+        List<Guid> serviceGuidsList = new List<Guid>();
+        List<Guid> characteristicGuidsList = new List<Guid>();
+        List<Guid> descriptorGuidsList = new List<Guid>();
+
+        // ============================================================================================================
+        public static int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+        private static readonly int LOCATION_PERMISSION_REQUEST_CODE = 1;
+        // ============================================================================================================
+
+        //Macros
+        public static readonly Guid TX_POWER_Guid = new Guid("00001804-0000-1000-8000-00805f9b34fb");
+        public static readonly Guid TX_POWER_LEVEL_Guid = new Guid("00002a07-0000-1000-8000-00805f9b34fb");
+        public static readonly Guid CCCD = new Guid("00002902-0000-1000-8000-00805f9b34fb");
+        public static readonly Guid FIRMWARE_REVISON_Guid = new Guid("00002a26-0000-1000-8000-00805f9b34fb");
+        public static readonly Guid DIS_Guid = new Guid("0000180a-0000-1000-8000-00805f9b34fb");
+
+        public static readonly Guid P3_SERVICE_Guid = new Guid("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+        public static readonly Guid SYS_STAT_SERVICE_Guid = new Guid("B100B100-B100-B100-B100-B100B100B100");
+        public static readonly Guid MEM_SERVICE_Guid = new Guid("C100C100-C100-C100-C100-C100C100C100");
+        public static readonly Guid OTA_SERVICE_Guid = new Guid("D100D100-D100-D100-D100-D100D100D100");
+        public static readonly Guid BATTERY_SERVICE_Guid = new Guid("E100E100-E100-E100-E100-E100E100E100");
+
+        public static readonly Guid P3_RX_CHAR_Guid = new Guid("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
+        public static readonly Guid P3_TX_CHAR_Guid = new Guid("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
+        public static readonly Guid SYS_STAT_TX_CHAR_Guid = new Guid("B101B101-B101-B101-B101-B101B101B101");
+        public static readonly Guid SYS_STAT_RX_CHAR_Guid = new Guid("B102B102-B102-B102-B102-B102B102B102");
+        public static readonly Guid MEM_TX_CHAR_Guid = new Guid("C101C101-C101-C101-C101-C101C101C101");
+        public static readonly Guid MEM_RX_CHAR_Guid = new Guid("C102C102-C102-C102-C102-C102C102C102");
+        public static readonly Guid OTA_TX_CHAR_Guid = new Guid("D101D101-D101-D101-D101-D101D101D101");
+        public static readonly Guid OTA_RX_CHAR_Guid = new Guid("D102D102-D102-D102-D102-D102D102D102");
+        // ======================================================= =====================================================
         private ObservableCollection<BluetoothLEDeviceDisplay> KnownDevices = new ObservableCollection<BluetoothLEDeviceDisplay>();
         private List<DeviceInformation> UnknownDevices = new List<DeviceInformation>();
-       
-
+        public CoreDispatcher Dispatcher { set; get; }
         private DeviceWatcher deviceWatcher;
 
-        #region UI Code
-        public Scenario1_Discovery()
-        {
-            InitializeComponent();
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            StopBleDeviceWatcher();
-
-            // Save the selected device's ID for use in other scenarios.
-            var bleDeviceDisplay = ResultsListView.SelectedItem as BluetoothLEDeviceDisplay;
-            if (bleDeviceDisplay != null)
-            {
-                rootPage.SelectedBleDeviceId = bleDeviceDisplay.Id;
-                rootPage.SelectedBleDeviceName = bleDeviceDisplay.Name;
-            }
-        }
-        private void EnumerateButton_Click()
+        // ============================================================================================================
+        // Constructor
+        private void StartWatcher()
         {
             if (deviceWatcher == null)
             {
                 StartBleDeviceWatcher();
-                EnumerateButton.Content = "Stop enumerating";
-                rootPage.NotifyUser($"Device watcher started.", NotifyType.StatusMessage);
             }
             else
             {
                 StopBleDeviceWatcher();
-                EnumerateButton.Content = "Start enumerating";
-                rootPage.NotifyUser($"Device watcher stopped.", NotifyType.StatusMessage);
             }
         }
 
         private bool Not(bool value) => !value;
 
-        #endregion
 
         #region Device discovery
 
@@ -233,7 +280,7 @@ namespace NeospectraApp
             {
                 lock (this)
                 {
-                    Debug.WriteLine(String.Format("Removed {0}{1}", deviceInfoUpdate.Id,""));
+                    Debug.WriteLine(String.Format("Removed {0}{1}", deviceInfoUpdate.Id, ""));
 
                     // Protect against race condition if the task runs after the app stopped the deviceWatcher.
                     if (sender == deviceWatcher)
@@ -263,8 +310,8 @@ namespace NeospectraApp
                 // Protect against race condition if the task runs after the app stopped the deviceWatcher.
                 if (sender == deviceWatcher)
                 {
-                    rootPage.NotifyUser($"{KnownDevices.Count} devices found. Enumeration completed.",
-                        NotifyType.StatusMessage);
+                    //rootPage.NotifyUser($"{KnownDevices.Count} devices found. Enumeration completed.",
+                    //    NotifyType.StatusMessage);
                 }
             });
         }
@@ -277,8 +324,8 @@ namespace NeospectraApp
                 // Protect against race condition if the task runs after the app stopped the deviceWatcher.
                 if (sender == deviceWatcher)
                 {
-                    rootPage.NotifyUser($"No longer watching for devices.",
-                            sender.Status == DeviceWatcherStatus.Aborted ? NotifyType.ErrorMessage : NotifyType.StatusMessage);
+                    //rootPage.NotifyUser($"No longer watching for devices.",
+                    //        sender.Status == DeviceWatcherStatus.Aborted ? NotifyType.ErrorMessage : NotifyType.StatusMessage);
                 }
             });
         }
@@ -288,7 +335,7 @@ namespace NeospectraApp
 
         private bool isBusy = false;
 
-        private async void PairButton_Click()
+        private async void PairDevice(BluetoothLEDeviceDisplay bleDeviceDisplay)
         {
             // Do not allow a new Pair operation to start if an existing one is in progress.
             if (isBusy)
@@ -298,17 +345,17 @@ namespace NeospectraApp
 
             isBusy = true;
 
-            rootPage.NotifyUser("Pairing started. Please wait...", NotifyType.StatusMessage);
+            //rootPage.NotifyUser("Pairing started. Please wait...", NotifyType.StatusMessage);
 
             // For more information about device pairing, including examples of
             // customizing the pairing process, see the DeviceEnumerationAndPairing sample.
 
             // Capture the current selected item in case the user changes it while we are pairing.
-            var bleDeviceDisplay = ResultsListView.SelectedItem as BluetoothLEDeviceDisplay;
+            //var bleDeviceDisplay = ResultsListView.SelectedItem as BluetoothLEDeviceDisplay;
 
             // BT_Code: Pair the currently selected device.
             DevicePairingResult result = await bleDeviceDisplay.DeviceInformation.Pairing.PairAsync();
-            rootPage.NotifyUser($"Pairing result = {result.Status}",
+            Debug.WriteLine($"Pairing result = {result.Status}",
                 result.Status == DevicePairingResultStatus.Paired || result.Status == DevicePairingResultStatus.AlreadyPaired
                     ? NotifyType.StatusMessage
                     : NotifyType.ErrorMessage);
@@ -317,5 +364,9 @@ namespace NeospectraApp
         }
 
         #endregion
+        public SWS_P3ConnectionServices()
+        {
+            StartWatcher();
+        }
     }
 }
