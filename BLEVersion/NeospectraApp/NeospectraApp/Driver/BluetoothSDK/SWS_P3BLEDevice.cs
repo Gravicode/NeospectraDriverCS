@@ -30,7 +30,7 @@ namespace NeospectraApp.Driver
         //    DeviceInstance = mInstance;
         //}
 
-        SWS_P3BLEDevice(String mName, String mMacAddress, int mRSSI, BluetoothLEDevice mInstance)
+        public SWS_P3BLEDevice(String mName, String mMacAddress, int mRSSI, BluetoothLEDevice mInstance)
         {
             DeviceName = mName;
             DeviceMacAddress = mMacAddress;

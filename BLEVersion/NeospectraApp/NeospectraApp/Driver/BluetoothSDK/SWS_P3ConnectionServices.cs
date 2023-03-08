@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Devices.Enumeration;
+using Windows.Security.Cryptography;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
+using static NeospectraApp.Driver.GlobalVariables;
 
 namespace NeospectraApp.Driver
 {
@@ -15,7 +21,12 @@ namespace NeospectraApp.Driver
     {
         static private List<SWS_P3BLEDevice> bleDevices;
         private static String TAG = "P3_Connection";
-
+        #region Error Codes
+        readonly int E_BLUETOOTH_ATT_WRITE_NOT_PERMITTED = unchecked((int)0x80650003);
+        readonly int E_BLUETOOTH_ATT_INVALID_PDU = unchecked((int)0x80650004);
+        readonly int E_ACCESSDENIED = unchecked((int)0x80070005);
+        readonly int E_DEVICE_NOT_AVAILABLE = unchecked((int)0x800710df); // HRESULT_FROM_WIN32(ERROR_DEVICE_NOT_AVAILABLE)
+        #endregion
 
         bool mHeaderPacketDone = false;
         private bool mHeaderMemPacketDone = false;
@@ -107,9 +118,9 @@ namespace NeospectraApp.Driver
 
         // ============================================================================================================
         // Constructor
-        private void StartWatcher()
+        private void StartWatcher(bool Start = true)
         {
-            if (deviceWatcher == null)
+            if (deviceWatcher == null && Start)
             {
                 StartBleDeviceWatcher();
             }
@@ -367,7 +378,986 @@ namespace NeospectraApp.Driver
         public SWS_P3ConnectionServices(CoreDispatcher dispatcher)
         {
             this.Dispatcher = dispatcher;
-            StartWatcher();
+            //StartWatcher();
+        }
+
+        public BluetoothLEDevice getmRxBleDevice()
+        {
+            return mRxBleDevice;
+        }
+
+        public void setmRxBleDevice(BluetoothLEDevice mRxBleDevice)
+        {
+            this.mRxBleDevice = mRxBleDevice;
+        }
+
+
+        // ============================================================================================================
+
+        
+    public async Task< List<SWS_P3BLEDevice>> ScanBTDevices()
+        {
+            DevicesList = new List<SWS_P3BLEDevice>();
+
+            foreach(var item in KnownDevices)
+            {
+                var device = await BluetoothLEDevice.FromIdAsync(item.Id);
+                DevicesList.Add(new SWS_P3BLEDevice(item.Name, "",0, device));
+            }
+            return DevicesList;
+        }
+
+
+        public bool isConnecting { set; get; }
+
+        public void setConnecting(String from, bool connecting)
+        {
+            isConnecting = connecting;
+        }
+
+        public void ConnectToP3()
+        {
+            setConnecting("ConnectToP3()", true);
+            StartWatcher(true);
+        }
+
+        public void DisconnectFromP3()
+        {
+            setConnecting("DisconnectFromP3()", false);
+            StartWatcher(false);
+            //disconnectTriggerSubject.onNext(true);
+        }
+        async Task<GattCharacteristic> GetCharacteristic(GattDeviceService service, Guid CharacterUUID)
+        {
+            var accessStatus = await service.RequestAccessAsync();
+            if (accessStatus == DeviceAccessStatus.Allowed)
+            {
+
+
+
+                var res = await service.GetCharacteristicsForUuidAsync(CharacterUUID);
+                if (res.Status == GattCommunicationStatus.Success)
+                {
+                    var SelectedCharacteristic = res.Characteristics.FirstOrDefault();
+                    return SelectedCharacteristic;
+                }
+
+
+
+            }
+            
+            Debug.WriteLine($"Characteristic for {CharacterUUID} is not found");
+            return default;
+        }
+        async Task<GattDeviceService> GetGattService(Guid ServiceUUID)
+        {
+          
+            var res = await this.mRxBleDevice.GetGattServicesForUuidAsync(ServiceUUID);
+            if (res.Status == GattCommunicationStatus.Success)
+            {
+                var service = res.Services.FirstOrDefault();
+                return service;
+            }
+            Debug.WriteLine($"GATT Service for {ServiceUUID} is not found");
+            return default;
+        }
+
+        Dictionary<Guid,GattCharacteristic> CharacteristicList = new Dictionary<Guid,GattCharacteristic>();
+        async Task<GattCharacteristic> GetCharacteristic(Guid CharacterUUID)
+        {
+            if (CharacteristicList.ContainsKey(CharacterUUID)) return CharacteristicList[CharacterUUID];
+
+            var res = await this.mRxBleDevice.GetGattServicesForUuidAsync(CharacterUUID);
+            if(res.Status == GattCommunicationStatus.Success)
+            {
+                var service = res.Services.FirstOrDefault();
+                var accessStatus = await service.RequestAccessAsync();
+                if (accessStatus == DeviceAccessStatus.Allowed)
+                {
+                   
+                    var result = await service.GetCharacteristicsAsync(BluetoothCacheMode.Uncached);
+                    if (result.Status == GattCommunicationStatus.Success)
+                    {
+                        var SelectedCharacteristic = result.Characteristics.FirstOrDefault();
+                        CharacteristicList.Add(CharacterUUID, SelectedCharacteristic);
+                        return SelectedCharacteristic;
+                    }
+
+                }
+            }
+            Debug.WriteLine($"Characteristic for {CharacterUUID} is not found");
+            return default;
+        }
+
+        private static ushort ParseHeartRateValue(byte[] data)
+        {
+            // Heart Rate profile defined flag values
+            const byte heartRateValueFormat = 0x01;
+
+            byte flags = data[0];
+            bool isHeartRateValueSizeLong = ((flags & heartRateValueFormat) != 0);
+
+            if (isHeartRateValueSizeLong)
+            {
+                return BitConverter.ToUInt16(data, 1);
+            }
+            else
+            {
+                return data[1];
+            }
+        }
+
+        private string FormatValueByPresentation(GattCharacteristic selectedCharacteristic, IBuffer buffer, GattPresentationFormat format)
+        {
+            // BT_Code: For the purpose of this sample, this function converts only UInt32 and
+            // UTF-8 buffers to readable text. It can be extended to support other formats if your app needs them.
+            byte[] data;
+            CryptographicBuffer.CopyToByteArray(buffer, out data);
+            if (format != null)
+            {
+                if (format.FormatType == GattPresentationFormatTypes.UInt32 && data.Length >= 4)
+                {
+                    return BitConverter.ToInt32(data, 0).ToString();
+                }
+                else if (format.FormatType == GattPresentationFormatTypes.Utf8)
+                {
+                    try
+                    {
+                        return Encoding.UTF8.GetString(data);
+                    }
+                    catch (ArgumentException)
+                    {
+                        return "(error: Invalid UTF-8 string)";
+                    }
+                }
+                else
+                {
+                    // Add support for other format types as needed.
+                    return "Unsupported format: " + CryptographicBuffer.EncodeToHexString(buffer);
+                }
+            }
+            else if (data != null)
+            {
+                // We don't know what format to use. Let's try some well-known profiles, or default back to UTF-8.
+                if (selectedCharacteristic.Uuid.Equals(GattCharacteristicUuids.HeartRateMeasurement))
+                {
+                    try
+                    {
+                        return "Heart Rate: " + ParseHeartRateValue(data).ToString();
+                    }
+                    catch (ArgumentException)
+                    {
+                        return "Heart Rate: (unable to parse)";
+                    }
+                }
+                else if (selectedCharacteristic.Uuid.Equals(GattCharacteristicUuids.BatteryLevel))
+                {
+                    try
+                    {
+                        // battery level is encoded as a percentage value in the first byte according to
+                        // https://www.bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.characteristic.battery_level.xml
+                        return "Battery Level: " + data[0].ToString() + "%";
+                    }
+                    catch (ArgumentException)
+                    {
+                        return "Battery Level: (unable to parse)";
+                    }
+                }
+                // This is our custom calc service Result UUID. Format it like an Int
+                else if (selectedCharacteristic.Uuid.Equals(Constants.ResultCharacteristicUuid))
+                {
+                    return BitConverter.ToInt32(data, 0).ToString();
+                }
+                // No guarantees on if a characteristic is registered for notifications.
+                //else if (registeredCharacteristic != null)
+                //{
+                //    // This is our custom calc service Result UUID. Format it like an Int
+                //    if (registeredCharacteristic.Uuid.Equals(Constants.ResultCharacteristicUuid))
+                //    {
+                //        return BitConverter.ToInt32(data, 0).ToString();
+                //    }
+                //}
+                else
+                {
+                    try
+                    {
+                        return "Unknown format: " + Encoding.UTF8.GetString(data);
+                    }
+                    catch (ArgumentException)
+                    {
+                        return "Unknown format";
+                    }
+                }
+            }
+            else
+            {
+                return "Empty data received";
+            }
+            return "Unknown format";
+        }
+
+        private async void WriteCharacteristic(GattCharacteristic selectedCharacteristic, string ValueStr)
+        {
+            if (!String.IsNullOrEmpty(ValueStr))
+            {
+                var writeBuffer = CryptographicBuffer.ConvertStringToBinary(ValueStr,
+                    BinaryStringEncoding.Utf8);
+
+                var writeSuccessful = await WriteBufferToSelectedCharacteristicAsync(selectedCharacteristic, writeBuffer);
+            }
+            else
+            {
+                Debug.WriteLine("No data to write to device");
+            }
+        }
+
+        private async void WriteCharacteristicInt(GattCharacteristic selectedCharacteristic, int ValueInt)
+        {
+
+
+            var writer = new DataWriter();
+            writer.ByteOrder = ByteOrder.LittleEndian;
+            writer.WriteInt32(ValueInt);
+
+            var writeSuccessful = await WriteBufferToSelectedCharacteristicAsync(selectedCharacteristic, writer.DetachBuffer());
+
+
+        } 
+        
+        private async Task<bool> WriteCharacteristicBytes(GattCharacteristic selectedCharacteristic, byte[] ValueBytes)
+        {
+            try
+            {
+                var writer = new DataWriter();
+                writer.ByteOrder = ByteOrder.LittleEndian;
+                writer.WriteBytes(ValueBytes);
+
+                var writeSuccessful = await WriteBufferToSelectedCharacteristicAsync(selectedCharacteristic, writer.DetachBuffer());
+                return writeSuccessful;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+
+           
+
+        }
+
+        private async Task<bool> WriteBufferToSelectedCharacteristicAsync(GattCharacteristic selectedCharacteristic, IBuffer buffer)
+        {
+            try
+            {
+                // BT_Code: Writes the value from the buffer to the characteristic.
+                var result = await selectedCharacteristic.WriteValueWithResultAsync(buffer);
+
+                if (result.Status == GattCommunicationStatus.Success)
+                {
+                    Debug.WriteLine("Successfully wrote value to device");
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine($"Write failed: {result.Status}");
+                    return false;
+                }
+            }
+            catch (Exception ex) when (ex.HResult == E_BLUETOOTH_ATT_INVALID_PDU)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+            catch (Exception ex) when (ex.HResult == E_BLUETOOTH_ATT_WRITE_NOT_PERMITTED || ex.HResult == E_ACCESSDENIED)
+            {
+                // This usually happens when a device reports that it support writing, but it actually doesn't.
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async void ReadFromP3()
+        {
+            if (isConnected())
+            {
+                var item = await GetCharacteristic(P3_TX_CHAR_Guid);
+                var res = await item.ReadValueAsync();
+                if(res.Status != GattCommunicationStatus.Success)
+                {
+                    GattPresentationFormat presentationFormat = null;
+                    if (item.PresentationFormats.Count > 0)
+                    {
+
+                        if (item.PresentationFormats.Count.Equals(1))
+                        {
+                            // Get the presentation format since there's only one way of presenting it
+                            presentationFormat = item.PresentationFormats[0];
+                        }
+                        else
+                        {
+                            // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                            // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                        }
+                    }
+                    FormatValueByPresentation(item, res.Value, presentationFormat);
+                }
+                //mRxBleConnection
+                //        .firstOrError()
+                //        .flatMap(rxBleConnection->rxBleConnection.readCharacteristic(P3_TX_CHAR_UUID))
+                //        .observeOn(AndroidSchedulers.mainThread())
+                //        .subscribe(this::onReadSuccess, this::onReadFailure);
+            }
+            else
+            {
+                Debug.WriteLine("Please! Ensure that you have a connected device firstly");
+            }
+        }
+
+
+        private void onReadFailure(string throwable)
+        {
+            //Log.i(getClass().getSimpleName(), "Read error: " + throwable);
+            //broadcastNotificationFailure(throwable.getMessage() + " onReadFailure", "read_failure", 0);
+        }
+
+        private void onReadSuccess(byte[] bytes)
+        {
+            //Log.i(getClass().getSimpleName(), "Read Success!");
+
+        }
+
+        public async void WriteToP3( byte[] byteArray)
+        {
+            if (isConnected())
+            {
+                var item = await GetCharacteristic(P3_RX_CHAR_Guid);
+                var res = await WriteCharacteristicBytes(item, byteArray);
+                Debug.WriteLine($"Write to P3_RX_CHAR_Guid => {res}");
+            }
+            else
+            {
+                Debug.WriteLine("Please! Ensure that you have a connected device firstly");
+            }
+            //if (isConnected())
+            //{
+            //    mRxBleConnection
+            //            .firstOrError()
+            //            .flatMap(rxBleConnection->rxBleConnection.writeCharacteristic(P3_RX_CHAR_UUID, byteArray))
+            //            .observeOn(AndroidSchedulers.mainThread())
+            //            .subscribe(
+            //                    bytes->onWriteSuccess(),
+            //                    this::onWriteFailure
+            //            );
+            //}
+        }
+        public bool isConnected()
+        {
+            if (mRxBleDevice == null)
+            {
+                return false;
+            }
+
+            setConnecting("isConnected()", false);
+            return mRxBleDevice.ConnectionStatus == BluetoothConnectionStatus.Connected;
+        }
+
+        public async void writeData(byte[] data)
+        {
+
+            if (isConnected())
+            {
+                var myGatService = await GetGattService(OTA_SERVICE_Guid);
+
+                
+                if (myGatService != null)
+                {
+                    Debug.WriteLine( "* Getting gatt Characteristic. UUID: " + OTA_RX_CHAR_Guid);
+
+                    var myGatChar = await GetCharacteristic (myGatService, OTA_RX_CHAR_Guid /*Consts.UUID_START_HEARTRATE_CONTROL_POINT*/);
+                    if (myGatChar != null)
+                    {
+                        Debug.WriteLine( "* Writing trigger");
+                       
+                        var res = await WriteCharacteristicBytes(myGatChar, data);
+                        Debug.WriteLine($"Write to OTA_RX_CHAR_Guid => {res}");
+                        //boolean status = myGatBand.writeCharacteristic(myGatChar);
+                        //Log.d(TAG, "* Writting trigger status :" + status);
+                    }
+                }              
+            }
+            else
+            {
+                Debug.WriteLine("Please! Ensure that you have a connected device firstly");
+            }
+        }
+
+        public async void WriteToMemoryService( byte[] byteArray)
+        {
+            if (isConnected())
+            {
+                var item = await GetCharacteristic(MEM_RX_CHAR_Guid);
+                var res = await WriteCharacteristicBytes(item, byteArray);
+                Debug.WriteLine($"Write to MEM_RX_CHAR_Guid => {res}");
+            }
+            else
+            {
+                Debug.WriteLine("Please! Ensure that you have a connected device firstly");
+            }
+           
+        }
+
+        public async void WriteToSystemService( byte[] byteArray)
+        {
+            if (isConnected())
+            {
+                var item = await GetCharacteristic(SYS_STAT_RX_CHAR_Guid);
+                var res = await WriteCharacteristicBytes(item, byteArray);
+                Debug.WriteLine($"Write to SYS_STAT_RX_CHAR_Guid => {res}");
+            }
+            else
+            {
+                Debug.WriteLine("Please! Ensure that you have a connected device firstly");
+            }
+          
+        }
+        public async void WriteOTAService( byte[] byteArray)
+        {
+            if (isConnected())
+            {
+                var item = await GetCharacteristic(OTA_RX_CHAR_Guid);
+                var res = await WriteCharacteristicBytes(item, byteArray);
+                Debug.WriteLine($"Write to OTA_RX_CHAR_Guid => {res}");
+            }
+            else
+            {
+                Debug.WriteLine("Please! Ensure that you have a connected device firstly");
+            }
+
+        }
+        GattPresentationFormat notificationFormat;
+        bool SubscribeNotification = false;
+        public async Task<bool> SetNotificationOnTXInP3()
+        {
+            if (isConnected())
+            {
+                var NotificationCharacteristic = await GetCharacteristic(P3_TX_CHAR_Guid);
+                if (SubscribeNotification)
+                {
+                    // Need to clear the CCCD from the remote device so we stop receiving notifications
+                    var result = await NotificationCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
+                    if (result != GattCommunicationStatus.Success)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        NotificationCharacteristic.ValueChanged -= Notification_ValueChanged;
+                        
+                    }
+                }
+                SubscribeNotification = true;
+                NotificationCharacteristic.ValueChanged += Notification_ValueChanged;
+                notificationFormat = null;
+                if (NotificationCharacteristic.PresentationFormats.Count > 0)
+                {
+
+                    if (NotificationCharacteristic.PresentationFormats.Count.Equals(1))
+                    {
+                        // Get the presentation format since there's only one way of presenting it
+                        notificationFormat = NotificationCharacteristic.PresentationFormats[0];
+                    }
+                    else
+                    {
+                        // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                        // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                    }
+                }
+                return true;
+                //mRxBleConnection
+                //        .flatMap(rxBleConnection->rxBleConnection.setupNotification(P3_TX_CHAR_UUID))
+                //        .doOnNext(notificationObservable->MainActivityInstance.runOnUiThread(this::notificationHasBeenSetUp))
+                //        .doOnError(setupThrowable->MainActivityInstance.runOnUiThread(this::dataNotificationSetupError))
+                //        .flatMap(notificationObservable->notificationObservable)
+                //        .retryWhen(errors->errors.flatMap(error-> {
+                //    if (error instanceof BleDisconnectedException) {
+                //        Log.d("Retry", "Retrying");
+                //        return Observable.just(null);
+                //    }
+                //    return Observable.error(error);
+                //}))
+                //    .observeOn(AndroidSchedulers.mainThread())
+                //    .subscribe(this::onNotificationReceived,
+                //            this::onNotificationSetupFailure);
+            }
+            return false;
+        }
+
+        private async void Notification_ValueChanged(GattCharacteristic sender, GattValueChangedEventArgs args)
+        {
+            byte[] data;
+            CryptographicBuffer.CopyToByteArray(args.CharacteristicValue, out data);
+            onNotificationReceived(data);
+        }
+        private void onNotificationReceived( byte[] bytes)
+        {
+            if (!mHeaderPacketDone)
+            {
+                // get the error code and check its value
+                if (bytes[0] == 0)
+                {
+                    Debug.WriteLine( "%--> NO Error in Received Packet.");
+
+                    int doublesCount = 0;
+                    // No Error, compute the length of the frame
+                    int length1 = 0x000000FF & (bytes[1]);
+                    int length2 = 0x000000FF & (bytes[2]);
+                    mDataLength = (length1) + ((length2) << 8);
+
+                    Debug.WriteLine("%--> Length: " + mDataLength + "  mInterpolationEnabled = " + gIsInterpolationEnabled);
+
+                    if (mDataLength == 1 || mDataLength == 2)
+                    {
+                        mNumberOfPackets = 1;
+                    }
+                    else
+                    {
+                        if (gIsInterpolationEnabled)
+                        {
+                            mNumberOfPackets = (int)Math.Ceiling((mDataLength + 2) * 8.0 / 20);
+                        }
+                        else
+                        {
+                            mNumberOfPackets = (int)Math.Ceiling((mDataLength * 2) * 8.0 / 20);
+                        }
+
+                    }
+
+                    Debug.WriteLine("%--> Packets: " + mNumberOfPackets);
+
+
+                    // create a new response packet
+                    mPacketResponse = new SWS_P3PacketResponse(mNumberOfPackets, mDataLength, gIsInterpolationEnabled);
+
+                    // initialize the packet response
+                    mPacketResponse.PrepareArraySize();
+
+                    // set iteration parameters
+                    mHeaderPacketDone = true;
+                }
+                else
+                {
+                    // Error
+                    Debug.WriteLine( "#--> Error in Received Packet.");
+                    //broadcastNotificationFailure("#--> Error in Received Packet.", "packet_failure", (int)bytes[0]);
+                }
+            }
+            else
+            {
+
+                // send the received bytes to the packet response instance
+                mPacketResponse.AddNewResponse(bytes);
+
+                // increment the received packets counter
+                mReceivedPacketsCounter++;
+
+                Debug.WriteLine("#--> Received packets: " + mReceivedPacketsCounter);
+
+                Debug.WriteLine("mDataLength = " + mDataLength + ", mNumberOfPackets = " + mNumberOfPackets);
+                if (mNumberOfPackets == mReceivedPacketsCounter)
+                {
+                    mReceivedPacketsCounter = 0;
+                    Debug.WriteLine("#--> Received packets: Done !!");
+                    Debug.WriteLine("-------------------------------------------------------------------------------------");
+
+                    // initiate the interpretation process
+                    mPacketResponse.InterpretByteStream();
+
+                    double[] mRecDoubles = mPacketResponse.GetInterpretedPacketResponse();
+
+                    //broadcastNotificationData(mRecDoubles, mPacketResponse.convertByteArrayToString());
+                    Debug.WriteLine("A PACKET IS BROADCASTED");
+                    // fix iterator parameters for next packet
+                    mHeaderPacketDone = false;
+                }
+            }
+
+            Debug.WriteLine("Notification Received - " + bytes.Length);
+        }
+        GattPresentationFormat MemTxFormat;
+        bool SubscribeMemTx = false;
+        public async Task<bool> SetNotificationOnMemTx()
+        {
+            if (isConnected())
+            {
+                var MemTxCharacteristic = await GetCharacteristic(MEM_TX_CHAR_Guid);
+                if (SubscribeMemTx)
+                {
+                    // Need to clear the CCCD from the remote device so we stop receiving notifications
+                    var result = await MemTxCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
+                    if (result != GattCommunicationStatus.Success)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        MemTxCharacteristic.ValueChanged -= MemTx_ValueChanged;
+
+                    }
+                }
+                SubscribeMemTx = true;
+                MemTxCharacteristic.ValueChanged += MemTx_ValueChanged;
+                MemTxFormat = null;
+                if (MemTxCharacteristic.PresentationFormats.Count > 0)
+                {
+
+                    if (MemTxCharacteristic.PresentationFormats.Count.Equals(1))
+                    {
+                        // Get the presentation format since there's only one way of presenting it
+                        MemTxFormat = MemTxCharacteristic.PresentationFormats[0];
+                    }
+                    else
+                    {
+                        // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                        // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                    }
+                }
+                return true;
+                //if (isConnected())
+                //{
+                //    mRxBleConnection
+                //            .flatMap(rxBleConnection->rxBleConnection.setupNotification(MEM_TX_CHAR_UUID))
+                //            .doOnNext(notificationObservable->MainActivityInstance.runOnUiThread(this::notificationHasBeenSetUp))
+                //            .doOnError(setupThrowable->MainActivityInstance.runOnUiThread(this::dataNotificationSetupError))
+                //            .flatMap(notificationObservable->notificationObservable)
+                //            .retryWhen(errors->errors.flatMap(error-> {
+                //        if (error instanceof BleDisconnectedException) {
+                //            Log.d("Retry", "Retrying");
+                //            return Observable.just(null);
+                //        }
+                //        return Observable.error(error);
+                //    }))
+                //        .observeOn(AndroidSchedulers.mainThread())
+                //        .subscribe(this::onMemNotificationReceived,
+                //                this::onNotificationSetupFailure);
+                //}
+            }
+            return false;
+        }
+        private async void MemTx_ValueChanged(GattCharacteristic sender, GattValueChangedEventArgs args)
+        {
+            byte[] data;
+            CryptographicBuffer.CopyToByteArray(args.CharacteristicValue, out data);
+            onMemNotificationReceived(data);
+        }
+        private void broadcastHomeNotification(String input, String iName)
+        {
+            Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION DATA");
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //Intent iGotData = new Intent();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", iName);
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", input);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastHomeNotification");
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        private void broadcastHomeNotification(long data, String iName)
+        {
+            Debug.WriteLine(TAG + "INSIDE BROADCAST NOTIFICATION DATA");
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", iName);
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", data);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastHomeNotification");
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        private void broadcastNotificationMemoryData(double[] mDoubles)
+        {
+            Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION Memory DATA");
+            //Intent iGotData = new Intent();
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", "MemoryScanData");
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", mDoubles);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastNotificationData");
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        private void onMemNotificationReceived( byte[] bytes)
+        {
+            if (!mHeaderMemPacketDone)
+            {
+                status = bytes[0];
+
+
+                mDataLength = ((bytes[1] & 0xFF) << 0) | ((bytes[2] & 0xFF) << 8);
+
+                scanBytes = new byte[mDataLength];
+                scanBytesIterator = 0;
+
+                mHeaderMemPacketDone = true;
+            }
+            else
+            {
+
+                if (mDataLength == 1 && status == 0)
+                {
+                    broadcastHomeNotification(0, "OperationDone");
+                    mHeaderMemPacketDone = false;
+                    return;
+                }
+                else if (mDataLength == 1 && status != 0)
+                {
+                    broadcastHomeNotification(0, "Error");
+                    mHeaderMemPacketDone = false;
+                    return;
+                }
+
+                if (scanBytesIterator == 0)
+                {
+                    long type = ((bytes[0] & 0xFFL) << 0) |
+                            ((bytes[1] & 0xFFL) << 8) |
+                            ((bytes[2] & 0xFFL) << 16) |
+                            ((bytes[3] & 0xFFL) << 24);                //long to support 32-bin unsigned
+                    packetsType = (int)type;
+                }
+
+                switch (packetsType)
+                {
+                    case MEMORY_STATUS_REQUEST:
+
+                        long memory = ((bytes[4] & 0xFFL) << 0) |
+                                ((bytes[5] & 0xFFL) << 8) |
+                                ((bytes[6] & 0xFFL) << 16) |
+                                ((bytes[7] & 0xFFL) << 24);                //long to support 32-bin unsigned
+
+                        long FWVersion = ((bytes[8] & 0xFFL) << 0) |
+                                ((bytes[9] & 0xFFL) << 8) |
+                                ((bytes[10] & 0xFFL) << 16) |
+                                ((bytes[11] & 0xFFL) << 24);              //long to support 32-bin unsigned
+
+                        broadcastHomeNotification(memory, "Memory");
+                        broadcastHomeNotification(FWVersion, "FWVersion");
+
+                        mHeaderMemPacketDone = false;
+                        break;
+
+                    case MEMORY_GET_SCANS_REQUEST:
+                        if (scanBytesIterator == 0)
+                        {
+                            Array.Copy(bytes, 4, scanBytes, scanBytesIterator, 16);
+                            scanBytesIterator = scanBytesIterator + 16;
+                        }
+                        else if (scanBytesIterator + 20 > (mDataLength - 4))
+                        {
+                            Array.Copy(bytes, 0, scanBytes, scanBytesIterator,
+                                    mDataLength - scanBytesIterator - 4);
+                            scanBytesIterator = mDataLength - 4;
+                        }
+                        else
+                        {
+                            Array.Copy(bytes, 0, scanBytes, scanBytesIterator, 20);
+                            scanBytesIterator = scanBytesIterator + 20;
+                        }
+
+                        if (scanBytesIterator == (mDataLength - 4))
+                        {
+                            var buffer = new List<byte>(scanBytes);
+                            //ByteBuffer buffer = ByteBuffer.wrap(scanBytes);
+                            //buffer.order(ByteOrder.LITTLE_ENDIAN);
+                            buffer = buffer.OrderBy(x => x).ToList();
+                            double[] doubleValues = new double[scanBytes.Length / 8];
+                            for (int i = 0; i < scanBytes.Length / 16; i++)
+                            {
+                                doubleValues[i] = (long)buffer[i * 8] / Math.Pow(2, 33);
+                                doubleValues[i + doubleValues.Length / 2] =
+                                        (long)((i + doubleValues.Length / 2) * 8) /
+                                                Math.Pow(2, 30);
+                            }
+                            mHeaderMemPacketDone = false;
+                            broadcastNotificationMemoryData(doubleValues);
+                        }
+                        break;
+
+                    case MEMORY_CLEAR_REQUEST:
+                        break;
+                }
+                long Fnum = ((bytes[0] & 0xFFL) << 0) |
+                        ((bytes[1] & 0xFFL) << 8) |
+                        ((bytes[2] & 0xFFL) << 16) |
+                        ((bytes[3] & 0xFFL) << 24);
+                Debug.WriteLine("===========" + Fnum + "=========" + scanBytesIterator + "==========");
+
+            }
+
+            Debug.WriteLine( "Notification Received - " + (bytes.Length));
+        }
+        GattPresentationFormat BatTxFormat;
+        bool SubscribeBatTx = false;
+        public async Task<bool> SetNotificationOnBatTx()
+        {
+            if (isConnected())
+            {
+                var BatTxCharacteristic = await GetCharacteristic(SYS_STAT_TX_CHAR_Guid);
+                if (SubscribeBatTx)
+                {
+                    // Need to clear the CCCD from the remote device so we stop receiving notifications
+                    var result = await BatTxCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(GattClientCharacteristicConfigurationDescriptorValue.None);
+                    if (result != GattCommunicationStatus.Success)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        BatTxCharacteristic.ValueChanged -= BatTx_ValueChanged;
+
+                    }
+                }
+                SubscribeBatTx = true;
+                BatTxCharacteristic.ValueChanged += BatTx_ValueChanged;
+                BatTxFormat = null;
+                if (BatTxCharacteristic.PresentationFormats.Count > 0)
+                {
+
+                    if (BatTxCharacteristic.PresentationFormats.Count.Equals(1))
+                    {
+                        // Get the presentation format since there's only one way of presenting it
+                        BatTxFormat = BatTxCharacteristic.PresentationFormats[0];
+                    }
+                    else
+                    {
+                        // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                        // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                    }
+                }
+                return true;
+                //mRxBleConnection
+                //       .flatMap(rxBleConnection->rxBleConnection.setupNotification(SYS_STAT_TX_CHAR_UUID))
+                //       .doOnNext(notificationObservable->MainActivityInstance.runOnUiThread(this::notificationHasBeenSetUp))
+                //       .doOnError(setupThrowable->MainActivityInstance.runOnUiThread(this::dataNotificationSetupError))
+                //       .flatMap(notificationObservable->notificationObservable)
+                //       .retryWhen(errors->errors.flatMap(error-> {
+                //    if (error instanceof BleDisconnectedException) {
+                //        Log.d("Retry", "Retrying");
+                //        return Observable.just(null);
+                //    }
+                //    return Observable.error(error);
+                //}))
+                //    .observeOn(AndroidSchedulers.mainThread())
+                //    .subscribe(this::onSystemNotificationReceived,
+                //            this::onNotificationSetupFailure);
+            }
+            return false;
+            
+        }
+
+        private async void BatTx_ValueChanged(GattCharacteristic sender, GattValueChangedEventArgs args)
+        {
+            byte[] data;
+            CryptographicBuffer.CopyToByteArray(args.CharacteristicValue, out data);
+            onSystemNotificationReceived(data);
+        }
+
+
+        private void onSystemNotificationReceived( byte[] bytes)
+        {
+            if (!mHeaderSysPacketDone)
+            {
+                //ToDo: Check the status
+                mHeaderSysPacketDone = true;
+            }
+            else
+            {
+                long type = ((bytes[0] & 0xFFL) << 0) |
+                            ((bytes[1] & 0xFFL) << 8) |
+                            ((bytes[2] & 0xFFL) << 16) |
+                            ((bytes[3] & 0xFFL) << 24);
+
+                switch ((int)type)
+                {
+                    case SYSTEM_BATTERY_REQUEST:
+                        {
+                            long capacity = ((bytes[4] & 0xFFL) << 0) |
+                                            ((bytes[5] & 0xFFL) << 8) |
+                                            ((bytes[6] & 0xFFL) << 16) |
+                                            ((bytes[7] & 0xFFL) << 24);                //long to support 32-bin unsigned
+
+                            int charging = ((bytes[8] & 0xFF) << 0);
+
+                            broadcastHomeNotification(capacity, "BatCapacity");
+                            broadcastHomeNotification((long)charging, "ChargingStatus");
+                            break;
+                        }
+                    case SYSTEM_P3_ID_REQUEST:
+                        {
+                            long P3ID = ((bytes[4] & 0xFFL) << 0) |
+                                        ((bytes[5] & 0xFFL) << 8) |
+                                        ((bytes[6] & 0xFFL) << 16) |
+                                        ((bytes[7] & 0xFFL) << 24) |
+                                        ((bytes[8] & 0xFFL) << 32) |
+                                        ((bytes[9] & 0xFFL) << 40) |
+                                        ((bytes[10] & 0xFFL) << 48) |
+                                        ((bytes[11] & 0xFFL) << 56);
+                            broadcastHomeNotification(P3ID, "P3_ID");
+
+                            break;
+                        }
+                    case SYSTEM_TEMPERATURE_REQUEST:
+                        {
+                            long temperature = ((bytes[4] & 0xFFL) << 0) |
+                                    ((bytes[5] & 0xFFL) << 8) |
+                                    ((bytes[6] & 0xFFL) << 16) |
+                                    ((bytes[7] & 0xFFL) << 24);
+                            broadcastHomeNotification(temperature, "Temperature");
+
+                            break;
+                        }
+                    case SYSTEM_BATTERY_INFO:
+                        {
+                            int v = ((bytes[4] & 0xFF) << 0) |
+                                    ((bytes[5] & 0xFF) << 8);
+                            int i = ((bytes[6] & 0xFF) << 0) |
+                                    ((bytes[7] & 0xFF) << 8);
+                            int c = ((bytes[8] & 0xFF) << 0) |
+                                    ((bytes[9] & 0xFF) << 8);
+                            int fcc = ((bytes[10] & 0xFF) << 0) |
+                                    ((bytes[11] & 0xFF) << 8);
+                            int t = ((bytes[12] & 0xFF) << 0) |
+                                    ((bytes[13] & 0xFF) << 8);
+                            int v1 = ((bytes[14] & 0xFF) << 0) |
+                                    ((bytes[15] & 0xFF) << 8);
+                            int v2 = ((bytes[16] & 0xFF) << 0) |
+                                    ((bytes[17] & 0xFF) << 8);
+                            int cc = ((bytes[18] & 0xFF) << 0) |
+                                    ((bytes[19] & 0xFF) << 8);
+
+                            String batteryInfo = "Battery Voltage =  " + v + " mv" +
+                                                 "\nBattery Current =  " + i + " mA" +
+                                                 "\nBattery ChargingCurrent =  " + cc + " mA" +
+                                                 "\nBattery Capacity =  " + c + " mAhr" +
+                                                 "\nBattery Full Capacity =  " + fcc + " mAhr" +
+                                                 "\nBattery Temperature =  " + t + " cel" +
+                                                 "\nBattery CellVoltage1 =  " + v1 + " mv" +
+                                                 "\nBattery CellVoltage2 =  " + v2 + " mv";
+
+
+                            broadcastHomeNotification(batteryInfo, "Battery_info");
+
+                            break;
+                        }
+                }
+
+                mHeaderSysPacketDone = false;
+            }
+
+            Debug.WriteLine( "Notification Received - " + (bytes.Length));
         }
     }
+
+
 }

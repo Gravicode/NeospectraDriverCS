@@ -21,15 +21,15 @@ namespace NeospectraApp.Driver
         public static string INTENT_ACTION = "broadcast.Intent";
         public static string HOME_INTENT_ACTION = "Home.broadcast.Intent";
 
-        public static int MEMORY_STATUS_REQUEST = 0;
-        public static int MEMORY_GET_SCANS_REQUEST = 1;
-        public static int MEMORY_CLEAR_REQUEST = 2;
-        public static int MEMORY_SAVE_DEFAULT_PARAM = 3;
+        public const int MEMORY_STATUS_REQUEST = 0;
+        public const int MEMORY_GET_SCANS_REQUEST = 1;
+        public const int MEMORY_CLEAR_REQUEST = 2;
+        public const int MEMORY_SAVE_DEFAULT_PARAM = 3;
 
-        public static int SYSTEM_BATTERY_REQUEST = 0;
-        public static int SYSTEM_P3_ID_REQUEST = 128;
-        public static int SYSTEM_TEMPERATURE_REQUEST = 129;
-        public static int SYSTEM_BATTERY_INFO = 130;
+        public const int SYSTEM_BATTERY_REQUEST = 0;
+        public const int SYSTEM_P3_ID_REQUEST = 128;
+        public const int SYSTEM_TEMPERATURE_REQUEST = 129;
+        public const int SYSTEM_BATTERY_INFO = 130;
 
         /*For filter modules types*/
         public static int TYPE_FILTER_MODULE = 1;
