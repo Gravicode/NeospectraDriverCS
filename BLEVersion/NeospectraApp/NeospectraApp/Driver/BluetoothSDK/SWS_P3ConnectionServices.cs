@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Devices.Enumeration;
+using Windows.Devices.Geolocation;
+using Windows.Devices.Radios;
 using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
@@ -118,6 +120,57 @@ namespace NeospectraApp.Driver
 
         // ============================================================================================================
         // Constructor
+        public async void enableBluetooth()
+        {
+            BluetoothAdapter btAdapter = await BluetoothAdapter.GetDefaultAsync();
+            if (btAdapter == null)
+                return ;
+            if (!btAdapter.IsCentralRoleSupported)
+                return ;
+            // for UWP
+            var radio = await btAdapter.GetRadioAsync();
+            // for Desktop, see warning bellow
+            var radios = (await Radio.GetRadiosAsync()).FirstOrDefault(r => r.Kind == RadioKind.Bluetooth);
+            if (radio == null)
+                return ; // probably device just removed
+                              // await radio.SetStateAsync(RadioState.On);
+            await radio.SetStateAsync(RadioState.On);
+        }
+
+        public async void disableBluetooth()
+        {
+            setConnecting("disableBluetooth()", false);
+            BluetoothAdapter btAdapter = await BluetoothAdapter.GetDefaultAsync();
+            if (btAdapter == null)
+                return;
+            if (!btAdapter.IsCentralRoleSupported)
+                return;
+            // for UWP
+            var radio = await btAdapter.GetRadioAsync();
+            // for Desktop, see warning bellow
+            var radios = (await Radio.GetRadiosAsync()).FirstOrDefault(r => r.Kind == RadioKind.Bluetooth);
+            if (radio == null)
+                return; // probably device just removed
+                        // await radio.SetStateAsync(RadioState.On);
+            await radio.SetStateAsync(RadioState.Off);
+        }
+        public async Task<bool> isBluetoothEnabled()
+        {
+            BluetoothAdapter btAdapter = await BluetoothAdapter.GetDefaultAsync();
+            if (btAdapter == null)
+                return false;
+            if (!btAdapter.IsCentralRoleSupported)
+                return false;
+            // for UWP
+            var radio = await btAdapter.GetRadioAsync();
+            // for Desktop, see warning bellow
+            var radios = (await Radio.GetRadiosAsync()).FirstOrDefault(r => r.Kind == RadioKind.Bluetooth);
+            if (radio == null)
+                return false; // probably device just removed
+                             // await radio.SetStateAsync(RadioState.On);
+            return radio.State == RadioState.On;
+        }
+
         private void StartWatcher(bool Start = true)
         {
             if (deviceWatcher == null && Start)
@@ -132,7 +185,14 @@ namespace NeospectraApp.Driver
 
         private bool Not(bool value) => !value;
 
+        public async Task<bool> askForLocationPermissions()
+        {
+            MethodsFactory.LogMessage("bluetooth", "Ask for permission");
 
+
+            var accessStatus = await Geolocator.RequestAccessAsync();
+            return accessStatus == GeolocationAccessStatus.Allowed;
+        }
         #region Device discovery
 
         /// <summary>

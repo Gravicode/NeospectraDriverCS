@@ -462,8 +462,8 @@ namespace NeospectraApp.Driver
         // TODO: Ensure that the file size doesn't exceed this value.
         public static int defaultStorageSize = 20;
 
-        //public static SWS_P3BLEDevice currentConnectedDevice;
-        //public static SWS_P3API bluetoothAPI;
+        public static SWS_P3BLEDevice currentConnectedDevice;
+        public static SWS_P3API bluetoothAPI;
         public static int OTA_MAX_TRANSMISSION_UNIT = 512;
         public static int OTA_BT_MAX_TRANSMISSION_UNIT = 989;
 
