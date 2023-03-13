@@ -78,7 +78,7 @@ namespace NeospectraApp.Driver
 
 
 
-
+        BLEServiceList ServiceList = null;
         List<SWS_P3BLEDevice> DevicesList = new List<SWS_P3BLEDevice>();
 
         List<String> DevicesMacAddress = new List<string>();
@@ -113,10 +113,10 @@ namespace NeospectraApp.Driver
         public static readonly Guid OTA_TX_CHAR_Guid = new Guid("D101D101-D101-D101-D101-D101D101D101");
         public static readonly Guid OTA_RX_CHAR_Guid = new Guid("D102D102-D102-D102-D102-D102D102D102");
         // ======================================================= =====================================================
-        private ObservableCollection<BluetoothLEDeviceDisplay> KnownDevices = new ObservableCollection<BluetoothLEDeviceDisplay>();
-        private List<DeviceInformation> UnknownDevices = new List<DeviceInformation>();
+        public ObservableCollection<BluetoothLEDeviceDisplay> KnownDevices { set; get; } = new ObservableCollection<BluetoothLEDeviceDisplay>();
+        public List<DeviceInformation> UnknownDevices { set; get; } = new List<DeviceInformation>();
         public CoreDispatcher Dispatcher { set; get; }
-        private DeviceWatcher deviceWatcher;
+        public DeviceWatcher deviceWatcher { set; get; }
 
         // ============================================================================================================
         // Constructor
@@ -171,7 +171,7 @@ namespace NeospectraApp.Driver
             return radio.State == RadioState.On;
         }
 
-        private void StartWatcher(bool Start = true)
+        public void SetWatcher(bool Start = true)
         {
             if (deviceWatcher == null && Start)
             {
@@ -449,6 +449,8 @@ namespace NeospectraApp.Driver
         public void setmRxBleDevice(BluetoothLEDevice mRxBleDevice)
         {
             this.mRxBleDevice = mRxBleDevice;
+            this.ServiceList = new BLEServiceList (mRxBleDevice);
+
         }
 
 
@@ -478,13 +480,13 @@ namespace NeospectraApp.Driver
         public void ConnectToP3()
         {
             setConnecting("ConnectToP3()", true);
-            StartWatcher(true);
+            //StartWatcher(true);
         }
 
         public void DisconnectFromP3()
         {
             setConnecting("DisconnectFromP3()", false);
-            StartWatcher(false);
+            //StartWatcher(false);
             //disconnectTriggerSubject.onNext(true);
         }
         async Task<GattCharacteristic> GetCharacteristic(GattDeviceService service, Guid CharacterUUID)
@@ -526,20 +528,23 @@ namespace NeospectraApp.Driver
         async Task<GattCharacteristic> GetCharacteristic(Guid CharacterUUID)
         {
             if (CharacteristicList.ContainsKey(CharacterUUID)) return CharacteristicList[CharacterUUID];
-
-            var res = await this.mRxBleDevice.GetGattServicesForUuidAsync(CharacterUUID);
+            var serviceuid = this.ServiceList.GetServiceUIDByCharacteristicUID(CharacterUUID);
+            if (serviceuid == null) throw new Exception("Service is not exists");
+            var res = await this.mRxBleDevice.GetGattServicesForUuidAsync(serviceuid.Value);
             if(res.Status == GattCommunicationStatus.Success)
             {
+                
                 var service = res.Services.FirstOrDefault();
                 var accessStatus = await service.RequestAccessAsync();
                 if (accessStatus == DeviceAccessStatus.Allowed)
                 {
                    
-                    var result = await service.GetCharacteristicsAsync(BluetoothCacheMode.Uncached);
+                    var result = await service.GetCharacteristicsForUuidAsync(CharacterUUID);
                     if (result.Status == GattCommunicationStatus.Success)
                     {
                         var SelectedCharacteristic = result.Characteristics.FirstOrDefault();
-                        CharacteristicList.Add(CharacterUUID, SelectedCharacteristic);
+                        if (!CharacteristicList.ContainsKey(CharacterUUID)) 
+                            CharacteristicList.Add(CharacterUUID, SelectedCharacteristic);
                         return SelectedCharacteristic;
                     }
 

@@ -47,5 +47,6 @@
     <Capability Name="internetClient" />
     <DeviceCapability Name="bluetooth"/>
     <DeviceCapability Name="location"/>
+	<DeviceCapability Name="documentsLibrary"/>
   </Capabilities>
 </Package>

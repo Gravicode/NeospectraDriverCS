@@ -25,6 +25,7 @@ namespace NeospectraApp
         {
             new Scenario() { Title="Client: Discover servers", ClassType=typeof(Scenario1_Discovery) },
             new Scenario() { Title="Client: Connect to a server", ClassType=typeof(Scenario2_Client) },
+            new Scenario() { Title="Scanner: Connect to device", ClassType=typeof(ScanPage) },
             //new Scenario() { Title="Server: Publish foreground", ClassType=typeof(Scenario3_ServerForeground) },
         };
 
