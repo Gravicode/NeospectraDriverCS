@@ -109,6 +109,30 @@ namespace NeospectraApp
             }
         }
 
+        async void SensorScanClick()
+        {
+            if (scanPresenter == null)
+            {
+                scanPresenter = new ScanPresenter();
+            }
+            // Don't complete the process if the device not connected
+            if (GlobalVariables.bluetoothAPI == null || !GlobalVariables.bluetoothAPI.isDeviceConnected())
+            {
+                var messageDialog = new MessageDialog("Please! Ensure that you have a connected device firstly", "Device not connected"
+                       );
+
+
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+                return;
+            }
+            else
+            {
+                scanPresenter.requestSensorReading(scanTime);
+            }
+        }
+
         private async void ConnectButton_Click()
         {
             ConnectButton.IsEnabled = false;
