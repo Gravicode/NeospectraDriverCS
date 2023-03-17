@@ -23,6 +23,7 @@ namespace NeospectraApp.Driver
     }
     public class BLEServiceList
     {
+        public bool IsReady { get; set; } = false;
         List<BLEServiceUID> BLEServiceUIDs;
         public BLEServiceList(BluetoothLEDevice bluetoothLeDevice)
         {
@@ -57,6 +58,7 @@ namespace NeospectraApp.Driver
                     }
                     BLEServiceUIDs.Add(svc);
                 }
+                IsReady = true;
             }
         }
 

@@ -23,7 +23,9 @@ using Windows.UI.Xaml.Navigation;
 using NeospectraApp.Driver;
 using Windows.UI;
 using Windows.UI.Popups;
-
+using Windows.UI.Notifications;
+using System.Xml.Linq;
+using System.Threading;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -33,11 +35,12 @@ namespace NeospectraApp
     /// </summary>
     public sealed partial class ScanPage : Page
     {
-      
+
         private MainPage rootPage = MainPage.Current;
         int scanTime = 2;
+        int backgroundScanTime = 2;
         private BluetoothLEDevice bluetoothLeDevice = null;
-  ScanPresenter scanPresenter = null;
+        ScanPresenter scanPresenter = null;
 
         #region Error Codes
         readonly int E_BLUETOOTH_ATT_WRITE_NOT_PERMITTED = unchecked((int)0x80650003);
@@ -50,19 +53,236 @@ namespace NeospectraApp
         public ScanPage()
         {
             this.InitializeComponent();
-            if(GlobalVariables.bluetoothAPI  == null)
+            if (GlobalVariables.bluetoothAPI == null)
             {
                 GlobalVariables.bluetoothAPI = new SWS_P3API(this.Dispatcher);
+               
             }
         }
+      
+        bool isStopEnabled = false;
+        bool isScanBG = false;
+        bool isWaitingForBackGroundReading = false;
+        bool isWaitingForSensorReading = false;
+        int notifications_count = 0;
+        double numberOfRuns = 0;
+        int count = 0;
+        private void ScanPage_BroadcastReceived(object sender, SWS_P3ConnectionServices.BroadcastEventArgs e)
+        {
+            var TAG = nameof(ScanPage);
+            var intent = e.iGotData;
+            var intentName = Convert.ToString(intent["iName"]);
+            switch (intentName)
+            {
+                //Case data is received successfully
+                case "sensorNotification_data":
+                    gotSensorReading(intent);
+                    MethodsFactory.LogMessage(TAG, "Intent Received:\n" +
+                            "Name: " + Convert.ToString(intent["iName"]) + "\n" +
+                            "Success: " + Convert.ToBoolean(intent["isNotificationSuccess"]) + "\n" +
+                            "Reason: " + Convert.ToString(intent["reason"]) + "\n" +
+                            "Error: " + Convert.ToString(intent["err"]) + "\n" +
+                            "data : " + string.Join(',', (double[])intent["data"]) + "\n");
+                    break;
+                // Case sensor notification with failure
+                case "sensorNotification_failure":
+                    gotSensorReading(intent);
+                    MethodsFactory.LogMessage(TAG, "Intent Received:\n" +
+                            "Name: " + Convert.ToString(intent["iName"]) + "\n" +
+                            "Success: " + Convert.ToBoolean(intent["isNotificationSuccess"]) + "\n" +
+                            "Reason: " + Convert.ToString(intent["reason"]) + "\n" +
+                            "Error: " + Convert.ToString(intent["err"]) + "\n" +
+                            "data : " + Convert.ToInt32(intent["data"]) + "\n");
+                    int errorCode = Convert.ToInt32(intent["data"]);
+
+                    // show progress bar
+
+                    // set button enable or disable
+                    //CommonVariables.setScanningState(0);
+
+                    notifications_count = 0;
+                    isWaitingForBackGroundReading = false;
+                    isWaitingForSensorReading = false;
+                    var xmdock = CreateToast("Error " + (0x000000FF & errorCode) + " occurred during measurement!", "Error");
+                    var toast = new ToastNotification(xmdock);
+                    var notifi = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
+                    notifi.Show(toast);
+                    //showAlertMessage(mContext, "Error", "Error " + String.valueOf(0x000000FF & errorCode) + " occurred during measurement!");
+                    break;
+                case "sensorWriting":
+
+                    break;
+                //case "OperationDone":
+                    //isWaitingForBackGroundReading = false;
+                    //isScanBG = false;
+                    //break;
+                //Case device is disconnected
+                case "Disconnection_Notification":
+                    //endActivity();
+                    break;
+
+                default:
+                    MethodsFactory.LogMessage(TAG + "intent", $"Got unknown broadcast intent: {intentName}");
+                    break;
+            }
+        }
+        private void gotSensorReading(Dictionary<string, object> intent)
+        {
+            var TAG = nameof(ScanPage);
+            bool isNotificationSuccessful = Convert.ToBoolean(intent["isNotificationSuccess"]);
+            var notificationReason = Convert.ToString(intent["reason"]);  //intent.getStringExtra("reason");
+            var errorMessage = Convert.ToString(intent["err"]);//intent.getStringExtra("err");
+
+            /* If the notification is unsuccessful */
+            if (!isNotificationSuccessful)
+            {
 
 
+                MethodsFactory.LogMessage(notificationReason, errorMessage);
+                return;
+            }
+
+            /* If an error occured */
+            if (!notificationReason.Equals("gotData"))
+            {
+
+                //CommonVariables.setScanningState(1);
+                //SetView();
+                notifications_count = 0;
+                return;
+            }
+
+            // Number of the received notifications
+            notifications_count++;
+
+            if (isScanBG)
+            {
+                if ((notifications_count % 3) == 0)
+                {
+
+                    //CommonVariables.setScanningState(1);
+                    //SetView();
+
+                    isWaitingForBackGroundReading = false;
+
+
+
+                }
+                return;
+            }
+
+            // Get readings
+            double[] reading = (double[])intent["data"]; //intent.getDoubleArrayExtra("data");
+
+            if (reading == null)
+            {
+                MethodsFactory.LogMessage(TAG, "Reading is NULL.");
+
+                //CommonVariables.setScanningState(0);
+                //SetView();
+
+                notifications_count = 0;
+                return;
+            }
+
+            // The array constructed from two arrays have the same length, Y, then X.
+            int middleOfArray = reading.Length / 2;
+            double[] x_reading = new double[middleOfArray],
+                    y_reading = new double[middleOfArray];
+            // split the main array to two arrays, Y & X
+            for (int i = 0; i < middleOfArray; i++)
+            {
+                //Added this fix for the inconsistency in size of received data
+                y_reading[i] = reading[i];
+                x_reading[i] = reading[middleOfArray + i];
+            }
+
+            // Prepare the data to get ArrayRealVector with length 314 item,
+            // and set its value to the singleton sensor reading model.
+            if ((y_reading.Length > 0) && (x_reading.Length > 0))
+            {
+                dbReading newReading = new dbReading();
+                newReading.setReading(y_reading, x_reading);
+                // Add the taken read to global ArrayList which holds all the taken readings
+                GlobalVariables.gAllSpectra.Add(newReading);
+
+                //CommonVariables.setScanningState(1);
+                //SetView();
+
+                isWaitingForSensorReading = false;
+
+                double numberOfRuns = this.numberOfRuns;
+
+                // Enable Stop action button in case there are a multiple number of runs
+                if (count < numberOfRuns)
+                {
+                    if (isStopEnabled)
+                    {
+                        count = 1;
+                        //tv_progressCount.setEnabled(false);
+                        //tv_progressCount.setText("");
+                        //pbProgressBar.setVisibility(View.INVISIBLE);
+                        isStopEnabled = false;
+                        return;
+                    }
+                    count++;
+
+                    // Press scan button again as it is a continues mode
+                    SensorScanClick();
+                }
+                else// Handle only one run
+                {
+
+                    count = 1;
+                    //Toast.makeText(mContext, "Scan is complete", Toast.LENGTH_LONG).show();
+                    var xmdock = CreateToast("Scan is complete");
+                    var toast = new ToastNotification(xmdock);
+                    var notifi = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
+                    notifi.Show(toast);
+
+                    //CommonVariables.setScanningState(2);
+                    //SetView();
+
+                    //displayGraph();
+                }
+            }
+
+            MethodsFactory.LogMessage(TAG, "Sensor Reading Length = " + reading.Length);
+
+        }
+        public static Windows.Data.Xml.Dom.XmlDocument CreateToast(string Message, string Title = "Info")
+        {
+            var xDoc = new XDocument(
+               new XElement("toast",
+               new XElement("visual",
+               new XElement("binding", new XAttribute("template", "ToastGeneric"),
+               new XElement("text", Title),
+               new XElement("text", Message)
+            )
+            ),// actions    
+            new XElement("actions",
+            new XElement("action", new XAttribute("activationType", "background"),
+            new XAttribute("content", "Yes"), new XAttribute("arguments", "yes")),
+            new XElement("action", new XAttribute("activationType", "background"),
+            new XAttribute("content", "No"), new XAttribute("arguments", "no"))
+            )
+            )
+            );
+
+            var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+            xmlDoc.LoadXml(xDoc.ToString());
+            return xmlDoc;
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             SelectedDeviceRun.Text = rootPage.SelectedBleDeviceName;
             if (string.IsNullOrEmpty(rootPage.SelectedBleDeviceId))
             {
                 ConnectButton.IsEnabled = false;
+            }
+            if (GlobalVariables.bluetoothAPI != null)
+            {
+                GlobalVariables.bluetoothAPI.getmP3ConnectionServices().BroadcastReceived += ScanPage_BroadcastReceived;
             }
         }
 
@@ -73,13 +293,17 @@ namespace NeospectraApp
             {
                 rootPage.NotifyUser("Error: Unable to reset app state", NotifyType.ErrorMessage);
             }
+            if (GlobalVariables.bluetoothAPI != null)
+            {
+                GlobalVariables.bluetoothAPI.getmP3ConnectionServices().BroadcastReceived -= ScanPage_BroadcastReceived;
+            }
         }
         #endregion
 
         #region Enumerating Services
         private async Task<bool> ClearBluetoothLEDeviceAsync()
         {
-           
+
             bluetoothLeDevice?.Dispose();
             bluetoothLeDevice = null;
             return true;
@@ -87,6 +311,10 @@ namespace NeospectraApp
 
         async void BackgroundScanClick()
         {
+            isScanBG = true;
+            backgroundScanTime = scanTime;
+            //CommonVariables.setScanningState(99);
+
             if (scanPresenter == null)
             {
                 scanPresenter = new ScanPresenter();
@@ -105,6 +333,7 @@ namespace NeospectraApp
             }
             else
             {
+                isWaitingForBackGroundReading = true;
                 scanPresenter.requestBackgroundReading(scanTime);
             }
         }
@@ -117,8 +346,30 @@ namespace NeospectraApp
                 rootPage.NotifyUser("Failed to connect to device.", NotifyType.ErrorMessage);
             }
         }
-            async void SensorScanClick()
+        async void SensorScanClick()
         {
+            var TAG = nameof(ScanPage);
+            //CommonVariables.setScanningState(99);
+            if (backgroundScanTime < scanTime)
+            {
+                MethodsFactory.LogMessage(TAG, "Material Scan time is greater than reference material scan time ");
+                return;
+            }
+            isScanBG = false;
+            if (numberOfRuns > 1)
+            {
+                // handle loading when number of runs more than 1
+            }
+            if (count == 1)
+            {
+                // handle loading when count more than 1
+            }
+            if (isWaitingForSensorReading)
+            {
+                MethodsFactory.LogMessage(TAG, "Still waiting for sensor reading ... ");
+                return;
+            }
+            isWaitingForSensorReading = true;
             if (scanPresenter == null)
             {
                 scanPresenter = new ScanPresenter();
@@ -176,6 +427,7 @@ namespace NeospectraApp
                     if (result.Status == GattCommunicationStatus.Success)
                     {
                         GlobalVariables.bluetoothAPI.connectToDevice(bluetoothLeDevice);
+                        
                     }
                     else
                     {
@@ -183,9 +435,9 @@ namespace NeospectraApp
                     }
 
                 }
-                
 
-              
+
+
 
             }
             ConnectButton.IsEnabled = true;
@@ -194,18 +446,18 @@ namespace NeospectraApp
 
         public double[] getReflectance()
         {
-            int gsize =  GlobalVariables.gAllSpectra.Count;
+            int gsize = GlobalVariables.gAllSpectra.Count;
 
             dbReading sensorReading = GlobalVariables.gAllSpectra[gsize - 1];
             List<DataPoint> dataPoints = new List<DataPoint>();
-            List<double> dataY = new  List<double>();
+            List<double> dataY = new List<double>();
             if (sensorReading != null)
             {
                 if ((sensorReading.getXReading().Length != 0) && (sensorReading.getYReading().Length != 0))
                 {
                     double[] xVals = sensorReading.getXReading();
                     double[] yVals = sensorReading.getYReading();
-                    List<double> xData = new List<double> ();
+                    List<double> xData = new List<double>();
                     List<double> yData = new List<double>();
 
                     for (int ax = xVals.Length - 1; ax >= 0; --ax)
@@ -228,7 +480,7 @@ namespace NeospectraApp
                         dataPoints.Add(new DataPoint(x, y));
                         dataY.Add(y);
                     }
-                    
+
                     var dataArrY = dataY.ToArray();
                     //double[] finalData = Stream.of(dataArrY).mapToDouble(Double::doubleValue).toArray();
 
@@ -247,7 +499,7 @@ namespace NeospectraApp
             element.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-     
+
     }
     public class MonotoneCubicSplineInterpolation
     {
@@ -256,7 +508,7 @@ namespace NeospectraApp
         private double[] m { set; get; }
         public double Interpolate(double x)
         {
-            if(xs == null || ys == null || m == null)
+            if (xs == null || ys == null || m == null)
             {
                 throw new Exception("please create spline first.");
             }

@@ -12,7 +12,15 @@ namespace NeospectraApp.Driver
         
         private String TAG = nameof(ScanPresenter);
 
+        public ScanPresenter()
+        {
+            Setup();
+        }
 
+        async void Setup()
+        {
+            var res = await GlobalVariables.bluetoothAPI.setNotifications();
+        }
         public void requestSensorReading(int scanTime)
         {
 

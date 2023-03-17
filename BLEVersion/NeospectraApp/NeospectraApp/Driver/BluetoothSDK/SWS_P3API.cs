@@ -87,7 +87,10 @@ namespace NeospectraApp.Driver
             });
         }
 
-
+        public bool IsReady()
+        {
+            return mP3ConnectionServices.IsServiceReady();
+        }
         //@Deprecated
         public bool connectToDevice(BluetoothLEDevice mRxBleDevice)
         {
@@ -203,9 +206,9 @@ namespace NeospectraApp.Driver
         public async Task<bool> setNotifications()
         {
             var res = await mP3ConnectionServices.SetNotificationOnTXInP3();
-            res = await mP3ConnectionServices.SetNotificationOnMemTx();
-            res = await mP3ConnectionServices.SetNotificationOnBatTx();
-            return res;
+            var res2 = await mP3ConnectionServices.SetNotificationOnMemTx();
+            var res3 = await mP3ConnectionServices.SetNotificationOnBatTx();
+            return res && res2 && res3;
         }
 
         public void getDVKReading()

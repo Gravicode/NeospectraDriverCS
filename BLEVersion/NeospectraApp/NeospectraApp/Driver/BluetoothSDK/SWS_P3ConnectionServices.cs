@@ -117,7 +117,10 @@ namespace NeospectraApp.Driver
         public List<DeviceInformation> UnknownDevices { set; get; } = new List<DeviceInformation>();
         public CoreDispatcher Dispatcher { set; get; }
         public DeviceWatcher deviceWatcher { set; get; }
-
+        public bool IsServiceReady()
+        {
+            return ServiceList != null && ServiceList.IsReady;
+        }
         // ============================================================================================================
         // Constructor
         public async void enableBluetooth()
@@ -921,24 +924,63 @@ namespace NeospectraApp.Driver
                         
                     }
                 }
-                SubscribeNotification = true;
-                NotificationCharacteristic.ValueChanged += Notification_ValueChanged;
-                notificationFormat = null;
-                if (NotificationCharacteristic.PresentationFormats.Count > 0)
+                var selectedCharacteristic = NotificationCharacteristic;
+                GattCommunicationStatus status = GattCommunicationStatus.Unreachable;
+                var cccdValue = GattClientCharacteristicConfigurationDescriptorValue.None;
+                if (selectedCharacteristic.CharacteristicProperties.HasFlag(GattCharacteristicProperties.Indicate))
                 {
+                    cccdValue = GattClientCharacteristicConfigurationDescriptorValue.Indicate;
+                }
+                else if (selectedCharacteristic.CharacteristicProperties.HasFlag(GattCharacteristicProperties.Notify))
+                {
+                    cccdValue = GattClientCharacteristicConfigurationDescriptorValue.Notify;
+                }
 
-                    if (NotificationCharacteristic.PresentationFormats.Count.Equals(1))
+                try
+                {
+                    // BT_Code: Must write the CCCD in order for server to send indications.
+                    // We receive them in the ValueChanged event handler.
+                    status = await selectedCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(cccdValue);
+
+                    if (status == GattCommunicationStatus.Success)
                     {
-                        // Get the presentation format since there's only one way of presenting it
-                        notificationFormat = NotificationCharacteristic.PresentationFormats[0];
+
+                        SubscribeNotification = true;
+                        NotificationCharacteristic.ValueChanged += Notification_ValueChanged;
+                        notificationFormat = null;
+                        if (NotificationCharacteristic.PresentationFormats.Count > 0)
+                        {
+
+                            if (NotificationCharacteristic.PresentationFormats.Count.Equals(1))
+                            {
+                                // Get the presentation format since there's only one way of presenting it
+                                notificationFormat = NotificationCharacteristic.PresentationFormats[0];
+                            }
+                            else
+                            {
+                                // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                                // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                            }
+                        }
+                       
+                        MethodsFactory.LogMessage("Successfully subscribed for value changes", "Status");
+                        return true;
+
+                        //rootPage.NotifyUser("Successfully subscribed for value changes", NotifyType.StatusMessage);
                     }
                     else
                     {
-                        // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
-                        // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                        MethodsFactory.LogMessage($"Error registering for value changes: {status}", "ErrorMessage");
+                        //rootPage.NotifyUser($"Error registering for value changes: {status}", NotifyType.ErrorMessage);
                     }
                 }
-                return true;
+                catch (UnauthorizedAccessException ex)
+                {
+                    // This usually happens when a device reports that it support indicate, but it actually doesn't.
+                    //rootPage.NotifyUser(ex.Message, NotifyType.ErrorMessage);
+                    MethodsFactory.LogMessage(ex.Message, "ErrorMessage");
+                }
+               
                 //mRxBleConnection
                 //        .flatMap(rxBleConnection->rxBleConnection.setupNotification(P3_TX_CHAR_UUID))
                 //        .doOnNext(notificationObservable->MainActivityInstance.runOnUiThread(this::notificationHasBeenSetUp))
@@ -1070,24 +1112,62 @@ namespace NeospectraApp.Driver
 
                     }
                 }
-                SubscribeMemTx = true;
-                MemTxCharacteristic.ValueChanged += MemTx_ValueChanged;
-                MemTxFormat = null;
-                if (MemTxCharacteristic.PresentationFormats.Count > 0)
+                var selectedCharacteristic = MemTxCharacteristic;
+                GattCommunicationStatus status = GattCommunicationStatus.Unreachable;
+                var cccdValue = GattClientCharacteristicConfigurationDescriptorValue.None;
+                if (selectedCharacteristic.CharacteristicProperties.HasFlag(GattCharacteristicProperties.Indicate))
                 {
+                    cccdValue = GattClientCharacteristicConfigurationDescriptorValue.Indicate;
+                }
+                else if (selectedCharacteristic.CharacteristicProperties.HasFlag(GattCharacteristicProperties.Notify))
+                {
+                    cccdValue = GattClientCharacteristicConfigurationDescriptorValue.Notify;
+                }
 
-                    if (MemTxCharacteristic.PresentationFormats.Count.Equals(1))
+                try
+                {
+                    // BT_Code: Must write the CCCD in order for server to send indications.
+                    // We receive them in the ValueChanged event handler.
+                    status = await selectedCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(cccdValue);
+
+                    if (status == GattCommunicationStatus.Success)
                     {
-                        // Get the presentation format since there's only one way of presenting it
-                        MemTxFormat = MemTxCharacteristic.PresentationFormats[0];
+                        SubscribeMemTx = true;
+                        MemTxCharacteristic.ValueChanged += MemTx_ValueChanged;
+                        MemTxFormat = null;
+                        if (MemTxCharacteristic.PresentationFormats.Count > 0)
+                        {
+
+                            if (MemTxCharacteristic.PresentationFormats.Count.Equals(1))
+                            {
+                                // Get the presentation format since there's only one way of presenting it
+                                MemTxFormat = MemTxCharacteristic.PresentationFormats[0];
+                            }
+                            else
+                            {
+                                // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                                // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                            }
+                        }
+                       
+                        MethodsFactory.LogMessage("Successfully subscribed for value changes", "Status");
+                        return true;
+
+                        //rootPage.NotifyUser("Successfully subscribed for value changes", NotifyType.StatusMessage);
                     }
                     else
                     {
-                        // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
-                        // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                        MethodsFactory.LogMessage($"Error registering for value changes: {status}", "ErrorMessage");
+                        //rootPage.NotifyUser($"Error registering for value changes: {status}", NotifyType.ErrorMessage);
                     }
                 }
-                return true;
+                catch (UnauthorizedAccessException ex)
+                {
+                    // This usually happens when a device reports that it support indicate, but it actually doesn't.
+                    //rootPage.NotifyUser(ex.Message, NotifyType.ErrorMessage);
+                    MethodsFactory.LogMessage(ex.Message, "ErrorMessage");
+                }
+                
                 //if (isConnected())
                 //{
                 //    mRxBleConnection
@@ -1115,6 +1195,12 @@ namespace NeospectraApp.Driver
             CryptographicBuffer.CopyToByteArray(args.CharacteristicValue, out data);
             onMemNotificationReceived(data);
         }
+        public event EventHandler<BroadcastEventArgs> BroadcastReceived;
+        public class BroadcastEventArgs : EventArgs
+        {
+            public Dictionary<string, object> iGotData { get; set; }
+            public DateTime Created { get; set; }
+        }
         private void broadcastHomeNotification(String input, String iName)
         {
             Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION DATA");
@@ -1126,6 +1212,7 @@ namespace NeospectraApp.Driver
             iGotData.Add("data", input);
             iGotData.Add("reason", "gotData");
             iGotData.Add("from", "broadcastHomeNotification");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
             //sendBroadCast(this.HomeActivityContext, iGotData);
         }
         private void broadcastHomeNotification(long data, String iName)
@@ -1138,6 +1225,7 @@ namespace NeospectraApp.Driver
             iGotData.Add("data", data);
             iGotData.Add("reason", "gotData");
             iGotData.Add("from", "broadcastHomeNotification");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
             //sendBroadCast(this.HomeActivityContext, iGotData);
         }
         private void broadcastNotificationMemoryData(double[] mDoubles)
@@ -1151,6 +1239,7 @@ namespace NeospectraApp.Driver
             iGotData.Add("data", mDoubles);
             iGotData.Add("reason", "gotData");
             iGotData.Add("from", "broadcastNotificationData");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
             //sendBroadCast(this.HomeActivityContext, iGotData);
         }
         private void onMemNotificationReceived( byte[] bytes)
@@ -1283,24 +1372,62 @@ namespace NeospectraApp.Driver
 
                     }
                 }
-                SubscribeBatTx = true;
-                BatTxCharacteristic.ValueChanged += BatTx_ValueChanged;
-                BatTxFormat = null;
-                if (BatTxCharacteristic.PresentationFormats.Count > 0)
+                // initialize status
+                var selectedCharacteristic = BatTxCharacteristic;
+                GattCommunicationStatus status = GattCommunicationStatus.Unreachable;
+                var cccdValue = GattClientCharacteristicConfigurationDescriptorValue.None;
+                if (selectedCharacteristic.CharacteristicProperties.HasFlag(GattCharacteristicProperties.Indicate))
                 {
+                    cccdValue = GattClientCharacteristicConfigurationDescriptorValue.Indicate;
+                }
+                else if (selectedCharacteristic.CharacteristicProperties.HasFlag(GattCharacteristicProperties.Notify))
+                {
+                    cccdValue = GattClientCharacteristicConfigurationDescriptorValue.Notify;
+                }
 
-                    if (BatTxCharacteristic.PresentationFormats.Count.Equals(1))
+                try
+                {
+                    // BT_Code: Must write the CCCD in order for server to send indications.
+                    // We receive them in the ValueChanged event handler.
+                    status = await selectedCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync(cccdValue);
+
+                    if (status == GattCommunicationStatus.Success)
                     {
-                        // Get the presentation format since there's only one way of presenting it
-                        BatTxFormat = BatTxCharacteristic.PresentationFormats[0];
+                        SubscribeBatTx = true;
+                        BatTxCharacteristic.ValueChanged += BatTx_ValueChanged;
+                        BatTxFormat = null;
+                        if (BatTxCharacteristic.PresentationFormats.Count > 0)
+                        {
+
+                            if (BatTxCharacteristic.PresentationFormats.Count.Equals(1))
+                            {
+                                // Get the presentation format since there's only one way of presenting it
+                                BatTxFormat = BatTxCharacteristic.PresentationFormats[0];
+                            }
+                            else
+                            {
+                                // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
+                                // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                            }
+                        }
+                        MethodsFactory.LogMessage("Successfully subscribed for value changes", "Status");
+                        return true;
+                        
+                        //rootPage.NotifyUser("Successfully subscribed for value changes", NotifyType.StatusMessage);
                     }
                     else
                     {
-                        // It's difficult to figure out how to split up a characteristic and encode its different parts properly.
-                        // In this case, we'll just encode the whole thing to a string to make it easy to print out.
+                        MethodsFactory.LogMessage($"Error registering for value changes: {status}", "ErrorMessage");
+                        //rootPage.NotifyUser($"Error registering for value changes: {status}", NotifyType.ErrorMessage);
                     }
                 }
-                return true;
+                catch (UnauthorizedAccessException ex)
+                {
+                    // This usually happens when a device reports that it support indicate, but it actually doesn't.
+                    //rootPage.NotifyUser(ex.Message, NotifyType.ErrorMessage);
+                    MethodsFactory.LogMessage(ex.Message, "ErrorMessage");
+                }
+               
                 //mRxBleConnection
                 //       .flatMap(rxBleConnection->rxBleConnection.setupNotification(SYS_STAT_TX_CHAR_UUID))
                 //       .doOnNext(notificationObservable->MainActivityInstance.runOnUiThread(this::notificationHasBeenSetUp))
