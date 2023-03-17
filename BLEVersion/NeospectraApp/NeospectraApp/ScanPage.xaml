@@ -40,6 +40,8 @@
                         Visibility="Visible" Margin="0,10,10,0"/>
                 <Button x:Name="ScanBtn" Content="Scan Material"  Click="{x:Bind SensorScanClick}"
                         Visibility="Visible" Margin="0,10,10,0"/>
+                <Button x:Name="ClearBtn" Content="Clear Memory"  Click="{x:Bind ClearMemoryClick}"
+                        Visibility="Visible" Margin="0,10,10,0"/>
             </StackPanel>
             
             <TextBlock x:Name="TxtStatus" Margin="0,10,0,0"/>
