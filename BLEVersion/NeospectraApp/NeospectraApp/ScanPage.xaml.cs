@@ -26,6 +26,7 @@ using Windows.UI.Popups;
 using Windows.UI.Notifications;
 using System.Xml.Linq;
 using System.Threading;
+using Windows.UI.Xaml.Automation.Peers;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -49,17 +50,6 @@ namespace NeospectraApp
         readonly int E_DEVICE_NOT_AVAILABLE = unchecked((int)0x800710df); // HRESULT_FROM_WIN32(ERROR_DEVICE_NOT_AVAILABLE)
         #endregion
 
-        #region UI Code
-        public ScanPage()
-        {
-            this.InitializeComponent();
-            if (GlobalVariables.bluetoothAPI == null)
-            {
-                GlobalVariables.bluetoothAPI = new SWS_P3API(this.Dispatcher);
-               
-            }
-        }
-      
         bool isStopEnabled = false;
         bool isScanBG = false;
         bool isWaitingForBackGroundReading = false;
@@ -67,6 +57,37 @@ namespace NeospectraApp
         int notifications_count = 0;
         double numberOfRuns = 0;
         int count = 0;
+
+        #region UI Code
+        public ScanPage()
+        {
+            this.InitializeComponent();
+            if (GlobalVariables.bluetoothAPI == null)
+            {
+                GlobalVariables.bluetoothAPI = new SWS_P3API(this.Dispatcher);
+
+            }
+        }
+        async void ShowDialog(string Message)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async() => {
+                //UI code here
+                // Create the message dialog and set its content
+                var messageDialog = new MessageDialog(Message);
+
+
+                // Set the command that will be invoked by default
+                messageDialog.DefaultCommandIndex = 0;
+
+                // Set the command to be invoked when escape is pressed
+                messageDialog.CancelCommandIndex = 1;
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+            });
+           
+        }
+      
         private void ScanPage_BroadcastReceived(object sender, SWS_P3ConnectionServices.BroadcastEventArgs e)
         {
             var TAG = nameof(ScanPage);
@@ -113,9 +134,9 @@ namespace NeospectraApp
 
                     break;
                 //case "OperationDone":
-                    //isWaitingForBackGroundReading = false;
-                    //isScanBG = false;
-                    //break;
+                //isWaitingForBackGroundReading = false;
+                //isScanBG = false;
+                //break;
                 //Case device is disconnected
                 case "Disconnection_Notification":
                     //endActivity();
@@ -164,8 +185,8 @@ namespace NeospectraApp
                     //SetView();
 
                     isWaitingForBackGroundReading = false;
-
-
+                    MethodsFactory.LogMessage(TAG, "BACKGROUND SCAN IS COMPLETE");
+                    ShowDialog("BACKGROUND SCAN IS COMPLETE");
 
                 }
                 return;
@@ -236,11 +257,8 @@ namespace NeospectraApp
                     count = 1;
                     //Toast.makeText(mContext, "Scan is complete", Toast.LENGTH_LONG).show();
                     MethodsFactory.LogMessage(TAG, "SCAN IS COMPLETE");
-                    var xmdock = CreateToast("Scan is complete");
-                    var toast = new ToastNotification(xmdock);
-                    var notifi = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
-                    notifi.Show(toast);
 
+                    ShowDialog("SCAN IS COMPLETE");
                     //CommonVariables.setScanningState(2);
                     //SetView();
 
@@ -358,10 +376,10 @@ namespace NeospectraApp
             }
             isScanBG = false;
             if (numberOfRuns > 1)
-            if (numberOfRuns > 1)
-            {
-                // handle loading when number of runs more than 1
-            }
+                if (numberOfRuns > 1)
+                {
+                    // handle loading when number of runs more than 1
+                }
             if (count == 1)
             {
                 // handle loading when count more than 1
@@ -429,7 +447,7 @@ namespace NeospectraApp
                     if (result.Status == GattCommunicationStatus.Success)
                     {
                         GlobalVariables.bluetoothAPI.connectToDevice(bluetoothLeDevice);
-                        
+
                     }
                     else
                     {
@@ -627,5 +645,7 @@ namespace NeospectraApp
 
             this.m = m;
         }
+
+       
     }
 }
