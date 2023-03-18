@@ -81,7 +81,7 @@ namespace NeospectraApp
                             "Name: " + Convert.ToString(intent["iName"]) + "\n" +
                             "Success: " + Convert.ToBoolean(intent["isNotificationSuccess"]) + "\n" +
                             "Reason: " + Convert.ToString(intent["reason"]) + "\n" +
-                            "Error: " + Convert.ToString(intent["err"]) + "\n" +
+                            "Error: " + Convert.ToString(intent.ContainsKey("err") ? intent["err"] : string.Empty) + "\n" +
                             "data : " + string.Join(',', (double[])intent["data"]) + "\n");
                     break;
                 // Case sensor notification with failure
@@ -131,7 +131,7 @@ namespace NeospectraApp
             var TAG = nameof(ScanPage);
             bool isNotificationSuccessful = Convert.ToBoolean(intent["isNotificationSuccess"]);
             var notificationReason = Convert.ToString(intent["reason"]);  //intent.getStringExtra("reason");
-            var errorMessage = Convert.ToString(intent["err"]);//intent.getStringExtra("err");
+            var errorMessage = Convert.ToString(intent.ContainsKey("err") ? intent["err"] : string.Empty);//intent.getStringExtra("err");
 
             /* If the notification is unsuccessful */
             if (!isNotificationSuccessful)
@@ -235,6 +235,7 @@ namespace NeospectraApp
 
                     count = 1;
                     //Toast.makeText(mContext, "Scan is complete", Toast.LENGTH_LONG).show();
+                    MethodsFactory.LogMessage(TAG, "SCAN IS COMPLETE");
                     var xmdock = CreateToast("Scan is complete");
                     var toast = new ToastNotification(xmdock);
                     var notifi = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
@@ -356,6 +357,7 @@ namespace NeospectraApp
                 return;
             }
             isScanBG = false;
+            if (numberOfRuns > 1)
             if (numberOfRuns > 1)
             {
                 // handle loading when number of runs more than 1

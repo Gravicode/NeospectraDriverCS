@@ -679,6 +679,12 @@ namespace NeospectraApp.Driver
 
         public void setScannerID(long value)
         {
+            ByteBuffer buffer = new ByteBuffer(8 + 1);
+            //buffer.order(ByteOrder.LITTLE_ENDIAN);
+            buffer.Put(0,((byte)(35)));
+            buffer.PutLong(1,value);
+            mP3ConnectionServices.WriteToMemoryService(buffer.ToArray(0,buffer.Length));
+            /*
             //ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES + 1);
             var buffer = new List<byte>(8 + 1);
             //buffer.order(ByteOrder.LITTLE_ENDIAN);
@@ -689,6 +695,7 @@ namespace NeospectraApp.Driver
 
             //buffer.putLong(value);
             mP3ConnectionServices.WriteToMemoryService(buffer.ToArray());
+            */
         }
 
         public void sendP3_ID_Request()

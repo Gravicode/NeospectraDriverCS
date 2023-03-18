@@ -139,8 +139,8 @@ namespace NeospectraApp.Driver
 
         private void ConvertByteArrayToDoubleArray()
         {
-            var bb = mPacketResponse.OrderBy(x => x).ToList();
-
+            ByteBuffer bb = new ByteBuffer(mPacketResponse);
+            //bb.Order(ByteOrder.LittleEndian);
             if (mInterpolationFlag)
             {
                 mConvertedDoubles = new double[mOriginalDataLength];
@@ -151,7 +151,7 @@ namespace NeospectraApp.Driver
             }
             for (int i = 0; i < mConvertedDoubles.Length; i++)
             {
-                mConvertedDoubles[i] = bb[i];
+                mConvertedDoubles[i] = bb.GetDouble(i);
             }
         }
 
@@ -169,12 +169,20 @@ namespace NeospectraApp.Driver
 
         private short ConvertTwoBytesToShort()
         {
+            /*
             var bb_temp = new List<byte>();
             //bb_temp.Order(ByteOrder.LittleEndian);
             bb_temp.Add(mPacketResponse[0]);
             bb_temp.Add(mPacketResponse[1]);
             bb_temp = bb_temp.OrderBy(x => x).ToList();
             return bb_temp.First();
+            */
+            ByteBuffer bb_temp = new ByteBuffer(2);
+            //bb_temp.Order(ByteOrder.LittleEndian);
+            bb_temp.Put(0,mPacketResponse[0]);
+            bb_temp.Put(1,mPacketResponse[1]);
+
+            return bb_temp.GetShort(0);
         }
 
         private void GetXValsInterpolationCase()
@@ -201,12 +209,19 @@ namespace NeospectraApp.Driver
         }
         private long BytesToLong(byte[] bytes)
         {
+            /*
             var buffer = new List<byte>(); //ByteBuffer.Allocate(Long.BYTES);
             //buffer.Order(ByteOrder.LittleEndian);
             buffer.AddRange(bytes);
             buffer = buffer.OrderBy(x=>x).ToList();
             buffer.Reverse(); // need flip
             return buffer.First();
+            */
+            ByteBuffer buffer = new ByteBuffer(8);
+            //buffer.Order(ByteOrder.LittleEndian);
+            buffer.Put(0,bytes);
+            //buffer.Flip(); // need flip
+            return buffer.GetLong(0);
         }
     }
 }

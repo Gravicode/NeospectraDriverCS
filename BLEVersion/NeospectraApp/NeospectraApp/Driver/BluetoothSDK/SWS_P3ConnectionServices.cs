@@ -1056,7 +1056,7 @@ namespace NeospectraApp.Driver
                 {
                     // Error
                     Debug.WriteLine( "#--> Error in Received Packet.");
-                    //broadcastNotificationFailure("#--> Error in Received Packet.", "packet_failure", (int)bytes[0]);
+                    broadcastNotificationFailure("#--> Error in Received Packet.", "packet_failure", (int)bytes[0]);
                 }
             }
             else
@@ -1082,7 +1082,7 @@ namespace NeospectraApp.Driver
 
                     double[] mRecDoubles = mPacketResponse.GetInterpretedPacketResponse();
 
-                    //broadcastNotificationData(mRecDoubles, mPacketResponse.convertByteArrayToString());
+                    broadcastNotificationData(mRecDoubles, mPacketResponse.ConvertByteArrayToString());
                     Debug.WriteLine("A PACKET IS BROADCASTED");
                     // fix iterator parameters for next packet
                     mHeaderPacketDone = false;
@@ -1228,6 +1228,22 @@ namespace NeospectraApp.Driver
             BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
             //sendBroadCast(this.HomeActivityContext, iGotData);
         }
+        private void broadcastNotificationData(double[] mDoubles, string streamByte)
+        {
+            Debug.WriteLine(TAG + "INSIDE BROADCAST NOTIFICATION DATA");
+           
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "sensorNotification_data");
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", mDoubles);
+            iGotData.Add("stream", streamByte);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastNotificationData");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+        }
+
         private void broadcastNotificationMemoryData(double[] mDoubles)
         {
             Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION Memory DATA");
@@ -1239,6 +1255,52 @@ namespace NeospectraApp.Driver
             iGotData.Add("data", mDoubles);
             iGotData.Add("reason", "gotData");
             iGotData.Add("from", "broadcastNotificationData");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        private void broadcastNotificationFailure(String msg, String reason, int errorCode)
+        {
+            Debug.WriteLine(TAG + "inside broadcastNotificationFailure");
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "sensorNotification_failure");
+            iGotData.Add("isNotificationSuccess", false);
+            iGotData.Add("err", msg);
+            iGotData.Add("reason", reason);
+            iGotData.Add("data", errorCode);
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+        }
+
+        private void broadcastNotificationconnected(String msg)
+        {
+            Debug.WriteLine(TAG + "inside broadcastNotificationconnected " + msg);
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.Addn(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "sensorNotification_connection");
+            iGotData.Add("isNotificationSuccess", true);
+            iGotData.Add("err", msg);
+            iGotData.Add("reason", "connected");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+        }
+
+        public void broadcastdisconnectionNotification()
+        {
+            Debug.WriteLine(TAG + "inside broadcastdisconnectionNotification");
+            //System.out.println("inside broadcastdisconnectionNotification");
+            //Intent iGotData = new Intent();
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "Disconnection_Notification");
+            iGotData.Add("reason", "disconnected");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+
+            iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", "Disconnection_Notification");
+            iGotData.Add("reason", "disconnected");
             BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
             //sendBroadCast(this.HomeActivityContext, iGotData);
         }
@@ -1321,14 +1383,19 @@ namespace NeospectraApp.Driver
 
                         if (scanBytesIterator == (mDataLength - 4))
                         {
-                            var buffer = new List<byte>(scanBytes);
-                            //ByteBuffer buffer = ByteBuffer.wrap(scanBytes);
+                            /*
+                            ByteBuffer buffer = ByteBuffer.wrap(scanBytes);
+                            buffer.order(ByteOrder.LITTLE_ENDIAN);
+                            */
+                            //var buffer = new List<byte>(scanBytes);
+                            //buffer = buffer.OrderBy(x => x).ToList();
+                            ByteBuffer buffer = new ByteBuffer(scanBytes);
                             //buffer.order(ByteOrder.LITTLE_ENDIAN);
-                            buffer = buffer.OrderBy(x => x).ToList();
+
                             double[] doubleValues = new double[scanBytes.Length / 8];
                             for (int i = 0; i < scanBytes.Length / 16; i++)
                             {
-                                doubleValues[i] = (long)buffer[i * 8] / Math.Pow(2, 33);
+                                doubleValues[i] = buffer.GetLong(i * 8) / Math.Pow(2, 33);
                                 doubleValues[i + doubleValues.Length / 2] =
                                         (long)((i + doubleValues.Length / 2) * 8) /
                                                 Math.Pow(2, 30);
