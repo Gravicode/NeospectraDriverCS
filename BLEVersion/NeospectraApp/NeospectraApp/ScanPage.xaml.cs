@@ -27,6 +27,7 @@ using Windows.UI.Notifications;
 using System.Xml.Linq;
 using System.Threading;
 using Windows.UI.Xaml.Automation.Peers;
+using NeospectraApp.Model;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -36,7 +37,7 @@ namespace NeospectraApp
     /// </summary>
     public sealed partial class ScanPage : Page
     {
-
+        SSKEngine engine;
         private MainPage rootPage = MainPage.Current;
         int scanTime = 2;
         int backgroundScanTime = 2;
@@ -356,7 +357,12 @@ namespace NeospectraApp
                 scanPresenter.requestBackgroundReading(scanTime);
             }
         }
-        async void ClearMemoryClick()
+        async void InferenceClick()
+        {
+            if (engine == null) engine = new SSKEngine();
+            var res= await engine.ExecuteModel();
+        }
+            async void ClearMemoryClick()
         {
             if (GlobalVariables.bluetoothAPI != null)
                 GlobalVariables.bluetoothAPI.sendClearMemoryRequest();

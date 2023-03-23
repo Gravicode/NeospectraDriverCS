@@ -1,0 +1,27 @@
+ Volume in drive D is Data 1
+ Volume Serial Number is DA90-55DD
+
+ Directory of D:\jobs\NeospectraDriverCS\BLEVersion\NeospectraApp\NeospectraApp\Assets
+
+03/23/2023  03:11 PM            92,537 Ca.onnx
+03/23/2023  03:13 PM            92,417 CLAY.onnx
+03/23/2023  03:13 PM            92,440 C_N.onnx
+03/23/2023  03:13 PM            92,448 HCl25_K2O.onnx
+03/23/2023  03:13 PM            92,447 HCl25_P2O5.onnx
+03/23/2023  03:13 PM            92,541 Jumlah.onnx
+03/23/2023  03:13 PM            92,536 K.onnx
+03/23/2023  03:13 PM            92,546 KB_adjusted.onnx
+03/23/2023  03:13 PM            92,447 KJELDAHL_N.onnx
+03/23/2023  03:13 PM            92,538 KTK.onnx
+03/23/2023  03:13 PM            92,537 Mg.onnx
+03/23/2023  03:13 PM            92,545 Morgan_K2O.onnx
+03/23/2023  03:13 PM            92,537 Na.onnx
+03/23/2023  03:13 PM            92,545 Olsen_P2O5.onnx
+03/23/2023  03:13 PM            92,443 PH_H2O.onnx
+03/23/2023  03:13 PM            92,443 PH_KCL.onnx
+03/23/2023  03:13 PM            92,543 RetensiP.onnx
+03/23/2023  03:13 PM            92,189 SAND.onnx
+03/23/2023  03:13 PM            92,405 SILT.onnx
+03/23/2023  03:13 PM            92,440 WBC.onnx
+              20 File(s)      1,849,524 bytes
+               0 Dir(s)  64,345,214,976 bytes free
