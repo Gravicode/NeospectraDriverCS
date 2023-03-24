@@ -5,6 +5,7 @@
     xmlns:local="using:NeospectraApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -34,7 +35,7 @@
                 Selected device: <Run x:Name="SelectedDeviceRun" FontWeight="Bold"/>
             </TextBlock>
             <Button x:Name="ConnectButton" Content="Connect" Click="{x:Bind ConnectButton_Click}" Margin="0,10,0,0"/>
-           
+
             <StackPanel x:Name="Panel1" Visibility="Collapsed" Orientation="Horizontal">
                 <Button x:Name="BacngroundBtn" Content="Background Scan"  Click="{x:Bind BackgroundScanClick}"
                         Visibility="Visible" Margin="0,10,10,0"/>
@@ -45,8 +46,11 @@
                 <Button x:Name="InferenceBtn" Content="Inference"  Click="{x:Bind InferenceClick}"
                         Visibility="Visible" Margin="0,10,10,0"/>
             </StackPanel>
-            
+
             <TextBlock x:Name="TxtStatus" Margin="0,10,0,0"/>
+            <controls:DataGrid x:Name="dataGrid" Height="600" Margin="12" AutoGenerateColumns="True" ItemsSource="{x:Bind ResultTable}">
+
+            </controls:DataGrid>
         </StackPanel>
     </ScrollViewer>
 

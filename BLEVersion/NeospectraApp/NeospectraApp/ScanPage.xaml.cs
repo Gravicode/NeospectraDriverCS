@@ -28,6 +28,8 @@ using System.Xml.Linq;
 using System.Threading;
 using Windows.UI.Xaml.Automation.Peers;
 using NeospectraApp.Model;
+using System.Data;
+using System.ServiceModel.Channels;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -37,6 +39,7 @@ namespace NeospectraApp
     /// </summary>
     public sealed partial class ScanPage : Page
     {
+        IEnumerable<dynamic> ResultTable { get; set; }
         SSKEngine engine;
         private MainPage rootPage = MainPage.Current;
         int scanTime = 2;
@@ -68,6 +71,8 @@ namespace NeospectraApp
                 GlobalVariables.bluetoothAPI = new SWS_P3API(this.Dispatcher);
 
             }
+            if (engine == null) engine = new SSKEngine();
+            ResultTable = engine.GetResultTable().ToExpandoObjectList();
         }
         async void ShowDialog(string Message)
         {
@@ -188,7 +193,7 @@ namespace NeospectraApp
                     isWaitingForBackGroundReading = false;
                     MethodsFactory.LogMessage(TAG, "BACKGROUND SCAN IS COMPLETE");
                     ShowDialog("BACKGROUND SCAN IS COMPLETE");
-
+                    
                 }
                 return;
             }
@@ -260,6 +265,8 @@ namespace NeospectraApp
                     MethodsFactory.LogMessage(TAG, "SCAN IS COMPLETE");
 
                     ShowDialog("SCAN IS COMPLETE");
+                    //do inference
+                    DoInference();
                     //CommonVariables.setScanningState(2);
                     //SetView();
 
@@ -269,6 +276,24 @@ namespace NeospectraApp
 
             MethodsFactory.LogMessage(TAG, "Sensor Reading Length = " + reading.Length);
 
+        }
+
+        async void DoInference()
+        {
+            var input = getReflectance();
+            List<float> inputFloat = new List<float>();
+            for (int i = 0; i < input.Length; i++)
+            {
+                inputFloat.Add((float)input[i]);
+            }
+          
+            var res = await engine.ExecuteModel(inputFloat);
+            //await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => {
+                //UI code here
+                ResultTable = engine.GetResultTable().ToExpandoObjectList();
+               
+            //});
+          
         }
         public static Windows.Data.Xml.Dom.XmlDocument CreateToast(string Message, string Title = "Info")
         {
@@ -359,8 +384,8 @@ namespace NeospectraApp
         }
         async void InferenceClick()
         {
-            if (engine == null) engine = new SSKEngine();
-            var res= await engine.ExecuteModel();
+          
+            var res= await engine.TestModel();
         }
             async void ClearMemoryClick()
         {
@@ -498,9 +523,18 @@ namespace NeospectraApp
                     */
                     var scaler = new MonotoneCubicSplineInterpolation();
                     scaler.createMonotoneCubicSpline(xData, yData);
+                    /*
                     for (int ax = 2500; ax > 1350; ax -= 5)
                     {
                         double x = ax;
+                        double y = scaler.Interpolate(x);
+                        Console.WriteLine(x + "," + y);
+                        dataPoints.Add(new DataPoint(x, y));
+                        dataY.Add(y);
+                    }*/
+                    foreach(var x in SSKEngine.WaveFreq)
+                    {
+                        
                         double y = scaler.Interpolate(x);
                         Console.WriteLine(x + "," + y);
                         dataPoints.Add(new DataPoint(x, y));

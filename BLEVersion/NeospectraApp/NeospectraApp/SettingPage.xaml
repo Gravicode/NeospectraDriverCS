@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="NeospectraApp.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NeospectraApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="12,10,12,12">
+        <StackPanel>
+            <TextBlock Text="Description:" Style="{StaticResource SampleHeaderTextStyle}"/>
+            <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" Text="Query services from GATT server"/>
+            <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
+               Configure device with this form
+            </TextBlock>
+            <TextBlock Style="{StaticResource ListItemTextStyle}" TextWrapping="Wrap" Margin="0,10,0,0">
+                Selected device: <Run x:Name="SelectedDeviceRun" FontWeight="Bold"/>
+            </TextBlock>
+            <Button x:Name="ConnectButton" Content="Connect" Click="{x:Bind ConnectButton_Click}" Margin="0,10,0,0"/>
+
+            <StackPanel x:Name="Panel1" Visibility="Collapsed" Orientation="Horizontal">
+                <Button x:Name="SaveBtn" Content="Save Preference"  Click="{x:Bind SaveClick}"
+                        Visibility="Visible" Margin="0,10,10,0"/>
+
+            </StackPanel>
+
+            <TextBlock x:Name="TxtStatus" Margin="0,10,0,0"/>
+            
+        </StackPanel>
+    </ScrollViewer>
+</Page>

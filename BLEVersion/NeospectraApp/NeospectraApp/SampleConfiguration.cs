@@ -19,13 +19,14 @@ namespace NeospectraApp
 {
     public partial class MainPage : Page
     {
-        public const string FEATURE_NAME = "Bluetooth Low Energy C# Sample";
+        public const string FEATURE_NAME = "NEOSPECTRA DRIVER DEMO FOR UWP";
 
         List<Scenario> scenarios = new List<Scenario>
         {
-            new Scenario() { Title="Client: Discover servers", ClassType=typeof(Scenario1_Discovery) },
-            new Scenario() { Title="Client: Connect to a server", ClassType=typeof(Scenario2_Client) },
+            new Scenario() { Title="Explore: Discover Device", ClassType=typeof(Scenario1_Discovery) },
+            //new Scenario() { Title="Client: Connect to a server", ClassType=typeof(Scenario2_Client) },
             new Scenario() { Title="Scanner: Connect to device", ClassType=typeof(ScanPage) },
+            new Scenario() { Title="Setting: Configure Device", ClassType=typeof(SettingPage) },
             //new Scenario() { Title="Server: Publish foreground", ClassType=typeof(Scenario3_ServerForeground) },
         };
 
