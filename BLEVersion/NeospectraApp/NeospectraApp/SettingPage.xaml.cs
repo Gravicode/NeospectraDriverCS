@@ -899,7 +899,7 @@ namespace NeospectraApp
                 memPreferencePacket[8] = 3;
             else
                 memPreferencePacket[8] = 0;
-            var FftPoints = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_8k : Convert.ToString(localSettings.Values["fft_points"]);
+            var FftPoints = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]);
             //String FftPoints = preferences.getString("fft_points", GlobalVariables.zeroPadding.points_8k.toString());
             if (FftPoints.Equals(GlobalVariables.zeroPadding.points_8k))
                 memPreferencePacket[9] = 1;
