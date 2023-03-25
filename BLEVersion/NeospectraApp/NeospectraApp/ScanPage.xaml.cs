@@ -32,6 +32,7 @@ using System.Data;
 using System.ServiceModel.Channels;
 using static NeospectraApp.Driver.GlobalVariables;
 using Windows.Storage;
+using NeospectraApp.MathHelper;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -552,6 +553,7 @@ namespace NeospectraApp
                     /*
                     SplineInterpolator2 scaler = SplineInterpolator2.createMonotoneCubicSpline(xData, yData);
                     */
+                    //var scaler = new SplineInterpolation(xData.ToArray(), yData.ToArray());
                     var scaler = new MonotoneCubicSplineInterpolation();
                     scaler.createMonotoneCubicSpline(xData, yData);
                     /*
@@ -604,7 +606,7 @@ namespace NeospectraApp
                 throw new Exception("please create spline first.");
             }
             int i;
-            for (i = xs.Length - 2; i >= 0; --i)
+            for (i = xs.Length - 2; i > 0; --i)
             {
                 if (xs[i] <= x)
                 {

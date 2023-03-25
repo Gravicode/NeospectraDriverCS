@@ -1398,9 +1398,13 @@ namespace NeospectraApp.Driver
                             double[] doubleValues = new double[scanBytes.Length / 8];
                             for (int i = 0; i < scanBytes.Length / 16; i++)
                             {
+                                //doubleValues[i] = buffer.GetLong(i * 8) / Math.Pow(2, 33);
+                                //doubleValues[i + doubleValues.Length / 2] =
+                                //        (long)((i + doubleValues.Length / 2) * 8) /
+                                //                Math.Pow(2, 30);
                                 doubleValues[i] = buffer.GetLong(i * 8) / Math.Pow(2, 33);
                                 doubleValues[i + doubleValues.Length / 2] =
-                                        (long)((i + doubleValues.Length / 2) * 8) /
+                                        buffer.GetLong((i + doubleValues.Length / 2) * 8) /
                                                 Math.Pow(2, 30);
                             }
                             mHeaderMemPacketDone = false;

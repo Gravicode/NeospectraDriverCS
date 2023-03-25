@@ -681,9 +681,9 @@ namespace NeospectraApp.Driver
         {
             ByteBuffer buffer = new ByteBuffer(8 + 1);
             //buffer.order(ByteOrder.LITTLE_ENDIAN);
-            buffer.Put(0,((byte)0x23));
-            buffer.PutLong(1,value);
-            mP3ConnectionServices.WriteToMemoryService(buffer.ToArray(0,buffer.Length));
+            buffer.Put((byte)0x23);
+            buffer.PutLong(value);
+            mP3ConnectionServices.WriteToMemoryService(buffer.ToArray());
             /*
             //ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES + 1);
             var buffer = new List<byte>(8 + 1);

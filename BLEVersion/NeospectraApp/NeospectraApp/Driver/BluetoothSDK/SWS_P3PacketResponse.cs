@@ -151,7 +151,7 @@ namespace NeospectraApp.Driver
             }
             for (int i = 0; i < mConvertedDoubles.Length; i++)
             {
-                mConvertedDoubles[i] = bb.GetDouble(i);
+                mConvertedDoubles[i] = bb.GetDouble();
             }
         }
 
@@ -179,8 +179,8 @@ namespace NeospectraApp.Driver
             */
             ByteBuffer bb_temp = new ByteBuffer(2);
             //bb_temp.Order(ByteOrder.LittleEndian);
-            bb_temp.Put(0,mPacketResponse[0]);
-            bb_temp.Put(1,mPacketResponse[1]);
+            bb_temp.Put(mPacketResponse[0]);
+            bb_temp.Put(mPacketResponse[1]);
 
             return bb_temp.GetShort(0);
         }
@@ -219,9 +219,9 @@ namespace NeospectraApp.Driver
             */
             ByteBuffer buffer = new ByteBuffer(8);
             //buffer.Order(ByteOrder.LittleEndian);
-            buffer.Put(0,bytes);
-            //buffer.Flip(); // need flip
-            return buffer.GetLong(0);
+            buffer.Put(bytes);
+            buffer.Flip(); // need flip
+            return buffer.GetLong();
         }
     }
 }

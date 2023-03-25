@@ -876,18 +876,18 @@ namespace NeospectraApp
             byte[] memPreferencePacket = new byte[11];
             memPreferencePacket[0] = (byte)MEMORY_SAVE_DEFAULT_PARAM;
             var buff = new ByteBuffer(4);
-            buff.PutInt(0, scanTime * 1000);
+            buff.PutInt((scanTime * 1000));
             //ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(scanTime * 1000).array()
             Array.Copy(
-            buff.ToArray(0, buff.Length), 0,
+            buff.ToArray(), 0,
             memPreferencePacket, 1, 3);
 
             //optical_gain = localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
             //optical_gain_value = localSettings.Values[optical_gain] == null ? 0 : Convert.ToInt32(localSettings.Values[optical_gain]);
             buff = new ByteBuffer(4);
-            buff.PutInt(0, optical_gain_value);
+            buff.PutInt(optical_gain_value);
             //ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(OpticalGainValue).array()
-            Array.Copy(buff.ToArray(0, buff.Length)
+            Array.Copy(buff.ToArray()
             , 0,
             memPreferencePacket, 4, 2);
             //linear_interpolation_value = localSettings.Values["linear_interpolation_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["linear_interpolation_switch"]);

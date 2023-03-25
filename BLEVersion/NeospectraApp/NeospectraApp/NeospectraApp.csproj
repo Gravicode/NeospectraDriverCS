@@ -127,7 +127,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Driver\ByteBuffer.cs" />
     <Compile Include="Driver\Global\CommonVariables.cs" />
+    <Compile Include="MathHelper\SplineInterpolation.cs" />
     <Compile Include="Model\Bray1_P2O5.cs" />
     <Compile Include="Model\Ca.cs" />
     <Compile Include="Model\CLAY.cs" />
@@ -150,7 +152,6 @@
     <Compile Include="Driver\BluetoothSDK\SWS_P3ConnectionServices.cs" />
     <Compile Include="Driver\BluetoothSDK\SWS_P3Packet.cs" />
     <Compile Include="Driver\BluetoothSDK\SWS_P3PacketResponse.cs" />
-    <Compile Include="Driver\ByteBuffer.cs" />
     <Compile Include="Driver\DataPoint.cs" />
     <Compile Include="Driver\Global\GlobalVariables.cs" />
     <Compile Include="Driver\Global\MethodsFactory.cs" />
