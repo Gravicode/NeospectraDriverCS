@@ -75,7 +75,14 @@ namespace NeospectraApp
         public bool isWaitingForRestoreToDefault = false;
         public bool isWaitingForStoringAllSettings = false;
         private int notifications_count = 0;
-
+        //Settings
+        string optical_gain;
+        int optical_gain_value;
+        bool linear_interpolation_value;
+        string interpolation_points;
+        string apodization_value;
+        string FFT_points;
+        bool fft_settings_switch;
         #region UI Code
         public SettingPage()
         {
@@ -85,7 +92,7 @@ namespace NeospectraApp
                 GlobalVariables.bluetoothAPI = new SWS_P3API(this.Dispatcher);
 
             }
-
+            loadPreferences();
         }
         async void ShowDialog(string Message)
         {
@@ -368,6 +375,10 @@ namespace NeospectraApp
                         rootPage.NotifyUser("Device unreachable", NotifyType.ErrorMessage);
                     }
 
+                }
+                else
+                {
+                    GlobalVariables.bluetoothAPI.connectToDevice(bluetoothLeDevice);
                 }
 
 
@@ -837,9 +848,23 @@ namespace NeospectraApp
             //((PreferenceCategory)findPreference("category_advanced_settings")).setEnabled(true);
             //((PreferenceCategory)findPreference("category_save_restore")).setEnabled(true);
         }
+      
 
-        // Save all preferences in scanner
-        private void savePreferences()
+
+        private void loadPreferences()
+        {
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            optical_gain = localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
+            optical_gain_value = localSettings.Values[optical_gain] == null ? 0 : Convert.ToInt32(localSettings.Values[optical_gain]);
+            linear_interpolation_value = localSettings.Values["linear_interpolation_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["linear_interpolation_switch"]);
+            fft_settings_switch = localSettings.Values["fft_settings_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["fft_settings_switch"]);
+            interpolation_points = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_257 : Convert.ToString(localSettings.Values["data_points"]);
+            apodization_value = localSettings.Values["apodization_function"] == null ? GlobalVariables.apodization.Boxcar : Convert.ToString(localSettings.Values["apodization_function"]);
+            FFT_points = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]);
+        }
+            // Save all preferences in scanner
+            private void savePreferences()
         {
             if (scanPresenter == null)
             {
@@ -857,27 +882,27 @@ namespace NeospectraApp
             buff.ToArray(0, buff.Length), 0,
             memPreferencePacket, 1, 3);
 
-            var optical_gain = localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
-            int OpticalGainValue = localSettings.Values[optical_gain] == null ? 0 : Convert.ToInt32(localSettings.Values[optical_gain]);
+            //optical_gain = localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
+            //optical_gain_value = localSettings.Values[optical_gain] == null ? 0 : Convert.ToInt32(localSettings.Values[optical_gain]);
             buff = new ByteBuffer(4);
-            buff.PutInt(0, OpticalGainValue);
+            buff.PutInt(0, optical_gain_value);
             //ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(OpticalGainValue).array()
             Array.Copy(buff.ToArray(0, buff.Length)
             , 0,
             memPreferencePacket, 4, 2);
-            var linear_interpolation_switch_val = localSettings.Values["linear_interpolation_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["linear_interpolation_switch"]);
-            if (!linear_interpolation_switch_val)
+            //linear_interpolation_value = localSettings.Values["linear_interpolation_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["linear_interpolation_switch"]);
+            if (!linear_interpolation_value)
                 memPreferencePacket[6] = 0;
             else
             {
-                var interpolationPoints = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_257 : Convert.ToString(localSettings.Values["data_points"]);
+                //interpolation_points = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_257 : Convert.ToString(localSettings.Values["data_points"]);
                 //String interpolationPoints = preferences.getString("data_points", GlobalVariables.pointsCount.points_257);
 
-                if (interpolationPoints.Equals(GlobalVariables.pointsCount.points_65))
+                if (interpolation_points.Equals(GlobalVariables.pointsCount.points_65))
                     memPreferencePacket[6] = 1;
-                else if (interpolationPoints.Equals(GlobalVariables.pointsCount.points_129))
+                else if (interpolation_points.Equals(GlobalVariables.pointsCount.points_129))
                     memPreferencePacket[6] = 2;
-                else if (interpolationPoints.Equals(GlobalVariables.pointsCount.points_257))
+                else if (interpolation_points.Equals(GlobalVariables.pointsCount.points_257))
                     memPreferencePacket[6] = 3;
                 else
                     memPreferencePacket[6] = 0;
@@ -887,25 +912,25 @@ namespace NeospectraApp
                 memPreferencePacket[7] = 0;
             else
                 memPreferencePacket[7] = 2;
-            var apodizationSel = localSettings.Values["apodization_function"] == null ? GlobalVariables.apodization.Boxcar : Convert.ToString(localSettings.Values["apodization_function"]);
+            //apodization_value = localSettings.Values["apodization_function"] == null ? GlobalVariables.apodization.Boxcar : Convert.ToString(localSettings.Values["apodization_function"]);
             // String apodizationSel = preferences.getString("apodization_function", GlobalVariables.apodization.Boxcar);
-            if (apodizationSel.Equals(GlobalVariables.apodization.Boxcar))
+            if (apodization_value.Equals(GlobalVariables.apodization.Boxcar))
                 memPreferencePacket[8] = 0;
-            else if (apodizationSel.Equals(GlobalVariables.apodization.Gaussian))
+            else if (apodization_value.Equals(GlobalVariables.apodization.Gaussian))
                 memPreferencePacket[8] = 1;
-            else if (apodizationSel.Equals(GlobalVariables.apodization.HappGenzel))
+            else if (apodization_value.Equals(GlobalVariables.apodization.HappGenzel))
                 memPreferencePacket[8] = 2;
-            else if (apodizationSel.Equals(GlobalVariables.apodization.Lorenz))
+            else if (apodization_value.Equals(GlobalVariables.apodization.Lorenz))
                 memPreferencePacket[8] = 3;
             else
                 memPreferencePacket[8] = 0;
-            var FftPoints = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]);
+            //FFT_points = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]);
             //String FftPoints = preferences.getString("fft_points", GlobalVariables.zeroPadding.points_8k.toString());
-            if (FftPoints.Equals(GlobalVariables.zeroPadding.points_8k))
+            if (FFT_points.Equals(GlobalVariables.zeroPadding.points_8k))
                 memPreferencePacket[9] = 1;
-            else if (FftPoints.Equals(GlobalVariables.zeroPadding.points_16k))
+            else if (FFT_points.Equals(GlobalVariables.zeroPadding.points_16k))
                 memPreferencePacket[9] = 2;
-            else if (FftPoints.Equals(GlobalVariables.zeroPadding.points_32k))
+            else if (FFT_points.Equals(GlobalVariables.zeroPadding.points_32k))
                 memPreferencePacket[9] = 3;
             else
                 memPreferencePacket[9] = 1;
@@ -915,12 +940,28 @@ namespace NeospectraApp
             disableView();
 
             if (bluetoothAPI != null)
+            {
                 bluetoothAPI.sendPacket(memPreferencePacket, false, "Memory Service");
+
+                // Save a setting locally on the device
+              
+                localSettings.Values["optical_gain_settings"] = optical_gain;
+                localSettings.Values["optical_gain"] = optical_gain_value;
+                localSettings.Values["linear_interpolation_switch"] = linear_interpolation_value;
+                localSettings.Values["fft_settings_switch"] = fft_settings_switch;
+                localSettings.Values["data_points"] = interpolation_points;
+                localSettings.Values["apodization_function"] = apodization_value;
+                localSettings.Values["fft_points"] = FFT_points;
+              
+            }
         }
         async void SaveClick()
         {
             savePreferences();
         }
+        List<string> ListInterpolationPoints = new List<string>() { GlobalVariables.pointsCount.points_65, GlobalVariables.pointsCount.points_129, GlobalVariables.pointsCount.points_257 };
+        List<string> ListApodization = new List<string>() { GlobalVariables.apodization.Boxcar, GlobalVariables.apodization.Gaussian, GlobalVariables.apodization.Lorenz, GlobalVariables.apodization.HappGenzel };
+        List<string> ListFftPoints = new List<string>() { GlobalVariables.zeroPadding.points_8k, GlobalVariables.zeroPadding.points_16k, GlobalVariables.zeroPadding.points_32k };
     }
 
 }

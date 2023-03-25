@@ -30,6 +30,8 @@ using Windows.UI.Xaml.Automation.Peers;
 using NeospectraApp.Model;
 using System.Data;
 using System.ServiceModel.Channels;
+using static NeospectraApp.Driver.GlobalVariables;
+using Windows.Storage;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -59,13 +61,14 @@ namespace NeospectraApp
         bool isWaitingForBackGroundReading = false;
         bool isWaitingForSensorReading = false;
         int notifications_count = 0;
-        double numberOfRuns = 0;
-        int count = 0;
-
+        double numberOfRuns = 1;
+        int count = 1;
+        private double maxValue = 0;
         #region UI Code
         public ScanPage()
         {
             this.InitializeComponent();
+            loadPreferences();
             if (GlobalVariables.bluetoothAPI == null)
             {
                 GlobalVariables.bluetoothAPI = new SWS_P3API(this.Dispatcher);
@@ -94,6 +97,33 @@ namespace NeospectraApp
            
         }
       
+        void loadPreferences()
+        {
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            //localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
+
+            GlobalVariables.gRunMode = localSettings.Values["run_mode"] == null ? GlobalVariables.runMode.Single_Mode : Convert.ToString(localSettings.Values["run_mode"]);
+            //preferences.getString("run_mode", GlobalVariables.runMode.Single_Mode.toString());
+            GlobalVariables.gIsInterpolationEnabled = localSettings.Values["linear_interpolation_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["linear_interpolation_switch"]);
+            //preferences.getBoolean("linear_interpolation_switch", false);
+            GlobalVariables.gInterpolationPoints = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_257 : Convert.ToString(localSettings.Values["data_points"]);
+            //preferences.getString("data_points", GlobalVariables.pointsCount.points_257.toString());
+            GlobalVariables.gIsFftEnabled = localSettings.Values["fft_settings_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["fft_settings_switch"]); 
+            //preferences.getBoolean("fft_settings_switch", false);
+            GlobalVariables.gApodizationFunction = localSettings.Values["apodization_function"] == null ? GlobalVariables.apodization.Boxcar : Convert.ToString(localSettings.Values["apodization_function"]);
+            //preferences.getString("apodization_function", GlobalVariables.apodization.Boxcar.toString());
+            GlobalVariables.gFftPoints = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]); 
+            //preferences.getString("fft_points", GlobalVariables.zeroPadding.points_8k.toString());
+            GlobalVariables.gOpticalGainSettings = localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
+            //preferences.getString("optical_gain_settings", "Default");
+            GlobalVariables.gOpticalGainValue = localSettings.Values[gOpticalGainSettings] == null ? 0 : Convert.ToInt32(localSettings.Values[gOpticalGainSettings]);
+            //preferences.getInt(gOpticalGainSettings, 0);
+            GlobalVariables.gCorrectionMode = localSettings.Values["wavelength_correction"] == null ? GlobalVariables.wavelengthCorrection.Self_Calibration : Convert.ToString(localSettings.Values["wavelength_correction"]); 
+            //preferences.getString("wavelength_correction", GlobalVariables.wavelengthCorrection.Self_Calibration.toString());
+
+        }
+
         private void ScanPage_BroadcastReceived(object sender, SWS_P3ConnectionServices.BroadcastEventArgs e)
         {
             var TAG = nameof(ScanPage);
@@ -125,7 +155,7 @@ namespace NeospectraApp
                     // show progress bar
 
                     // set button enable or disable
-                    //CommonVariables.setScanningState(0);
+                    CommonVariables.setScanningState(0);
 
                     notifications_count = 0;
                     isWaitingForBackGroundReading = false;
@@ -173,7 +203,7 @@ namespace NeospectraApp
             if (!notificationReason.Equals("gotData"))
             {
 
-                //CommonVariables.setScanningState(1);
+                CommonVariables.setScanningState(1);
                 //SetView();
                 notifications_count = 0;
                 return;
@@ -187,7 +217,7 @@ namespace NeospectraApp
                 if ((notifications_count % 3) == 0)
                 {
 
-                    //CommonVariables.setScanningState(1);
+                    CommonVariables.setScanningState(1);
                     //SetView();
 
                     isWaitingForBackGroundReading = false;
@@ -205,7 +235,7 @@ namespace NeospectraApp
             {
                 MethodsFactory.LogMessage(TAG, "Reading is NULL.");
 
-                //CommonVariables.setScanningState(0);
+                CommonVariables.setScanningState(0);
                 //SetView();
 
                 notifications_count = 0;
@@ -233,7 +263,7 @@ namespace NeospectraApp
                 // Add the taken read to global ArrayList which holds all the taken readings
                 GlobalVariables.gAllSpectra.Add(newReading);
 
-                //CommonVariables.setScanningState(1);
+                CommonVariables.setScanningState(1);
                 //SetView();
 
                 isWaitingForSensorReading = false;
@@ -267,7 +297,7 @@ namespace NeospectraApp
                     ShowDialog("SCAN IS COMPLETE");
                     //do inference
                     DoInference();
-                    //CommonVariables.setScanningState(2);
+                    CommonVariables.setScanningState(2);
                     //SetView();
 
                     //displayGraph();
@@ -358,7 +388,7 @@ namespace NeospectraApp
         {
             isScanBG = true;
             backgroundScanTime = scanTime;
-            //CommonVariables.setScanningState(99);
+            CommonVariables.setScanningState(99);
 
             if (scanPresenter == null)
             {
@@ -399,7 +429,7 @@ namespace NeospectraApp
         async void SensorScanClick()
         {
             var TAG = nameof(ScanPage);
-            //CommonVariables.setScanningState(99);
+            CommonVariables.setScanningState(99);
             if (backgroundScanTime < scanTime)
             {
                 MethodsFactory.LogMessage(TAG, "Material Scan time is greater than reference material scan time ");
@@ -428,10 +458,7 @@ namespace NeospectraApp
             // Don't complete the process if the device not connected
             if (GlobalVariables.bluetoothAPI == null || !GlobalVariables.bluetoothAPI.isDeviceConnected())
             {
-                var messageDialog = new MessageDialog("Please! Ensure that you have a connected device firstly", "Device not connected"
-                       );
-
-
+                var messageDialog = new MessageDialog("Please! Ensure that you have a connected device firstly", "Device not connected");
 
                 // Show the message dialog
                 await messageDialog.ShowAsync();
@@ -485,6 +512,10 @@ namespace NeospectraApp
                         rootPage.NotifyUser("Device unreachable", NotifyType.ErrorMessage);
                     }
 
+                }
+                else
+                {
+                    GlobalVariables.bluetoothAPI.connectToDevice(bluetoothLeDevice);
                 }
 
 

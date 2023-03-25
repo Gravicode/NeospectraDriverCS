@@ -25,11 +25,9 @@
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="12,10,12,12">
         <StackPanel>
             <TextBlock Text="Description:" Style="{StaticResource SampleHeaderTextStyle}"/>
-            <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" Text="Query services from GATT server"/>
+            <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" Text="Operate Scanner Device"/>
             <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
-                This scenario connects to the Bluetooth Low Energy device
-                selected in the "Discover GATT Servers" scenario
-                and communicates with the device.
+                This form is use for operate the scanner device and inference material using ONNX Model.
             </TextBlock>
             <TextBlock Style="{StaticResource ListItemTextStyle}" TextWrapping="Wrap" Margin="0,10,0,0">
                 Selected device: <Run x:Name="SelectedDeviceRun" FontWeight="Bold"/>

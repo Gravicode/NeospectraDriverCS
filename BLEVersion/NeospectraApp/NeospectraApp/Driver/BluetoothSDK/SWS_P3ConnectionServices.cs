@@ -451,8 +451,11 @@ namespace NeospectraApp.Driver
 
         public void setmRxBleDevice(BluetoothLEDevice mRxBleDevice)
         {
-            this.mRxBleDevice = mRxBleDevice;
-            this.ServiceList = new BLEServiceList (mRxBleDevice);
+            if (this.mRxBleDevice != mRxBleDevice)
+            {
+                this.mRxBleDevice = mRxBleDevice;
+                this.ServiceList = new BLEServiceList(mRxBleDevice);
+            }
 
         }
 
