@@ -33,6 +33,7 @@ using System.ServiceModel.Channels;
 using static NeospectraApp.Driver.GlobalVariables;
 using Windows.Storage;
 using NeospectraApp.MathHelper;
+using System.Diagnostics;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -569,7 +570,7 @@ namespace NeospectraApp
                     {
                         
                         double y = scaler.Interpolate(x);
-                        Console.WriteLine(x + "," + y);
+                        Debug.WriteLine(x + "," + y);
                         dataPoints.Add(new DataPoint(x, y));
                         dataY.Add(y);
                     }
