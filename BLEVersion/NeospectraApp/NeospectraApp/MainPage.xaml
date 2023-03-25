@@ -28,15 +28,15 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <StackPanel x:Name="FooterPanel" Orientation="Vertical" RelativePanel.AlignBottomWithPanel="True">
-                        <Image Source="Assets/microsoft-sdk.png" AutomationProperties.Name="Microsoft Logo" Stretch="None" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        <TextBlock x:Name="Copyright" Text="&#xA9; Microsoft Corporation. All rights reserved." Style="{StaticResource CopyrightTextStyle}"
+                        <Image Source="Assets/gvc.png" AutomationProperties.Name="Gvc Logo" Stretch="None" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        <TextBlock x:Name="Copyright" Text="&#xA9; Gravicode. All rights reserved." Style="{StaticResource CopyrightTextStyle}"
                                    RelativePanel.Above="LinksPanel" Margin="10,10,0,0"
                                    TextWrapping="Wrap"/>
                         <StackPanel x:Name="LinksPanel" Orientation="Horizontal" Margin="10,10,0,10">
-                            <HyperlinkButton Content="Trademarks" Tag="http://go.microsoft.com/fwlink/?LinkID=623755"
+                            <HyperlinkButton Content="Studio" Tag="https://studios.gravicode.com"
                         Click="Footer_Click" FontSize="12" Style="{StaticResource HyperlinkStyle}" />
                             <TextBlock Text="|"  Style="{StaticResource SeparatorStyle}" VerticalAlignment="Center" />
-                            <HyperlinkButton x:Name="PrivacyLink" Content="Privacy" Tag="http://privacy.microsoft.com" Click="Footer_Click" FontSize="12" Style="{StaticResource HyperlinkStyle}"/>
+                            <HyperlinkButton x:Name="Web" Content="Web" Tag="https://gravicode.com" Click="Footer_Click" FontSize="12" Style="{StaticResource HyperlinkStyle}"/>
                         </StackPanel>
                     </StackPanel>
                 </RelativePanel>
@@ -67,7 +67,7 @@
                  (If the Image conveyed useful information we'd not use AccessibilityView, but instead provide a localized 
                  name for the Image to convey its purpose.) -->
             <Image x:Name="WindowsLogo" Stretch="None" Source="Assets/windows-sdk.png" Margin="0,15,0,0" AutomationProperties.AccessibilityView="Raw" />
-            <TextBlock x:Name="Header" Text="Universal Windows Platform sample" Style="{StaticResource TagLineTextStyle}" Margin="0,15,0,0" />
+            <TextBlock x:Name="Header" Text="NeoSpectra Driver for UWP Demo" Style="{StaticResource TagLineTextStyle}" Margin="0,15,0,0" />
         </StackPanel>
     </Grid>
 </Page>

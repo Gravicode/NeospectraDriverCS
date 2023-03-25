@@ -197,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\badge-logo.png" />
+    <Content Include="Assets\gvc.png" />
     <Content Include="Assets\microsoft-sdk.png" />
     <Content Include="Assets\placeholder-sdk.png" />
     <Content Include="Assets\placeholder.png" />
