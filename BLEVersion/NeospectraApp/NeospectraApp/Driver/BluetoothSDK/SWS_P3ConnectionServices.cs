@@ -486,6 +486,8 @@ namespace NeospectraApp.Driver
         public void ConnectToP3()
         {
             setConnecting("ConnectToP3()", true);
+            broadcastNotificationconnected("connection established!"); //heba added
+
             //StartWatcher(true);
         }
 

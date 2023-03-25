@@ -163,7 +163,7 @@ namespace NeospectraApp.Driver
             byte[] b = new byte[bytes.Length];
             for (int i = 0; i < b.Length; i++)
             {
-                int v = int.Parse(bytes[i]);//, 16);
+                int v = Convert.ToInt32(bytes[i], 16);
                 b[i] = (byte)v;
             }
             return b;
