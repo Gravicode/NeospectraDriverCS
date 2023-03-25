@@ -1,0 +1,7 @@
+No,Column,Type,Value,Logic
+1,P,RANGE,R,[X] < 20
+2,P,RANGE,S,[X] >= 20 and [X] <= 40
+3,P,RANGE,T,[X] > 40
+4,K,RANGE,R,[X] < 10
+5,K,RANGE,S,[X] > = 10 and [X] <= 20
+6,K,RANGE,T,[X] > 20

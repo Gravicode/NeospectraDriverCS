@@ -1,0 +1,2402 @@
+[
+  {
+    "Kabupaten": "Kabupaten Aceh Barat Daya",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Blangpidie"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Barat",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Meulaboh"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Besar",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kota Jantho"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Jaya",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Calang"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Selatan",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tapak Tuan"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Singkil",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Singkil"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Tamiang",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Karang Baru"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Tengah",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Takengon"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Tenggara",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kutacane"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Timur",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Idi Rayeuk"
+  },
+  {
+    "Kabupaten": "Kabupaten Aceh Utara",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lhoksukon"
+  },
+  {
+    "Kabupaten": "Kabupaten Agam",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lubuk Basung"
+  },
+  {
+    "Kabupaten": "Kabupaten Alor",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Kalabahi"
+  },
+  {
+    "Kabupaten": "Kabupaten Asahan",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kisaran"
+  },
+  {
+    "Kabupaten": "Kabupaten Asmat",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Agats"
+  },
+  {
+    "Kabupaten": "Kabupaten Badung",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Badung"
+  },
+  {
+    "Kabupaten": "Kabupaten Balangan",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Paringin"
+  },
+  {
+    "Kabupaten": "Kabupaten Bandung Barat",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Ngamprah"
+  },
+  {
+    "Kabupaten": "Kabupaten Bandung",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Soreang"
+  },
+  {
+    "Kabupaten": "Kabupaten Banggai Kepulauan",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Banggai"
+  },
+  {
+    "Kabupaten": "Kabupaten Banggai",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Luwuk"
+  },
+  {
+    "Kabupaten": "Kabupaten Bangka Barat",
+    "Propinsi": "Kepulauan Bangka Belitung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Toboali"
+  },
+  {
+    "Kabupaten": "Kabupaten Bangka Selatan",
+    "Propinsi": "Kepulauan Bangka Belitung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Mentok"
+  },
+  {
+    "Kabupaten": "Kabupaten Bangka Tengah",
+    "Propinsi": "Kepulauan Bangka Belitung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Koba"
+  },
+  {
+    "Kabupaten": "Kabupaten Bangka",
+    "Propinsi": "Kepulauan Bangka Belitung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sungai Liat"
+  },
+  {
+    "Kabupaten": "Kabupaten Bangkalan",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Bangkalan"
+  },
+  {
+    "Kabupaten": "Kabupaten Bangli",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Bangli"
+  },
+  {
+    "Kabupaten": "Kabupaten Banjar",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Martapura"
+  },
+  {
+    "Kabupaten": "Kabupaten Banjarnegara",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Banjarnegara"
+  },
+  {
+    "Kabupaten": "Kabupaten Bantaeng",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Bantaeng"
+  },
+  {
+    "Kabupaten": "Kabupaten Bantul",
+    "Propinsi": "Yogyakarta",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kecamatan Bantul"
+  },
+  {
+    "Kabupaten": "Kabupaten Banyuasin",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pangkalan Balai"
+  },
+  {
+    "Kabupaten": "Kabupaten Banyumas",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Purwokerto"
+  },
+  {
+    "Kabupaten": "Kabupaten Banyuwangi",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Banyuwangi"
+  },
+  {
+    "Kabupaten": "Kabupaten Barito Kuala",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Marabahan"
+  },
+  {
+    "Kabupaten": "Kabupaten Barito Selatan",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Buntok"
+  },
+  {
+    "Kabupaten": "Kabupaten Barito Timur",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tamiang"
+  },
+  {
+    "Kabupaten": "Kabupaten Barito Utara",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Muara Teweh"
+  },
+  {
+    "Kabupaten": "Kabupaten Barru",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Barru"
+  },
+  {
+    "Kabupaten": "Kabupaten Batang",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Batang"
+  },
+  {
+    "Kabupaten": "Kabupaten Batanghari",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Bulian"
+  },
+  {
+    "Kabupaten": "Kabupaten Batubara",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Limapuluh"
+  },
+  {
+    "Kabupaten": "Kabupaten Bekasi",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Cikarang"
+  },
+  {
+    "Kabupaten": "Kabupaten Belitung Timur",
+    "Propinsi": "Kepulauan Bangka Belitung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Manggar"
+  },
+  {
+    "Kabupaten": "Kabupaten Belitung",
+    "Propinsi": "Kepulauan Bangka Belitung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tanjung Pandan"
+  },
+  {
+    "Kabupaten": "Kabupaten Belu",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Atambua"
+  },
+  {
+    "Kabupaten": "Kabupaten Bener Meriah",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Simpang Tiga Redelong"
+  },
+  {
+    "Kabupaten": "Kabupaten Bengkalis",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Bengkalis"
+  },
+  {
+    "Kabupaten": "Kabupaten Bengkayang",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Bengkayang"
+  },
+  {
+    "Kabupaten": "Kabupaten Bengkulu Selatan",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kota Manna"
+  },
+  {
+    "Kabupaten": "Kabupaten Bengkulu Tengah",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Karang Tinggi"
+  },
+  {
+    "Kabupaten": "Kabupaten Bengkulu Utara",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Arga Makmur"
+  },
+  {
+    "Kabupaten": "Kabupaten Berau",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tanjungredep"
+  },
+  {
+    "Kabupaten": "Kabupaten Biak Numfor",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Biak"
+  },
+  {
+    "Kabupaten": "Kabupaten Bima",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Raba"
+  },
+  {
+    "Kabupaten": "Kabupaten Bintan",
+    "Propinsi": "Kepulauan Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Bandar Seri Bentan"
+  },
+  {
+    "Kabupaten": "Kabupaten Bireuen",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Bireuen"
+  },
+  {
+    "Kabupaten": "Kabupaten Blitar",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kanigoro"
+  },
+  {
+    "Kabupaten": "Kabupaten Blora",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Blora"
+  },
+  {
+    "Kabupaten": "Kabupaten Boalemo",
+    "Propinsi": "Gorontalo",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Marisa/Tilamuta"
+  },
+  {
+    "Kabupaten": "Kabupaten Bogor",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Cibinong"
+  },
+  {
+    "Kabupaten": "Kabupaten Bojonegoro",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Bojonegoro"
+  },
+  {
+    "Kabupaten": "Kabupaten Bolaang Mongondow Selatan",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Bolaang Uki"
+  },
+  {
+    "Kabupaten": "Kabupaten Bolaang Mongondow Timur",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Tutuyan"
+  },
+  {
+    "Kabupaten": "Kabupaten Bolaang Mongondow Utara",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Boroko"
+  },
+  {
+    "Kabupaten": "Kabupaten Bolaang Mongondow",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Kotamobagu"
+  },
+  {
+    "Kabupaten": "Kabupaten Bombana",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Rumbia"
+  },
+  {
+    "Kabupaten": "Kabupaten Bondowoso",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Bondowoso"
+  },
+  {
+    "Kabupaten": "Kabupaten Bone Bolango",
+    "Propinsi": "Gorontalo",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Suwawa"
+  },
+  {
+    "Kabupaten": "Kabupaten Bone",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Watampone"
+  },
+  {
+    "Kabupaten": "Kabupaten Boven Digoel",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Tanah Merah"
+  },
+  {
+    "Kabupaten": "Kabupaten Boyolali",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Boyolali"
+  },
+  {
+    "Kabupaten": "Kabupaten Brebes",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Brebes, Bumiayu"
+  },
+  {
+    "Kabupaten": "Kabupaten Buleleng",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Singaraja"
+  },
+  {
+    "Kabupaten": "Kabupaten Bulukumba",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Bulukumba"
+  },
+  {
+    "Kabupaten": "Kabupaten Bulungan",
+    "Propinsi": "Kalimantan Utara",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tanjungselor"
+  },
+  {
+    "Kabupaten": "Kabupaten Bungo",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Bungo"
+  },
+  {
+    "Kabupaten": "Kabupaten Buol",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Buol"
+  },
+  {
+    "Kabupaten": "Kabupaten Buru Selatan",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Namrole"
+  },
+  {
+    "Kabupaten": "Kabupaten Buru",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Namlea"
+  },
+  {
+    "Kabupaten": "Kabupaten Buton Utara",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Buranga"
+  },
+  {
+    "Kabupaten": "Kabupaten Buton",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Pasarwajo"
+  },
+  {
+    "Kabupaten": "Kabupaten Ciamis",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Ciamis"
+  },
+  {
+    "Kabupaten": "Kabupaten Cianjur",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Cianjur"
+  },
+  {
+    "Kabupaten": "Kabupaten Cilacap",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Cilacap"
+  },
+  {
+    "Kabupaten": "Kabupaten Cirebon",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sumber"
+  },
+  {
+    "Kabupaten": "Kabupaten Dairi",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sidikalang"
+  },
+  {
+    "Kabupaten": "Kabupaten Deiyai",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Tigi"
+  },
+  {
+    "Kabupaten": "Kabupaten Deli Serdang",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lubuk Pakam"
+  },
+  {
+    "Kabupaten": "Kabupaten Demak",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Demak"
+  },
+  {
+    "Kabupaten": "Kabupaten Dharmasraya",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pulau Punjung"
+  },
+  {
+    "Kabupaten": "Kabupaten Dogiyai",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kigamani"
+  },
+  {
+    "Kabupaten": "Kabupaten Dompu",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Dompu"
+  },
+  {
+    "Kabupaten": "Kabupaten Donggala",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Donggala"
+  },
+  {
+    "Kabupaten": "Kabupaten Empat Lawang",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tebing Tinggi"
+  },
+  {
+    "Kabupaten": "Kabupaten Ende",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Ende"
+  },
+  {
+    "Kabupaten": "Kabupaten Enrekang",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Enrekang"
+  },
+  {
+    "Kabupaten": "Kabupaten Fakfak",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Fakfak"
+  },
+  {
+    "Kabupaten": "Kabupaten Flores Timur",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Larantuka"
+  },
+  {
+    "Kabupaten": "Kabupaten Garut",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Garut"
+  },
+  {
+    "Kabupaten": "Kabupaten Gayo Lues",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Blang Kejeren"
+  },
+  {
+    "Kabupaten": "Kabupaten Gianyar",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Gianyar"
+  },
+  {
+    "Kabupaten": "Kabupaten Gorontalo Utara",
+    "Propinsi": "Gorontalo",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Kwandang"
+  },
+  {
+    "Kabupaten": "Kabupaten Gorontalo",
+    "Propinsi": "Gorontalo",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Gorontalo"
+  },
+  {
+    "Kabupaten": "Kabupaten Gowa",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Sungguminasa"
+  },
+  {
+    "Kabupaten": "Kabupaten Gresik",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Gresik"
+  },
+  {
+    "Kabupaten": "Kabupaten Grobogan",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Purwodadi"
+  },
+  {
+    "Kabupaten": "Kabupaten Gunung Kidul",
+    "Propinsi": "Yogyakarta",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kecamatan Wonosari"
+  },
+  {
+    "Kabupaten": "Kabupaten Gunung Mas",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Kuala Kurun"
+  },
+  {
+    "Kabupaten": "Kabupaten Halmahera Barat",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Jailolo"
+  },
+  {
+    "Kabupaten": "Kabupaten Halmahera Selatan",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Labuha"
+  },
+  {
+    "Kabupaten": "Kabupaten Halmahera Tengah",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Weda"
+  },
+  {
+    "Kabupaten": "Kabupaten Halmahera Timur",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Maba"
+  },
+  {
+    "Kabupaten": "Kabupaten Halmahera Utara",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Tobelo"
+  },
+  {
+    "Kabupaten": "Kabupaten Hulu Sungai Selatan",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Kandangan"
+  },
+  {
+    "Kabupaten": "Kabupaten Hulu Sungai Tengah",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Barabai"
+  },
+  {
+    "Kabupaten": "Kabupaten Hulu Sungai Utara",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Amuntai"
+  },
+  {
+    "Kabupaten": "Kabupaten Humbang Hasundutan",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Dolok Sanggul"
+  },
+  {
+    "Kabupaten": "Kabupaten Indragiri Hilir",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tembilahan"
+  },
+  {
+    "Kabupaten": "Kabupaten Indragiri Hulu",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Rengat"
+  },
+  {
+    "Kabupaten": "Kabupaten Indramayu",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Indramayu"
+  },
+  {
+    "Kabupaten": "Kabupaten Intan Jaya",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sugapa"
+  },
+  {
+    "Kabupaten": "Kabupaten Jayapura",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sentani"
+  },
+  {
+    "Kabupaten": "Kabupaten Jayawijaya",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Wamena"
+  },
+  {
+    "Kabupaten": "Kabupaten Jember",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Jember"
+  },
+  {
+    "Kabupaten": "Kabupaten Jembrana",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Negara"
+  },
+  {
+    "Kabupaten": "Kabupaten Jeneponto",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Jeneponto"
+  },
+  {
+    "Kabupaten": "Kabupaten Jepara",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Jepara"
+  },
+  {
+    "Kabupaten": "Kabupaten Jombang",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Jombang"
+  },
+  {
+    "Kabupaten": "Kabupaten Kaimana",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kaimana"
+  },
+  {
+    "Kabupaten": "Kabupaten Kampar",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Bangkinang"
+  },
+  {
+    "Kabupaten": "Kabupaten Kapuas Hulu",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Putussibau"
+  },
+  {
+    "Kabupaten": "Kabupaten Kapuas",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Kuala Kapuas"
+  },
+  {
+    "Kabupaten": "Kabupaten Karanganyar",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Karanganyar"
+  },
+  {
+    "Kabupaten": "Kabupaten Karangasem",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Karangasem"
+  },
+  {
+    "Kabupaten": "Kabupaten Karawang",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Karawang"
+  },
+  {
+    "Kabupaten": "Kabupaten Karimun",
+    "Propinsi": "Kepulauan Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tanjung Balai Karimun"
+  },
+  {
+    "Kabupaten": "Kabupaten Karo",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kabanjahe"
+  },
+  {
+    "Kabupaten": "Kabupaten Katingan",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Kasongan"
+  },
+  {
+    "Kabupaten": "Kabupaten Kaur",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Bintuhan"
+  },
+  {
+    "Kabupaten": "Kabupaten Kayong Utara",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sukadana"
+  },
+  {
+    "Kabupaten": "Kabupaten Kebumen",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kebumen"
+  },
+  {
+    "Kabupaten": "Kabupaten Kediri",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kediri"
+  },
+  {
+    "Kabupaten": "Kabupaten Keerom",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Waris"
+  },
+  {
+    "Kabupaten": "Kabupaten Kendal",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kendal"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepahiang",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kepahiang"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Anambas",
+    "Propinsi": "Kepulauan Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Terempa"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Aru",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Dobo"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Mentawai",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tuapejat"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Meranti",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Selatpanjang"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Sangihe",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Tahuna"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Selayar",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Benteng"
+  },
+  {
+    "Kabupaten": "Kabupaten Administrasi Kepulauan Seribu",
+    "Propinsi": "Jakarta",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pulau Pramuka"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Siau Tagulandang Biaro",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Ondong Siau"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Sula",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sanana"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Talaud",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Melonguane"
+  },
+  {
+    "Kabupaten": "Kabupaten Kepulauan Yapen",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Serui"
+  },
+  {
+    "Kabupaten": "Kabupaten Kerinci",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sungaipenuh"
+  },
+  {
+    "Kabupaten": "Kabupaten Ketapang",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Ketapang"
+  },
+  {
+    "Kabupaten": "Kabupaten Klaten",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Klaten"
+  },
+  {
+    "Kabupaten": "Kabupaten Klungkung",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Klungkung"
+  },
+  {
+    "Kabupaten": "Kabupaten Kolaka Utara",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Lasusua"
+  },
+  {
+    "Kabupaten": "Kabupaten Kolaka",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Kolaka"
+  },
+  {
+    "Kabupaten": "Kabupaten Konawe Selatan",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Andolo"
+  },
+  {
+    "Kabupaten": "Kabupaten Konawe Utara",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Wanggudu"
+  },
+  {
+    "Kabupaten": "Kabupaten Konawe",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Unaaha"
+  },
+  {
+    "Kabupaten": "Kabupaten Kotabaru",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Kotabaru"
+  },
+  {
+    "Kabupaten": "Kabupaten Kotawaringin Barat",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Pangkalan Bun"
+  },
+  {
+    "Kabupaten": "Kabupaten Kotawaringin Timur",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sampit"
+  },
+  {
+    "Kabupaten": "Kabupaten Kuantan Singingi",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Taluk Kuantan"
+  },
+  {
+    "Kabupaten": "Kabupaten Kubu Raya",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sungai Raya"
+  },
+  {
+    "Kabupaten": "Kabupaten Kudus",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kudus"
+  },
+  {
+    "Kabupaten": "Kabupaten Kulon Progo",
+    "Propinsi": "Yogyakarta",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kecamatan Wates"
+  },
+  {
+    "Kabupaten": "Kabupaten Kuningan",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kuningan"
+  },
+  {
+    "Kabupaten": "Kabupaten Kupang",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Kupang"
+  },
+  {
+    "Kabupaten": "Kabupaten Kutai Barat",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sendawar"
+  },
+  {
+    "Kabupaten": "Kabupaten Kutai Kartanegara",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tenggarong"
+  },
+  {
+    "Kabupaten": "Kabupaten Kutai Timur",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sangatta"
+  },
+  {
+    "Kabupaten": "Kabupaten Labuhanbatu Selatan",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kota Pinang"
+  },
+  {
+    "Kabupaten": "Kabupaten Labuhanbatu Utara",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Aek Kanopan"
+  },
+  {
+    "Kabupaten": "Kabupaten Labuhanbatu",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Rantau Prapat"
+  },
+  {
+    "Kabupaten": "Kabupaten Lahat",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lahat"
+  },
+  {
+    "Kabupaten": "Kabupaten Lamandau",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Nanga Bulik"
+  },
+  {
+    "Kabupaten": "Kabupaten Lamongan",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Lamongan"
+  },
+  {
+    "Kabupaten": "Kabupaten Lampung Barat",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kota Liwa"
+  },
+  {
+    "Kabupaten": "Kabupaten Lampung Selatan",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kalianda (kota)"
+  },
+  {
+    "Kabupaten": "Kabupaten Lampung Tengah",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Gunung Sugih"
+  },
+  {
+    "Kabupaten": "Kabupaten Lampung Timur",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sukadana"
+  },
+  {
+    "Kabupaten": "Kabupaten Lampung Utara",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kotabumi"
+  },
+  {
+    "Kabupaten": "Kabupaten Landak",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Ngabang"
+  },
+  {
+    "Kabupaten": "Kabupaten Langkat",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Stabat"
+  },
+  {
+    "Kabupaten": "Kabupaten Lanny Jaya",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Tiom"
+  },
+  {
+    "Kabupaten": "Kabupaten Lebak",
+    "Propinsi": "Banten",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Rangkasbitung"
+  },
+  {
+    "Kabupaten": "Kabupaten Lebong",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Aman"
+  },
+  {
+    "Kabupaten": "Kabupaten Lembata",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Lewoleba"
+  },
+  {
+    "Kabupaten": "Kabupaten Lima Puluh Kota",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sarilamak"
+  },
+  {
+    "Kabupaten": "Kabupaten Lingga",
+    "Propinsi": "Kepulauan Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Daik, Lingga"
+  },
+  {
+    "Kabupaten": "Kabupaten Lombok Barat",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Mataram"
+  },
+  {
+    "Kabupaten": "Kabupaten Lombok Tengah",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Praya"
+  },
+  {
+    "Kabupaten": "Kabupaten Lombok Timur",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Selong"
+  },
+  {
+    "Kabupaten": "Kabupaten Lombok Utara",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Tanjung"
+  },
+  {
+    "Kabupaten": "Kabupaten Lumajang",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Lumajang"
+  },
+  {
+    "Kabupaten": "Kabupaten Luwu Timur",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Malili"
+  },
+  {
+    "Kabupaten": "Kabupaten Luwu Utara",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Masamba"
+  },
+  {
+    "Kabupaten": "Kabupaten Luwu",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Belopa"
+  },
+  {
+    "Kabupaten": "Kabupaten Madiun",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Madiun"
+  },
+  {
+    "Kabupaten": "Kabupaten Magelang",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kota Mungkid"
+  },
+  {
+    "Kabupaten": "Kabupaten Mahakam Ulu",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Batu Bulan"
+  },
+  {
+    "Kabupaten": "Kabupaten Majalengka",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Majalengka"
+  },
+  {
+    "Kabupaten": "Kabupaten Majalengka",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Majalengka"
+  },
+  {
+    "Kabupaten": "Kabupaten Majene",
+    "Propinsi": "Sulawesi Barat",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Majene"
+  },
+  {
+    "Kabupaten": "Kabupaten Malang",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kepanjen"
+  },
+  {
+    "Kabupaten": "Kabupaten Malinau",
+    "Propinsi": "Kalimantan Utara",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Malinau"
+  },
+  {
+    "Kabupaten": "Kabupaten Maluku Barat Daya",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Wonreli (de facto)"
+  },
+  {
+    "Kabupaten": "Kabupaten Maluku Tengah",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Masohi"
+  },
+  {
+    "Kabupaten": "Kabupaten Maluku Tenggara Barat",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Saumlaki"
+  },
+  {
+    "Kabupaten": "Kabupaten Maluku Tenggara",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Langgur"
+  },
+  {
+    "Kabupaten": "Kabupaten Mamasa",
+    "Propinsi": "Sulawesi Barat",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Mamasa"
+  },
+  {
+    "Kabupaten": "Kabupaten Mamberamo Raya",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Burmeso"
+  },
+  {
+    "Kabupaten": "Kabupaten Mamberamo Tengah",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kobakma"
+  },
+  {
+    "Kabupaten": "Kabupaten Mamuju Utara",
+    "Propinsi": "Sulawesi Barat",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Pasangkayu"
+  },
+  {
+    "Kabupaten": "Kabupaten Mamuju",
+    "Propinsi": "Sulawesi Barat",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Mamuju"
+  },
+  {
+    "Kabupaten": "Kabupaten Mandailing Natal",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Panyabungan"
+  },
+  {
+    "Kabupaten": "Kabupaten Manggarai Barat",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Labuan Bajo"
+  },
+  {
+    "Kabupaten": "Kabupaten Manggarai Timur",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Borong"
+  },
+  {
+    "Kabupaten": "Kabupaten Manggarai",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Ruteng"
+  },
+  {
+    "Kabupaten": "Kabupaten Manokwari",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Manokwari"
+  },
+  {
+    "Kabupaten": "Kabupaten Mappi",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kepi"
+  },
+  {
+    "Kabupaten": "Kabupaten Maros",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Turikale"
+  },
+  {
+    "Kabupaten": "Kabupaten Maybrat",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kumurkek"
+  },
+  {
+    "Kabupaten": "Kabupaten Melawi",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Nanga Pinoh"
+  },
+  {
+    "Kabupaten": "Kabupaten Merangin",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Bangko"
+  },
+  {
+    "Kabupaten": "Kabupaten Merauke",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Merauke"
+  },
+  {
+    "Kabupaten": "Kabupaten Mesuji",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Mesuji"
+  },
+  {
+    "Kabupaten": "Kabupaten Mimika",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Timika"
+  },
+  {
+    "Kabupaten": "Kabupaten Minahasa Selatan",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Amurang"
+  },
+  {
+    "Kabupaten": "Kabupaten Minahasa Tenggara",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Ratahan"
+  },
+  {
+    "Kabupaten": "Kabupaten Minahasa Utara",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Airmadidi"
+  },
+  {
+    "Kabupaten": "Kabupaten Minahasa",
+    "Propinsi": "Sulawesi Utara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Tondano"
+  },
+  {
+    "Kabupaten": "Kabupaten Mojokerto",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Mojokerto"
+  },
+  {
+    "Kabupaten": "Kabupaten Morowali",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Bungku"
+  },
+  {
+    "Kabupaten": "Kabupaten Muara Enim",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Enim"
+  },
+  {
+    "Kabupaten": "Kabupaten Muaro Jambi",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sengeti"
+  },
+  {
+    "Kabupaten": "Kabupaten Mukomuko",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Mukomuko"
+  },
+  {
+    "Kabupaten": "Kabupaten Muna",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Raha"
+  },
+  {
+    "Kabupaten": "Kabupaten Murung Raya",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Purukcahu"
+  },
+  {
+    "Kabupaten": "Kabupaten Musi Banyuasin",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sekayu"
+  },
+  {
+    "Kabupaten": "Kabupaten Musi Rawas",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Beliti Baru"
+  },
+  {
+    "Kabupaten": "Kabupaten Nabire",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Nabire"
+  },
+  {
+    "Kabupaten": "Kabupaten Nagan Raya",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Suka Makmue"
+  },
+  {
+    "Kabupaten": "Kabupaten Nagekeo",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Mbay"
+  },
+  {
+    "Kabupaten": "Kabupaten Natuna",
+    "Propinsi": "Kepulauan Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Ranai, Bunguran Timur"
+  },
+  {
+    "Kabupaten": "Kabupaten Nduga",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kenyam"
+  },
+  {
+    "Kabupaten": "Kabupaten Ngada",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Bajawa"
+  },
+  {
+    "Kabupaten": "Kabupaten Nganjuk",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Nganjuk"
+  },
+  {
+    "Kabupaten": "Kabupaten Ngawi",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Ngawi"
+  },
+  {
+    "Kabupaten": "Kabupaten Nias Barat",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lahomi"
+  },
+  {
+    "Kabupaten": "Kabupaten Nias Selatan",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Teluk Dalam"
+  },
+  {
+    "Kabupaten": "Kabupaten Nias Utara",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lotu"
+  },
+  {
+    "Kabupaten": "Kabupaten Nias",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Gunung Sitoli"
+  },
+  {
+    "Kabupaten": "Kabupaten Nunukan",
+    "Propinsi": "Kalimantan Utara",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Nunukan"
+  },
+  {
+    "Kabupaten": "Kabupaten Ogan Ilir",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Indralaya"
+  },
+  {
+    "Kabupaten": "Kabupaten Ogan Komering Ilir",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kota Kayu Agung"
+  },
+  {
+    "Kabupaten": "Kabupaten Ogan Komering Ulu Selatan",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muaradua"
+  },
+  {
+    "Kabupaten": "Kabupaten Ogan Komering Ulu Timur",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Martapura"
+  },
+  {
+    "Kabupaten": "Kabupaten Ogan Komering Ulu",
+    "Propinsi": "Sumatera Selatan",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Baturaja"
+  },
+  {
+    "Kabupaten": "Kabupaten Pacitan",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pacitan"
+  },
+  {
+    "Kabupaten": "Kabupaten Padang Lawas Utara",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Gunung Tua"
+  },
+  {
+    "Kabupaten": "Kabupaten Padang Lawas",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sibuhuan"
+  },
+  {
+    "Kabupaten": "Kabupaten Padang Pariaman",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Parit Malintang"
+  },
+  {
+    "Kabupaten": "Kabupaten Pakpak Bharat",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Salak"
+  },
+  {
+    "Kabupaten": "Kabupaten Pamekasan",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pamekasan"
+  },
+  {
+    "Kabupaten": "Kabupaten Pandeglang",
+    "Propinsi": "Banten",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pandeglang"
+  },
+  {
+    "Kabupaten": "Kabupaten Pangkajene dan Kepulauan",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Pangkajene"
+  },
+  {
+    "Kabupaten": "Kabupaten Paniai",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Enarotali"
+  },
+  {
+    "Kabupaten": "Kabupaten Parigi Moutong",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Parigi"
+  },
+  {
+    "Kabupaten": "Kabupaten Pasaman Barat",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Simpang Ampek"
+  },
+  {
+    "Kabupaten": "Kabupaten Pasaman",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Lubuk Sikaping"
+  },
+  {
+    "Kabupaten": "Kabupaten Paser",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tanah Grogot"
+  },
+  {
+    "Kabupaten": "Kabupaten Pasuruan",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pasuruan"
+  },
+  {
+    "Kabupaten": "Kabupaten Pati",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pati"
+  },
+  {
+    "Kabupaten": "Kabupaten Pegunungan Bintang",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Oksibil"
+  },
+  {
+    "Kabupaten": "Kabupaten Pekalongan",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kajen"
+  },
+  {
+    "Kabupaten": "Kabupaten Pelalawan",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pangkalan Kerinci"
+  },
+  {
+    "Kabupaten": "Kabupaten Pemalang",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pemalang"
+  },
+  {
+    "Kabupaten": "Kabupaten Penajam Paser Utara",
+    "Propinsi": "Kalimantan Timur",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Penajam"
+  },
+  {
+    "Kabupaten": "Kabupaten Pesawaran",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Gedong Tataan"
+  },
+  {
+    "Kabupaten": "Kabupaten Pesisir Selatan",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Painan"
+  },
+  {
+    "Kabupaten": "Kabupaten Pidie Jaya",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Meureudu"
+  },
+  {
+    "Kabupaten": "Kabupaten Pidie",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sigli"
+  },
+  {
+    "Kabupaten": "Kabupaten Pinrang",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Pinrang"
+  },
+  {
+    "Kabupaten": "Kabupaten Pohuwato",
+    "Propinsi": "Gorontalo",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Marisa"
+  },
+  {
+    "Kabupaten": "Kabupaten Polewali Mandar",
+    "Propinsi": "Sulawesi Barat",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Polewali"
+  },
+  {
+    "Kabupaten": "Kabupaten Ponorogo",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Ponorogo"
+  },
+  {
+    "Kabupaten": "Kabupaten Mempawah",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Mempawah"
+  },
+  {
+    "Kabupaten": "Kabupaten Poso",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Poso"
+  },
+  {
+    "Kabupaten": "Kabupaten Pringsewu",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pringsewu"
+  },
+  {
+    "Kabupaten": "Kabupaten Probolinggo",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kraksaan"
+  },
+  {
+    "Kabupaten": "Kabupaten Pulang Pisau",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Pulang Pisau"
+  },
+  {
+    "Kabupaten": "Kabupaten Pulau Morotai",
+    "Propinsi": "Maluku Utara",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Morotai Selatan"
+  },
+  {
+    "Kabupaten": "Kabupaten Puncak Jaya",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Kotamulia"
+  },
+  {
+    "Kabupaten": "Kabupaten Puncak",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Ilaga"
+  },
+  {
+    "Kabupaten": "Kabupaten Purbalingga",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Purbalingga"
+  },
+  {
+    "Kabupaten": "Kabupaten Purwakarta",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Purwakarta"
+  },
+  {
+    "Kabupaten": "Kabupaten Purworejo",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Purworejo"
+  },
+  {
+    "Kabupaten": "Kabupaten Raja Ampat",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Waisai"
+  },
+  {
+    "Kabupaten": "Kabupaten Rejang Lebong",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Curup"
+  },
+  {
+    "Kabupaten": "Kabupaten Rembang",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Rembang"
+  },
+  {
+    "Kabupaten": "Kabupaten Rokan Hilir",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Ujung Tanjung/Bagan Siapi-api"
+  },
+  {
+    "Kabupaten": "Kabupaten Rokan Hulu",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pasir Pengaraian"
+  },
+  {
+    "Kabupaten": "Kabupaten Rote Ndao",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Baa"
+  },
+  {
+    "Kabupaten": "Kabupaten Sabu Raijua",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Seba"
+  },
+  {
+    "Kabupaten": "Kabupaten Sambas",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sambas"
+  },
+  {
+    "Kabupaten": "Kabupaten Samosir",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pangururan"
+  },
+  {
+    "Kabupaten": "Kabupaten Sampang",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sampang"
+  },
+  {
+    "Kabupaten": "Kabupaten Sanggau",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sanggau"
+  },
+  {
+    "Kabupaten": "Kabupaten Sarmi",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sarmi"
+  },
+  {
+    "Kabupaten": "Kabupaten Sarolangun",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sarolangun"
+  },
+  {
+    "Kabupaten": "Kabupaten Sekadau",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sekadau"
+  },
+  {
+    "Kabupaten": "Kabupaten Seluma",
+    "Propinsi": "Bengkulu",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tais"
+  },
+  {
+    "Kabupaten": "Kabupaten Semarang",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Ungaran"
+  },
+  {
+    "Kabupaten": "Kabupaten Seram Bagian Barat",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Piru (de facto)"
+  },
+  {
+    "Kabupaten": "Kabupaten Seram Bagian Timur",
+    "Propinsi": "Maluku",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Bula (de facto)"
+  },
+  {
+    "Kabupaten": "Kabupaten Serang",
+    "Propinsi": "Banten",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Ciruas"
+  },
+  {
+    "Kabupaten": "Kabupaten Serdang Bedagai",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sei Rampah"
+  },
+  {
+    "Kabupaten": "Kabupaten Seruyan",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Kuala Pembuang"
+  },
+  {
+    "Kabupaten": "Kabupaten Siak",
+    "Propinsi": "Riau",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Siak Sri Indrapura"
+  },
+  {
+    "Kabupaten": "Kabupaten Sidenreng Rappang",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Pangkajene Sidenreng"
+  },
+  {
+    "Kabupaten": "Kabupaten Sidoarjo",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sidoarjo"
+  },
+  {
+    "Kabupaten": "Kabupaten Sigi",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Sigi Biromaru"
+  },
+  {
+    "Kabupaten": "Kabupaten Sijunjung",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muaro Sijunjung"
+  },
+  {
+    "Kabupaten": "Kabupaten Sikka",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Maumere"
+  },
+  {
+    "Kabupaten": "Kabupaten Simalungun",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Raya"
+  },
+  {
+    "Kabupaten": "Kabupaten Simeulue",
+    "Propinsi": "Aceh",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sinabang"
+  },
+  {
+    "Kabupaten": "Kabupaten Sinjai",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Sinjai"
+  },
+  {
+    "Kabupaten": "Kabupaten Sintang",
+    "Propinsi": "Kalimantan Barat",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sintang"
+  },
+  {
+    "Kabupaten": "Kabupaten Situbondo",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Situbondo"
+  },
+  {
+    "Kabupaten": "Kabupaten Sleman",
+    "Propinsi": "Yogyakarta",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Kecamatan Sleman"
+  },
+  {
+    "Kabupaten": "Kabupaten Solok Selatan",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Padang Aro"
+  },
+  {
+    "Kabupaten": "Kabupaten Solok",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Arosuka"
+  },
+  {
+    "Kabupaten": "Kabupaten Soppeng",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Watan Soppeng"
+  },
+  {
+    "Kabupaten": "Kabupaten Sorong Selatan",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Teminabuan"
+  },
+  {
+    "Kabupaten": "Kabupaten Sorong",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sorong"
+  },
+  {
+    "Kabupaten": "Kabupaten Sragen",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sragen"
+  },
+  {
+    "Kabupaten": "Kabupaten Subang",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Subang"
+  },
+  {
+    "Kabupaten": "Kabupaten Sukabumi",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Pelabuanratu"
+  },
+  {
+    "Kabupaten": "Kabupaten Sukamara",
+    "Propinsi": "Kalimantan Tengah",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Sukamara"
+  },
+  {
+    "Kabupaten": "Kabupaten Sukoharjo",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sukoharjo"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumba Barat Daya",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Tambolaka"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumba Barat",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Waikabubak"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumba Tengah",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Waibakul"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumba Timur",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Waingapu"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumbawa Barat",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Taliwang"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumbawa",
+    "Propinsi": "Nusa Tenggara Barat",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Sumbawa Besar"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumedang",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sumedang"
+  },
+  {
+    "Kabupaten": "Kabupaten Sumenep",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Sumenep"
+  },
+  {
+    "Kabupaten": "Kabupaten Supiori",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sorendiweri"
+  },
+  {
+    "Kabupaten": "Kabupaten Tabalong",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tanjung"
+  },
+  {
+    "Kabupaten": "Kabupaten Tabanan",
+    "Propinsi": "Bali",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Tabanan"
+  },
+  {
+    "Kabupaten": "Kabupaten Takalar",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Pattalassang"
+  },
+  {
+    "Kabupaten": "Kabupaten Tambrauw",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Fef"
+  },
+  {
+    "Kabupaten": "Kabupaten Tana Tidung",
+    "Propinsi": "Kalimantan Utara",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Tideng Pale"
+  },
+  {
+    "Kabupaten": "Kabupaten Tana Toraja",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Makale"
+  },
+  {
+    "Kabupaten": "Kabupaten Tanah Bumbu",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Batulicin"
+  },
+  {
+    "Kabupaten": "Kabupaten Tanah Datar",
+    "Propinsi": "Sumatera Barat",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Batusangkar"
+  },
+  {
+    "Kabupaten": "Kabupaten Tanah Laut",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Pelaihari"
+  },
+  {
+    "Kabupaten": "Kabupaten Tangerang",
+    "Propinsi": "Banten",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Tigaraksa"
+  },
+  {
+    "Kabupaten": "Kabupaten Tanggamus",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kota Agung"
+  },
+  {
+    "Kabupaten": "Kabupaten Tanjung Jabung Barat",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Kuala Tungkal"
+  },
+  {
+    "Kabupaten": "Kabupaten Tanjung Jabung Timur",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Sabak"
+  },
+  {
+    "Kabupaten": "Kabupaten Tapanuli Selatan",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Sipirok"
+  },
+  {
+    "Kabupaten": "Kabupaten Tapanuli Tengah",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Pandan"
+  },
+  {
+    "Kabupaten": "Kabupaten Tapanuli Utara",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tarutung"
+  },
+  {
+    "Kabupaten": "Kabupaten Tapin",
+    "Propinsi": "Kalimantan Selatan",
+    "Pulau": "Kalimantan",
+    "Pemerintahan": "Rantau"
+  },
+  {
+    "Kabupaten": "Kabupaten Tasikmalaya",
+    "Propinsi": "Jawa Barat",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Singaparna"
+  },
+  {
+    "Kabupaten": "Kabupaten Tebo",
+    "Propinsi": "Jambi",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Muara Tebo"
+  },
+  {
+    "Kabupaten": "Kabupaten Tegal",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Slawi"
+  },
+  {
+    "Kabupaten": "Kabupaten Teluk Bintuni",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Bintuni"
+  },
+  {
+    "Kabupaten": "Kabupaten Teluk Wondama",
+    "Propinsi": "Papua Barat",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Rasiei"
+  },
+  {
+    "Kabupaten": "Kabupaten Temanggung",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Temanggung"
+  },
+  {
+    "Kabupaten": "Kabupaten Timor Tengah Selatan",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Soe"
+  },
+  {
+    "Kabupaten": "Kabupaten Timor Tengah Utara",
+    "Propinsi": "Nusa Tenggara Timur",
+    "Pulau": "Kepulauan Nusa Tenggara",
+    "Pemerintahan": "Kefamenanu"
+  },
+  {
+    "Kabupaten": "Kabupaten Toba Samosir",
+    "Propinsi": "Sumatera Utara",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Balige"
+  },
+  {
+    "Kabupaten": "Kabupaten Tojo Una-Una",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Ampana"
+  },
+  {
+    "Kabupaten": "Kabupaten Toli-Toli",
+    "Propinsi": "Sulawesi Tengah",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Toli-Toli"
+  },
+  {
+    "Kabupaten": "Kabupaten Tolikara",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Karubaga"
+  },
+  {
+    "Kabupaten": "Kabupaten Toraja Utara",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Rantepao"
+  },
+  {
+    "Kabupaten": "Kabupaten Trenggalek",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Trenggalek"
+  },
+  {
+    "Kabupaten": "Kabupaten Tuban",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Tuban"
+  },
+  {
+    "Kabupaten": "Kabupaten Tulang Bawang Barat",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Tulang Bawang Tengah"
+  },
+  {
+    "Kabupaten": "Kabupaten Tulang Bawang",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Menggala"
+  },
+  {
+    "Kabupaten": "Kabupaten Tulungagung",
+    "Propinsi": "Jawa Timur",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Tulungagung"
+  },
+  {
+    "Kabupaten": "Kabupaten Wajo",
+    "Propinsi": "Sulawesi Selatan",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Sengkang"
+  },
+  {
+    "Kabupaten": "Kabupaten Wakatobi",
+    "Propinsi": "Sulawesi Tenggara",
+    "Pulau": "Sulawesi",
+    "Pemerintahan": "Wangi-Wangi"
+  },
+  {
+    "Kabupaten": "Kabupaten Waropen",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Botawa"
+  },
+  {
+    "Kabupaten": "Kabupaten Way Kanan",
+    "Propinsi": "Lampung",
+    "Pulau": "Sumatera",
+    "Pemerintahan": "Blambangan Umpu"
+  },
+  {
+    "Kabupaten": "Kabupaten Wonogiri",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Wonogiri"
+  },
+  {
+    "Kabupaten": "Kabupaten Wonosobo",
+    "Propinsi": "Jawa Tengah",
+    "Pulau": "Jawa",
+    "Pemerintahan": "Wonosobo"
+  },
+  {
+    "Kabupaten": "Kabupaten Yahukimo",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Sumohai"
+  },
+  {
+    "Kabupaten": "Kabupaten Yalimo",
+    "Propinsi": "Papua",
+    "Pulau": "Kepulauan Maluku dan Papua",
+    "Pemerintahan": "Elelim"
+  }
+]

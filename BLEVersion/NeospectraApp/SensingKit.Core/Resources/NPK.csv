@@ -1,0 +1,28 @@
+﻿No,P2O5,K2O,NPK,UREA,Jenis
+1,$A < 20,$B < 10,350,200,Padi
+2,$A < 20,$B >= 10 and $B <= 20,250,225,Padi
+3,$A < 20,$B>20,250,225,Padi
+4,$A>=20 and $A<=40,$B< 10,300,200,Padi
+5,$A >= 20 and $A<= 40,$B>=10 and $B<= 20,200,250,Padi
+6,$A>=20 and $A<=40,$B>20,200,250,Padi
+7,$A > 40,$B< 10,300,200,Padi
+8,$A > 40,$B>=10 and $B<=20,200,250,Padi
+9,$A > 40,$B>20,200,250,Padi
+1,$A < 20,$B < 10,375,225,Jagung
+2,$A < 20,$B >= 10 and $B <= 20,350,250,Jagung
+3,$A < 20,$B>20,350,250,Jagung
+4,$A>=20 and $A<=40,$B< 10,325,250,Jagung
+5,$A >= 20 and $A<= 40,$B>=10 and $B<= 20,300,250,Jagung
+6,$A>=20 and $A<=40,$B>20,275,250,Jagung
+7,$A > 40,$B< 10,250,275,Jagung
+8,$A > 40,$B>=10 and $B<=20,225,275,Jagung
+9,$A > 40,$B>20,225,275,Jagung
+1,$A < 20,$B < 10,200,0,Kedelai
+2,$A < 20,$B >= 10 and $B <= 20,200,0,Kedelai
+3,$A < 20,$B>20,200,0,Kedelai
+4,$A>=20 and $A<=40,$B< 10,200,0,Kedelai
+5,$A >= 20 and $A<= 40,$B>=10 and $B<= 20,200,0,Kedelai
+6,$A>=20 and $A<=40,$B>20,200,0,Kedelai
+7,$A > 40,$B< 10,200,0,Kedelai
+8,$A > 40,$B>=10 and $B<=20,175,0,Kedelai
+9,$A > 40,$B>20,175,0,Kedelai
