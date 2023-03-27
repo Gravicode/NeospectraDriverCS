@@ -98,8 +98,10 @@ namespace NeospectraApp.Driver
             this.myGatBand = myGatBand;
         }
 
-       
-
+        public bool IsConnectedToGatt()
+        {
+            return isConnectedToGatt;
+        }
         public void setConnectedToGatt(bool connectedToGatt)
         {
             isConnectedToGatt = connectedToGatt;

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
@@ -756,7 +757,7 @@ namespace NeospectraApp.Driver
             {
                 var item = await GetCharacteristic(P3_TX_CHAR_Guid);
                 var res = await item.ReadValueAsync();
-                if(res.Status != GattCommunicationStatus.Success)
+                if(res.Status == GattCommunicationStatus.Success)
                 {
                     GattPresentationFormat presentationFormat = null;
                     if (item.PresentationFormats.Count > 0)
@@ -774,6 +775,11 @@ namespace NeospectraApp.Driver
                         }
                     }
                     FormatValueByPresentation(item, res.Value, presentationFormat);
+                    onReadSuccess(res.Value.ToArray());
+                }
+                else
+                {
+                    onReadFailure("P3 Read Error => " + res.Status.ToString());
                 }
                 //mRxBleConnection
                 //        .firstOrError()
@@ -790,13 +796,13 @@ namespace NeospectraApp.Driver
 
         private void onReadFailure(string throwable)
         {
-            //Log.i(getClass().getSimpleName(), "Read error: " + throwable);
-            //broadcastNotificationFailure(throwable.getMessage() + " onReadFailure", "read_failure", 0);
+            Debug.WriteLine( "Read error: " + throwable);
+            broadcastNotificationFailure(throwable + " onReadFailure", "read_failure", 0);
         }
 
         private void onReadSuccess(byte[] bytes)
         {
-            //Log.i(getClass().getSimpleName(), "Read Success!");
+            Debug.WriteLine("P3 Read => Read Success!");
 
         }
 
@@ -855,7 +861,7 @@ namespace NeospectraApp.Driver
                         var res = await WriteCharacteristicBytes(myGatChar, data);
                         Debug.WriteLine($"Write to OTA_RX_CHAR_Guid => {res}");
                         //boolean status = myGatBand.writeCharacteristic(myGatChar);
-                        //Log.d(TAG, "* Writting trigger status :" + status);
+                       Debug.WriteLine(TAG + "* Writting trigger status :" + res);
                     }
                 }              
             }
@@ -910,6 +916,27 @@ namespace NeospectraApp.Driver
         }
         GattPresentationFormat notificationFormat;
         bool SubscribeNotification = false;
+        private void broadcastWriteFailure(String msg)
+        {
+            Dictionary<string, object> iWriteData = new Dictionary<string, object>();
+            //iWriteData.setAction(GlobalVariables.INTENT_ACTION);
+            iWriteData.Add("iName", "sensorWriting");
+            iWriteData.Add("isWriteSuccess", false);
+            iWriteData.Add("err", msg);
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iWriteData });
+
+        }
+
+        private void broadcastWriteSuccess()
+        {
+            Dictionary<string, object> iWriteData = new Dictionary<string, object>();
+            //iWriteData.setAction(GlobalVariables.INTENT_ACTION);
+            iWriteData.Add("iName", "sensorWriting");
+            iWriteData.Add("isWriteSuccess", true);
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iWriteData });
+
+        }
+
         public async Task<bool> SetNotificationOnTXInP3()
         {
             if (isConnected())
@@ -968,14 +995,14 @@ namespace NeospectraApp.Driver
                             }
                         }
                        
-                        MethodsFactory.LogMessage("Successfully subscribed for value changes", "Status");
+                        MethodsFactory.LogMessage("Successfully subscribed P3 for value changes", "Status");
                         return true;
 
                         //rootPage.NotifyUser("Successfully subscribed for value changes", NotifyType.StatusMessage);
                     }
                     else
                     {
-                        MethodsFactory.LogMessage($"Error registering for value changes: {status}", "ErrorMessage");
+                        MethodsFactory.LogMessage($"Error registering P3 for value changes: {status}", "ErrorMessage");
                         //rootPage.NotifyUser($"Error registering for value changes: {status}", NotifyType.ErrorMessage);
                     }
                 }
@@ -1155,14 +1182,14 @@ namespace NeospectraApp.Driver
                             }
                         }
                        
-                        MethodsFactory.LogMessage("Successfully subscribed for value changes", "Status");
+                        MethodsFactory.LogMessage("Successfully subscribed MemTX for value changes", "Status");
                         return true;
 
                         //rootPage.NotifyUser("Successfully subscribed for value changes", NotifyType.StatusMessage);
                     }
                     else
                     {
-                        MethodsFactory.LogMessage($"Error registering for value changes: {status}", "ErrorMessage");
+                        MethodsFactory.LogMessage($"Error registering MemTX for value changes: {status}", "ErrorMessage");
                         //rootPage.NotifyUser($"Error registering for value changes: {status}", NotifyType.ErrorMessage);
                     }
                 }
@@ -1200,116 +1227,7 @@ namespace NeospectraApp.Driver
             CryptographicBuffer.CopyToByteArray(args.CharacteristicValue, out data);
             onMemNotificationReceived(data);
         }
-        public event EventHandler<BroadcastEventArgs> BroadcastReceived;
-        public class BroadcastEventArgs : EventArgs
-        {
-            public Dictionary<string, object> iGotData { get; set; }
-            public DateTime Created { get; set; }
-        }
-        private void broadcastHomeNotification(String input, String iName)
-        {
-            Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION DATA");
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //Intent iGotData = new Intent();
-            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
-            iGotData.Add("iName", iName);
-            iGotData.Add("isNotificationSuccess", true);  //false heba change
-            iGotData.Add("data", input);
-            iGotData.Add("reason", "gotData");
-            iGotData.Add("from", "broadcastHomeNotification");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(this.HomeActivityContext, iGotData);
-        }
-        private void broadcastHomeNotification(long data, String iName)
-        {
-            Debug.WriteLine(TAG + "INSIDE BROADCAST NOTIFICATION DATA");
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
-            iGotData.Add("iName", iName);
-            iGotData.Add("isNotificationSuccess", true);  //false heba change
-            iGotData.Add("data", data);
-            iGotData.Add("reason", "gotData");
-            iGotData.Add("from", "broadcastHomeNotification");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(this.HomeActivityContext, iGotData);
-        }
-        private void broadcastNotificationData(double[] mDoubles, string streamByte)
-        {
-            Debug.WriteLine(TAG + "INSIDE BROADCAST NOTIFICATION DATA");
-           
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
-            iGotData.Add("iName", "sensorNotification_data");
-            iGotData.Add("isNotificationSuccess", true);  //false heba change
-            iGotData.Add("data", mDoubles);
-            iGotData.Add("stream", streamByte);
-            iGotData.Add("reason", "gotData");
-            iGotData.Add("from", "broadcastNotificationData");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(getMainActivityContext(), iGotData);
-        }
-
-        private void broadcastNotificationMemoryData(double[] mDoubles)
-        {
-            Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION Memory DATA");
-            //Intent iGotData = new Intent();
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
-            iGotData.Add("iName", "MemoryScanData");
-            iGotData.Add("isNotificationSuccess", true);  //false heba change
-            iGotData.Add("data", mDoubles);
-            iGotData.Add("reason", "gotData");
-            iGotData.Add("from", "broadcastNotificationData");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(this.HomeActivityContext, iGotData);
-        }
-        private void broadcastNotificationFailure(String msg, String reason, int errorCode)
-        {
-            Debug.WriteLine(TAG + "inside broadcastNotificationFailure");
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
-            iGotData.Add("iName", "sensorNotification_failure");
-            iGotData.Add("isNotificationSuccess", false);
-            iGotData.Add("err", msg);
-            iGotData.Add("reason", reason);
-            iGotData.Add("data", errorCode);
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(getMainActivityContext(), iGotData);
-        }
-
-        private void broadcastNotificationconnected(String msg)
-        {
-            Debug.WriteLine(TAG + "inside broadcastNotificationconnected " + msg);
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //iGotData.Addn(GlobalVariables.INTENT_ACTION);
-            iGotData.Add("iName", "sensorNotification_connection");
-            iGotData.Add("isNotificationSuccess", true);
-            iGotData.Add("err", msg);
-            iGotData.Add("reason", "connected");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(getMainActivityContext(), iGotData);
-        }
-
-        public void broadcastdisconnectionNotification()
-        {
-            Debug.WriteLine(TAG + "inside broadcastdisconnectionNotification");
-            //System.out.println("inside broadcastdisconnectionNotification");
-            //Intent iGotData = new Intent();
-            Dictionary<string, object> iGotData = new Dictionary<string, object>();
-            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
-            iGotData.Add("iName", "Disconnection_Notification");
-            iGotData.Add("reason", "disconnected");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(getMainActivityContext(), iGotData);
-
-            iGotData = new Dictionary<string, object>();
-            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
-            iGotData.Add("iName", "Disconnection_Notification");
-            iGotData.Add("reason", "disconnected");
-            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
-            //sendBroadCast(this.HomeActivityContext, iGotData);
-        }
-        private void onMemNotificationReceived( byte[] bytes)
+        private void onMemNotificationReceived(byte[] bytes)
         {
             if (!mHeaderMemPacketDone)
             {
@@ -1391,19 +1309,19 @@ namespace NeospectraApp.Driver
                             /*
                             ByteBuffer buffer = ByteBuffer.wrap(scanBytes);
                             buffer.order(ByteOrder.LITTLE_ENDIAN);
+                            double[] doubleValues = new double[scanBytes.length / 8];
+                            for(int i = 0; i < scanBytes.length / 16; i++) {
+                                doubleValues[i] = buffer.getLong(i * 8) / Math.pow(2, 33);
+                                doubleValues[i + doubleValues.length/2] =
+                                        buffer.getLong((i + doubleValues.length/2) * 8) /
+                                                Math.pow(2, 30);
+                            }
                             */
-                            //var buffer = new List<byte>(scanBytes);
-                            //buffer = buffer.OrderBy(x => x).ToList();
                             ByteBuffer buffer = new ByteBuffer(scanBytes);
-                            //buffer.order(ByteOrder.LITTLE_ENDIAN);
-
                             double[] doubleValues = new double[scanBytes.Length / 8];
                             for (int i = 0; i < scanBytes.Length / 16; i++)
                             {
-                                //doubleValues[i] = buffer.GetLong(i * 8) / Math.Pow(2, 33);
-                                //doubleValues[i + doubleValues.Length / 2] =
-                                //        (long)((i + doubleValues.Length / 2) * 8) /
-                                //                Math.Pow(2, 30);
+                              
                                 doubleValues[i] = buffer.GetLong(i * 8) / Math.Pow(2, 33);
                                 doubleValues[i + doubleValues.Length / 2] =
                                         buffer.GetLong((i + doubleValues.Length / 2) * 8) /
@@ -1425,8 +1343,9 @@ namespace NeospectraApp.Driver
 
             }
 
-            Debug.WriteLine( "Notification Received - " + (bytes.Length));
+            Debug.WriteLine("Notification Received - " + (bytes.Length));
         }
+
         GattPresentationFormat BatTxFormat;
         bool SubscribeBatTx = false;
         public async Task<bool> SetNotificationOnBatTx()
@@ -1486,14 +1405,14 @@ namespace NeospectraApp.Driver
                                 // In this case, we'll just encode the whole thing to a string to make it easy to print out.
                             }
                         }
-                        MethodsFactory.LogMessage("Successfully subscribed for value changes", "Status");
+                        MethodsFactory.LogMessage("Successfully subscribed BatTx for value changes", "Status");
                         return true;
-                        
+
                         //rootPage.NotifyUser("Successfully subscribed for value changes", NotifyType.StatusMessage);
                     }
                     else
                     {
-                        MethodsFactory.LogMessage($"Error registering for value changes: {status}", "ErrorMessage");
+                        MethodsFactory.LogMessage($"Error registering BatTx for value changes: {status}", "ErrorMessage");
                         //rootPage.NotifyUser($"Error registering for value changes: {status}", NotifyType.ErrorMessage);
                     }
                 }
@@ -1503,7 +1422,7 @@ namespace NeospectraApp.Driver
                     //rootPage.NotifyUser(ex.Message, NotifyType.ErrorMessage);
                     MethodsFactory.LogMessage(ex.Message, "ErrorMessage");
                 }
-               
+
                 //mRxBleConnection
                 //       .flatMap(rxBleConnection->rxBleConnection.setupNotification(SYS_STAT_TX_CHAR_UUID))
                 //       .doOnNext(notificationObservable->MainActivityInstance.runOnUiThread(this::notificationHasBeenSetUp))
@@ -1521,7 +1440,7 @@ namespace NeospectraApp.Driver
                 //            this::onNotificationSetupFailure);
             }
             return false;
-            
+
         }
 
         private async void BatTx_ValueChanged(GattCharacteristic sender, GattValueChangedEventArgs args)
@@ -1531,8 +1450,7 @@ namespace NeospectraApp.Driver
             onSystemNotificationReceived(data);
         }
 
-
-        private void onSystemNotificationReceived( byte[] bytes)
+        private void onSystemNotificationReceived(byte[] bytes)
         {
             if (!mHeaderSysPacketDone)
             {
@@ -1623,8 +1541,121 @@ namespace NeospectraApp.Driver
                 mHeaderSysPacketDone = false;
             }
 
-            Debug.WriteLine( "Notification Received - " + (bytes.Length));
+            Debug.WriteLine("Notification Received - " + (bytes.Length));
         }
+
+        public event EventHandler<BroadcastEventArgs> BroadcastReceived;
+        public class BroadcastEventArgs : EventArgs
+        {
+            public Dictionary<string, object> iGotData { get; set; }
+            public DateTime Created { get; set; }
+        }
+        private void broadcastHomeNotification(long data, String iName)
+        {
+            Debug.WriteLine(TAG + "INSIDE BROADCAST NOTIFICATION DATA");
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", iName);
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", data);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastHomeNotification");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        private void broadcastHomeNotification(String input, String iName)
+        {
+            Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION DATA");
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //Intent iGotData = new Intent();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", iName);
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", input);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastHomeNotification");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        
+        private void broadcastNotificationData(double[] mDoubles, string streamByte)
+        {
+            Debug.WriteLine(TAG + "INSIDE BROADCAST NOTIFICATION DATA");
+           
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "sensorNotification_data");
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", mDoubles);
+            iGotData.Add("stream", streamByte);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastNotificationData");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+        }
+
+        private void broadcastNotificationMemoryData(double[] mDoubles)
+        {
+            Debug.WriteLine(TAG+ "INSIDE BROADCAST NOTIFICATION Memory DATA");
+            //Intent iGotData = new Intent();
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", "MemoryScanData");
+            iGotData.Add("isNotificationSuccess", true);  //false heba change
+            iGotData.Add("data", mDoubles);
+            iGotData.Add("reason", "gotData");
+            iGotData.Add("from", "broadcastNotificationData");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+        private void broadcastNotificationFailure(String msg, String reason, int errorCode)
+        {
+            Debug.WriteLine(TAG + "inside broadcastNotificationFailure");
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "sensorNotification_failure");
+            iGotData.Add("isNotificationSuccess", false);
+            iGotData.Add("err", msg);
+            iGotData.Add("reason", reason);
+            iGotData.Add("data", errorCode);
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+        }
+
+        private void broadcastNotificationconnected(String msg)
+        {
+            Debug.WriteLine(TAG + "inside broadcastNotificationconnected " + msg);
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.Addn(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "sensorNotification_connection");
+            iGotData.Add("isNotificationSuccess", true);
+            iGotData.Add("err", msg);
+            iGotData.Add("reason", "connected");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+        }
+
+        public void broadcastdisconnectionNotification()
+        {
+            Debug.WriteLine(TAG + "inside broadcastdisconnectionNotification");
+            //System.out.println("inside broadcastdisconnectionNotification");
+            //Intent iGotData = new Intent();
+            Dictionary<string, object> iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.INTENT_ACTION);
+            iGotData.Add("iName", "Disconnection_Notification");
+            iGotData.Add("reason", "disconnected");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(getMainActivityContext(), iGotData);
+
+            iGotData = new Dictionary<string, object>();
+            //iGotData.setAction(GlobalVariables.HOME_INTENT_ACTION);
+            iGotData.Add("iName", "Disconnection_Notification");
+            iGotData.Add("reason", "disconnected");
+            BroadcastReceived?.Invoke(this, new BroadcastEventArgs() { Created = DateTime.Now, iGotData = iGotData });
+            //sendBroadCast(this.HomeActivityContext, iGotData);
+        }
+       
+       
     }
 
 

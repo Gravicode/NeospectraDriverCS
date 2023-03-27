@@ -304,7 +304,7 @@ namespace NeospectraApp.Driver
             // Set run absorbance operation ID.
             newPacket.setSWS_P3Packet_Command(command.Run_Absorbance);
 
-            newPacket.setSWS_P3Packet_ScanTime(((int)(scanTime * 1000)).ToString()); // according to ISlam
+            newPacket.setSWS_P3Packet_ScanTime((scanTime * 1000).ToString()); // according to ISlam
 
             if (gIsInterpolationEnabled)
                 newPacket.setSWS_P3Packet_PointsCount(gInterpolationPoints);
@@ -388,7 +388,7 @@ namespace NeospectraApp.Driver
 
             // Set run background operation ID.
             newPacket.setSWS_P3Packet_Command(command.Run_Background);
-            newPacket.setSWS_P3Packet_ScanTime(((int)(scanTime * 1000)).ToString()); // according to ISlam
+            newPacket.setSWS_P3Packet_ScanTime((scanTime * 1000).ToString()); // according to ISlam
 
             if (gIsInterpolationEnabled)
                 newPacket.setSWS_P3Packet_PointsCount(gInterpolationPoints);
@@ -441,7 +441,7 @@ namespace NeospectraApp.Driver
 
             // Set selfCorrection operation ID.
             newPacket.setSWS_P3Packet_Command(command.Run_SelfCorrection);
-            newPacket.setSWS_P3Packet_ScanTime(((int)(scanTime * 1000)).ToString()); // according to ISlam
+            newPacket.setSWS_P3Packet_ScanTime((scanTime * 1000).ToString()); // according to ISlam
 
             if (gIsInterpolationEnabled)
                 newPacket.setSWS_P3Packet_PointsCount(gInterpolationPoints);
@@ -679,22 +679,16 @@ namespace NeospectraApp.Driver
 
         public void setScannerID(long value)
         {
-            ByteBuffer buffer = new ByteBuffer(8 + 1);
-            //buffer.order(ByteOrder.LITTLE_ENDIAN);
+            ByteBuffer buffer = new ByteBuffer(sizeof(long) + 1);
             buffer.Put((byte)0x23);
             buffer.PutLong(value);
             mP3ConnectionServices.WriteToMemoryService(buffer.ToArray());
             /*
-            //ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES + 1);
-            var buffer = new List<byte>(8 + 1);
-            //buffer.order(ByteOrder.LITTLE_ENDIAN);
-            buffer = buffer.OrderBy(x => x).ToList();
-            //buffer.put((byte)0x23);
-            buffer.Add((byte)0x23);
-            buffer.Add((byte)value);
-
-            //buffer.putLong(value);
-            mP3ConnectionServices.WriteToMemoryService(buffer.ToArray());
+            ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES + 1);
+            buffer.order(ByteOrder.LITTLE_ENDIAN);
+            buffer.put((byte)0x23);
+            buffer.putLong(value);
+            mP3ConnectionServices.WriteToMemoryService(buffer.array());
             */
         }
 
