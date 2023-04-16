@@ -859,9 +859,9 @@ namespace NeospectraApp
             optical_gain_value = localSettings.Values[optical_gain] == null ? 0 : Convert.ToInt32(localSettings.Values[optical_gain]);
             linear_interpolation_value = localSettings.Values["linear_interpolation_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["linear_interpolation_switch"]);
             fft_settings_switch = localSettings.Values["fft_settings_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["fft_settings_switch"]);
-            interpolation_points = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_257 : Convert.ToString(localSettings.Values["data_points"]);
+            interpolation_points = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_65 : Convert.ToString(localSettings.Values["data_points"]);
             apodization_value = localSettings.Values["apodization_function"] == null ? GlobalVariables.apodization.Boxcar : Convert.ToString(localSettings.Values["apodization_function"]);
-            FFT_points = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]);
+            FFT_points = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_8k : Convert.ToString(localSettings.Values["fft_points"]);
         }
             // Save all preferences in scanner
             private void savePreferences()

@@ -177,7 +177,7 @@ namespace NeospectraApp.Driver
                 throw new IndexOutOfRangeException();
             return BitConverter.ToInt32(buffer, index);
         }
-        
+
         public short GetShort(int index)
         {
             if (index + sizeof(short) > limit)

@@ -81,7 +81,8 @@ namespace NeospectraApp
         }
         async void ShowDialog(string Message)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async() => {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
                 //UI code here
                 // Create the message dialog and set its content
                 var messageDialog = new MessageDialog(Message);
@@ -96,9 +97,9 @@ namespace NeospectraApp
                 // Show the message dialog
                 await messageDialog.ShowAsync();
             });
-           
+
         }
-      
+
         void loadPreferences()
         {
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -111,17 +112,17 @@ namespace NeospectraApp
             //preferences.getBoolean("linear_interpolation_switch", false);
             GlobalVariables.gInterpolationPoints = localSettings.Values["data_points"] == null ? GlobalVariables.pointsCount.points_257 : Convert.ToString(localSettings.Values["data_points"]);
             //preferences.getString("data_points", GlobalVariables.pointsCount.points_257.toString());
-            GlobalVariables.gIsFftEnabled = localSettings.Values["fft_settings_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["fft_settings_switch"]); 
+            GlobalVariables.gIsFftEnabled = localSettings.Values["fft_settings_switch"] == null ? false : Convert.ToBoolean(localSettings.Values["fft_settings_switch"]);
             //preferences.getBoolean("fft_settings_switch", false);
             GlobalVariables.gApodizationFunction = localSettings.Values["apodization_function"] == null ? GlobalVariables.apodization.Boxcar : Convert.ToString(localSettings.Values["apodization_function"]);
             //preferences.getString("apodization_function", GlobalVariables.apodization.Boxcar.toString());
-            GlobalVariables.gFftPoints = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]); 
+            GlobalVariables.gFftPoints = localSettings.Values["fft_points"] == null ? GlobalVariables.zeroPadding.points_32k : Convert.ToString(localSettings.Values["fft_points"]);
             //preferences.getString("fft_points", GlobalVariables.zeroPadding.points_8k.toString());
             GlobalVariables.gOpticalGainSettings = localSettings.Values["optical_gain_settings"] == null ? "Default" : Convert.ToString(localSettings.Values["optical_gain_settings"]);
             //preferences.getString("optical_gain_settings", "Default");
             GlobalVariables.gOpticalGainValue = localSettings.Values[gOpticalGainSettings] == null ? 0 : Convert.ToInt32(localSettings.Values[gOpticalGainSettings]);
             //preferences.getInt(gOpticalGainSettings, 0);
-            GlobalVariables.gCorrectionMode = localSettings.Values["wavelength_correction"] == null ? GlobalVariables.wavelengthCorrection.Self_Calibration : Convert.ToString(localSettings.Values["wavelength_correction"]); 
+            GlobalVariables.gCorrectionMode = localSettings.Values["wavelength_correction"] == null ? GlobalVariables.wavelengthCorrection.Self_Calibration : Convert.ToString(localSettings.Values["wavelength_correction"]);
             //preferences.getString("wavelength_correction", GlobalVariables.wavelengthCorrection.Self_Calibration.toString());
 
         }
@@ -225,7 +226,7 @@ namespace NeospectraApp
                     isWaitingForBackGroundReading = false;
                     MethodsFactory.LogMessage(TAG, "BACKGROUND SCAN IS COMPLETE");
                     ShowDialog("BACKGROUND SCAN IS COMPLETE");
-                    
+
                 }
                 return;
             }
@@ -318,14 +319,14 @@ namespace NeospectraApp
             {
                 inputFloat.Add((float)input[i]);
             }
-          
+
             var res = await engine.ExecuteModel(inputFloat);
             //await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => {
-                //UI code here
-                ResultTable = engine.GetResultTable().ToExpandoObjectList();
-               
+            //UI code here
+            ResultTable = engine.GetResultTable().ToExpandoObjectList();
+
             //});
-          
+
         }
         public static Windows.Data.Xml.Dom.XmlDocument CreateToast(string Message, string Title = "Info")
         {
@@ -416,10 +417,10 @@ namespace NeospectraApp
         }
         async void InferenceClick()
         {
-          
-            var res= await engine.TestModel();
+
+            var res = await engine.TestModel();
         }
-            async void ClearMemoryClick()
+        async void ClearMemoryClick()
         {
             if (GlobalVariables.bluetoothAPI != null)
                 GlobalVariables.bluetoothAPI.sendClearMemoryRequest();
@@ -566,9 +567,9 @@ namespace NeospectraApp
                         dataPoints.Add(new DataPoint(x, y));
                         dataY.Add(y);
                     }*/
-                    foreach(var x in SSKEngine.WaveFreq)
+                    foreach (var x in SSKEngine.WaveFreq)
                     {
-                        
+
                         double y = scaler.Interpolate(x);
                         Debug.WriteLine(x + "," + y);
                         dataPoints.Add(new DataPoint(x, y));
@@ -720,6 +721,6 @@ namespace NeospectraApp
             this.m = m;
         }
 
-       
+
     }
 }
