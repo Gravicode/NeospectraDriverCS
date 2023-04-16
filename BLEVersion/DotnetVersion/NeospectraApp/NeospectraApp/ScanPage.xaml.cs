@@ -34,6 +34,10 @@ using static NeospectraApp.Driver.GlobalVariables;
 using Windows.Storage;
 using NeospectraApp.MathHelper;
 using System.Diagnostics;
+using GemBox.Spreadsheet.Charts;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -43,6 +47,7 @@ namespace NeospectraApp
     /// </summary>
     public sealed partial class ScanPage : Page
     {
+        ObservableCollection<ChartItem> ChartItems = new ObservableCollection<ChartItem>();
         IEnumerable<dynamic> ResultTable { get; set; }
         SSKEngine engine;
         private MainPage rootPage = MainPage.Current;
@@ -70,6 +75,10 @@ namespace NeospectraApp
         public ScanPage()
         {
             this.InitializeComponent();
+            ChartItems.Add(new ChartItem() { Ax = "item 1", Ay=10 });
+            ChartItems.Add(new ChartItem() { Ax = "item 2", Ay=20 });
+            ChartItems.Add(new ChartItem() { Ax = "item 3", Ay=30 });
+          
             loadPreferences();
             if (GlobalVariables.bluetoothAPI == null)
             {
@@ -534,7 +543,7 @@ namespace NeospectraApp
             int gsize = GlobalVariables.gAllSpectra.Count;
 
             dbReading sensorReading = GlobalVariables.gAllSpectra[gsize - 1];
-            List<DataPoint> dataPoints = new List<DataPoint>();
+            List<Driver.DataPoint> dataPoints = new List<Driver.DataPoint>();
             List<double> dataY = new List<double>();
             if (sensorReading != null)
             {
@@ -572,10 +581,11 @@ namespace NeospectraApp
 
                         double y = scaler.Interpolate(x);
                         Debug.WriteLine(x + "," + y);
-                        dataPoints.Add(new DataPoint(x, y));
+                        dataPoints.Add(new Driver.DataPoint(x, y));
                         dataY.Add(y);
+                       
                     }
-
+                    ShowChart(dataPoints);
                     var dataArrY = dataY.ToArray();
                     //double[] finalData = Stream.of(dataArrY).mapToDouble(Double::doubleValue).toArray();
 
@@ -587,7 +597,19 @@ namespace NeospectraApp
         }
         #endregion
 
-
+        #region chart
+        async void ShowChart(List<Driver.DataPoint> datas)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                ChartItems = new ObservableCollection<ChartItem>();
+                foreach (var item in datas)
+                {
+                    ChartItems.Add(new ChartItem() { Ax = item.X.ToString(), Ay = (int)item.Y });
+                }
+            });
+           
+        }
+        #endregion
 
         private void SetVisibility(UIElement element, bool visible)
         {
@@ -596,6 +618,30 @@ namespace NeospectraApp
 
 
     }
+    public class ChartItem : INotifyPropertyChanged
+    {
+        private int _ay;
+
+        public string Ax { get; set; }
+        public int Ay
+        {
+            get
+            {
+                return _ay;
+            }
+            set
+            {
+                if (_ay != value)
+                {
+                    _ay = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Ay)));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+    
     public class MonotoneCubicSplineInterpolation
     {
         private double[] xs { set; get; }
