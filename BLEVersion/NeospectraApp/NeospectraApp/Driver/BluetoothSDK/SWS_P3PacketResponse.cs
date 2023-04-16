@@ -184,7 +184,21 @@ namespace NeospectraApp.Driver
 
             return bb_temp.GetShort(0);
         }
+        //private void getXValsInterpolationCase()
+        //{
+        //    int LogicalArrayEnd = (mOriginalDataLength + 2) * 8;
 
+        //    byte[] tmp_init_arr = Arrays.copyOfRange(mPacketResponse, LogicalArrayEnd - 16, LogicalArrayEnd - 8);
+        //    byte[] tmp_step_arr = Arrays.copyOfRange(mPacketResponse, LogicalArrayEnd - 8, LogicalArrayEnd);
+        //    long XInit_tmp = BitConverter.ToInt64(tmp_init_arr, 0);
+        //    long XStep_tmp = BitConverter.ToInt64(tmp_step_arr, 0);
+
+        //    XInit_tmp = (XInit_tmp >> 3) * 10000;
+        //    XStep_tmp = (XStep_tmp >> 3) * 10000;
+
+        //    Xinit_quant = ((double)XInit_tmp) / (1 << 30);
+        //    Xstep_quant = ((double)XStep_tmp) / (1 << 30);
+        //}
         private void GetXValsInterpolationCase()
         {
             int LogicalArrayEnd = (mOriginalDataLength + 2) * 8;
@@ -200,6 +214,8 @@ namespace NeospectraApp.Driver
 
             long XInit_tmp = BytesToLong(tmp_init_arr);
             long XStep_tmp = BytesToLong(tmp_step_arr);
+            //long XInit_tmp = BitConverter.ToInt64(tmp_init_arr, 0);
+            //long XStep_tmp = BitConverter.ToInt64(tmp_step_arr, 0);
 
             XInit_tmp = (XInit_tmp >> 3) * 10000;
             XStep_tmp = (XStep_tmp >> 3) * 10000;
@@ -217,7 +233,7 @@ namespace NeospectraApp.Driver
             buffer.Reverse(); // need flip
             return buffer.First();
             */
-            ByteBuffer buffer = new ByteBuffer(8);
+            ByteBuffer buffer = new ByteBuffer(sizeof(long));
             //buffer.Order(ByteOrder.LittleEndian);
             buffer.Put(bytes);
             buffer.Flip(); // need flip

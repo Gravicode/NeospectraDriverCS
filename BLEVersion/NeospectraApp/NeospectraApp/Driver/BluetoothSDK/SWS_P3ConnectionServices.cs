@@ -857,7 +857,7 @@ namespace NeospectraApp.Driver
                     if (myGatChar != null)
                     {
                         Debug.WriteLine( "* Writing trigger");
-                       
+                    
                         var res = await WriteCharacteristicBytes(myGatChar, data);
                         Debug.WriteLine($"Write to OTA_RX_CHAR_Guid => {res}");
                         //boolean status = myGatBand.writeCharacteristic(myGatChar);

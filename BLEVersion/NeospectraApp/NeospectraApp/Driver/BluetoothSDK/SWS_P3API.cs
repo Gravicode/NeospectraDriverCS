@@ -79,7 +79,7 @@ namespace NeospectraApp.Driver
 
                     if (!mP3ConnectionServices.isConnected())
                     {
-                        //mP3ConnectionServices.broadcastdisconnectionNotification();
+                        mP3ConnectionServices.broadcastdisconnectionNotification();
                         return;
                     }
                 }
@@ -150,12 +150,13 @@ namespace NeospectraApp.Driver
             return true;
         }
 
-        //    public bool sendOTAPacket(int indexOfFile) {
-        //        //mP3ConnectionServices.setmInterpolationEnabled(mInterpolationStatus);
-        //        mP3ConnectionServices.WriteOTAService(indexOfFile);
-        //        //mP3ConnectionServices.writeData(Arrays.copyOfRange(binaryOTAFileInBytes, indexOfFile * OTA_MAX_TRANSMISSION_UNIT, (indexOfFile+1)* OTA_MAX_TRANSMISSION_UNIT));
-        //        return true;
-        //    }
+        //public bool sendOTAPacket(int indexOfFile)
+        //{
+        //    //mP3ConnectionServices.setmInterpolationEnabled(mInterpolationStatus);
+        //    mP3ConnectionServices.WriteOTAService(indexOfFile);
+        //    //mP3ConnectionServices.writeData(Arrays.copyOfRange(binaryOTAFileInBytes, indexOfFile * OTA_MAX_TRANSMISSION_UNIT, (indexOfFile+1)* OTA_MAX_TRANSMISSION_UNIT));
+        //    return true;
+        //}
 
 
         public bool sendOTAPacket(byte[] packetStream)

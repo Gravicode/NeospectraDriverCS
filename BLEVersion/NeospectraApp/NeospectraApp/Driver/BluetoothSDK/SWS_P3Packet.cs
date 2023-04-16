@@ -179,7 +179,8 @@ namespace NeospectraApp.Driver
 
             for (int i = 0; i < 9; i++)
             {
-                packetText += (" " + String.Format("%02X", packetStream[i] & 0xFF));
+                //packetText += (" " + String.Format("%02X", packetStream[i] & 0xFF));
+                packetText += (" " + String.Format("{0:X2}", packetStream[i] & 0xFF));
             }
 
             return packetText;
