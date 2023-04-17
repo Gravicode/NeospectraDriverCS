@@ -50,8 +50,8 @@
             <TextBlock x:Name="TxtStatus" Margin="0,10,0,0"/>
             <charting:Chart
                 x:Name="LineChart1"
-                Title="Spectra"
-                Margin="10,0">
+                Title="Scanned Data"
+                Margin="10,0" Height="400">
 
                 <charting:LineSeries
                     Title="Spectra"
@@ -62,7 +62,12 @@
 
 
             </charting:Chart>
-            <controls:DataGrid x:Name="dataGrid" Height="600" Margin="12" AutoGenerateColumns="True" ItemsSource="{x:Bind ResultTable}">
+            <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" Text="Scanned Soil Nutritions"/>
+            <controls:DataGrid x:Name="dataGrid" Height="300" Margin="12" AutoGenerateColumns="True" ItemsSource="{x:Bind DataItems}">
+
+            </controls:DataGrid>
+            <TextBlock Style="{StaticResource ScenarioDescriptionTextStyle}" Text="Fertilizer Recommendation"/>
+            <controls:DataGrid x:Name="dataGrid2" Height="300" Margin="12" AutoGenerateColumns="True" ItemsSource="{x:Bind RecommendationItems}">
 
             </controls:DataGrid>
         </StackPanel>

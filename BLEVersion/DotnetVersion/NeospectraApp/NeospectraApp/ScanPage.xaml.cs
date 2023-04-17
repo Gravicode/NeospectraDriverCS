@@ -38,6 +38,9 @@ using GemBox.Spreadsheet.Charts;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using MathNet.Numerics;
+using SensingKit.Core.Model;
+using SensingKit.Core;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NeospectraApp
@@ -48,7 +51,9 @@ namespace NeospectraApp
     public sealed partial class ScanPage : Page
     {
         ObservableCollection<ChartItem> ChartItems = new ObservableCollection<ChartItem>();
-        IEnumerable<dynamic> ResultTable { get; set; }
+        ObservableCollection<UnsurModel> DataItems = new ObservableCollection<UnsurModel>();
+        ObservableCollection<FertilizerRecommendation> RecommendationItems=new ObservableCollection<FertilizerRecommendation> ();
+        //IEnumerable<dynamic> ResultTable { get; set; }
         SSKEngine engine;
         private MainPage rootPage = MainPage.Current;
         int scanTime = 2;
@@ -75,9 +80,9 @@ namespace NeospectraApp
         public ScanPage()
         {
             this.InitializeComponent();
-            ChartItems.Add(new ChartItem() { Ax = "item 1", Ay=10 });
-            ChartItems.Add(new ChartItem() { Ax = "item 2", Ay=20 });
-            ChartItems.Add(new ChartItem() { Ax = "item 3", Ay=30 });
+            ChartItems.Add(new ChartItem() { Ax = "item-1", Ay=10 });
+            ChartItems.Add(new ChartItem() { Ax = "item-2", Ay=20 });
+            ChartItems.Add(new ChartItem() { Ax = "item-3", Ay=30 });
           
             loadPreferences();
             if (GlobalVariables.bluetoothAPI == null)
@@ -86,7 +91,24 @@ namespace NeospectraApp
 
             }
             if (engine == null) engine = new SSKEngine();
-            ResultTable = engine.GetResultTable().ToExpandoObjectList();
+            LoadData();
+        }
+
+        void LoadData()
+        {
+            DataItems.Clear();
+            var items = engine.GetOutput();
+            items.ForEach(x => {
+                DataItems.Add(x);
+            });
+            dataGrid.ItemsSource = DataItems;
+
+            RecommendationItems.Clear();
+            var items2 = engine.GetRecommendations();
+            items2.ForEach(x => {
+                RecommendationItems.Add(x);
+            });
+            dataGrid2.ItemsSource = RecommendationItems;
         }
         async void ShowDialog(string Message)
         {
@@ -330,11 +352,13 @@ namespace NeospectraApp
             }
 
             var res = await engine.ExecuteModel(inputFloat);
-            //await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () => {
+           
             //UI code here
-            ResultTable = engine.GetResultTable().ToExpandoObjectList();
-
-            //});
+            
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                LoadData();
+            });
+       
 
         }
         public static Windows.Data.Xml.Dom.XmlDocument CreateToast(string Message, string Title = "Info")
@@ -596,16 +620,43 @@ namespace NeospectraApp
             return null;
         }
         #endregion
-
-        #region chart
+       
+            #region chart
         async void ShowChart(List<Driver.DataPoint> datas)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
                 ChartItems = new ObservableCollection<ChartItem>();
                 foreach (var item in datas)
                 {
-                    ChartItems.Add(new ChartItem() { Ax = item.X.ToString(), Ay = (int)item.Y });
+                    ChartItems.Add(new ChartItem() { Ax = item.X.ToString(), Ay = item.Y });
                 }
+                var series1 = (LineSeries)LineChart1.Series[0];
+                series1.ItemsSource = ChartItems;
+                series1.DependentRangeAxis =
+                        new LinearAxis
+                        {
+                            Minimum = ChartItems.Min(x=>x.Ay)-20,
+                            Maximum = ChartItems.Max(x => x.Ay)+20,
+                            Orientation = AxisOrientation.Y,
+                            Interval = 20,
+                            ShowGridLines = true
+                        };
+                series1.IndependentAxis =
+                                          new WinRTXamlToolkit.Controls.DataVisualization.Charting.CategoryAxis
+                                          {
+                                              FontSize=8,
+                                              Orientation = AxisOrientation.X,
+                                              Height = 20
+                                          };
+                //series1.IndependentAxis =
+                //        new LinearAxis
+                //        {
+                //            Minimum = ChartItems.Min(x=>x.Ay)-20,
+                //            Maximum = ChartItems.Max(x => x.Ay)+20,
+                //            Orientation = AxisOrientation.Y,
+                //            Interval = 20,
+                //            ShowGridLines = false
+                //        };
             });
            
         }
@@ -620,10 +671,10 @@ namespace NeospectraApp
     }
     public class ChartItem : INotifyPropertyChanged
     {
-        private int _ay;
+        private double _ay;
 
         public string Ax { get; set; }
-        public int Ay
+        public double Ay
         {
             get
             {

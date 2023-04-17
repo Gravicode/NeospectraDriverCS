@@ -135,6 +135,7 @@
     <Compile Include="Model\CLAY.cs" />
     <Compile Include="Model\C_N.cs" />
     <Compile Include="Model\DataTableExtensions.cs" />
+    <Compile Include="Model\FertilizerRecommendation.cs" />
     <Compile Include="Model\HCl25_K2O.cs" />
     <Compile Include="Model\HCl25_P2O5.cs" />
     <Compile Include="Model\Jumlah.cs" />
@@ -342,7 +343,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SensingKit.Core\SensingKit.Core.csproj">
+      <Project>{683fec5f-af09-4a78-948a-28808be0e271}</Project>
+      <Name>SensingKit.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -13,11 +13,16 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.AI.MachineLearning;
 using System.Diagnostics;
+using SensingKit.Core.Model;
+using SensingKit.Core;
+using System.Collections.ObjectModel;
 
 namespace NeospectraApp.Model
 {
     public class SSKEngine
     {
+        List<UnsurModel> DataOutput = new List<UnsurModel>();
+        List<FertilizerRecommendation> DataRecommendation = new List<FertilizerRecommendation> ();
         static readonly string[] onnxs = new string[]{ "Bray1_P2O5.onnx","Ca.onnx",
 "CLAY.onnx",
 "C_N.onnx",
@@ -109,11 +114,21 @@ namespace NeospectraApp.Model
             CurrentIndex = 0;
             output.Rows.Clear();
             output.AcceptChanges();
+            DataOutput.Clear();
+            DataRecommendation.Clear();
         }
 
         public DataTable GetResultTable()
         {
             return output;
+        }
+        public List<UnsurModel> GetOutput()
+        {
+            return DataOutput;
+        } 
+        public List<FertilizerRecommendation> GetRecommendations()
+        {
+            return DataRecommendation;
         }
         public async Task<bool> ExecuteModel(List<float> inputFloat)
         {
@@ -242,13 +257,22 @@ namespace NeospectraApp.Model
                 output.AcceptChanges();
             }
         }
+        private void SetObjectProperty(string propertyName, float value, object obj)
+        {
+            PropertyInfo propertyInfo = obj.GetType().GetProperty(propertyName);
+            // make sure object has the property we are after
+            if (propertyInfo != null)
+            {
+                propertyInfo.SetValue(obj, value, null);
+            }
+        }
         async Task DoInference2(int index, float[] inputData)
         {
 
 
             var dr = output.NewRow();
             dr[0] = index;
-
+            var newItem = new UnsurModel() { CreatedDate = DateTime.Now };
             foreach (var file in onnxs)
             {
                 try
@@ -408,7 +432,7 @@ namespace NeospectraApp.Model
                     }
 
                     dr[colName] = result;
-                    output.Rows.Add(dr);
+                    SetObjectProperty(colName, result, newItem);
                 }
                 catch (Exception e)
                 {
@@ -417,8 +441,14 @@ namespace NeospectraApp.Model
                 }
 
             }
-
-
+            output.Rows.Add(dr);
+            DataOutput.Add(newItem);
+            var padi = GetRecommendation("Padi", newItem);
+            var jagung = GetRecommendation("Jagung", newItem);
+            var kedelai = GetRecommendation("Kedelai", newItem);
+            DataRecommendation.Add(padi);
+            DataRecommendation.Add(jagung);
+            DataRecommendation.Add(kedelai);
 
 
         }
@@ -478,6 +508,71 @@ namespace NeospectraApp.Model
 
 
         }
+        #region Recommendation
+        const double ureaConst = 2.22;
+        const double sp36Const = 2.77;
+        const double kclConst = 1.66;
+
+        const double KCLMin = 50;
+        const double UreaMin = 100;
+        const double SP36Min = 50;
+        FertilizerCalculator calc = new FertilizerCalculator();
+        FertilizerRecommendation GetRecommendation(string Komoditas, UnsurModel input)
+        {
+            var newItem = new FertilizerRecommendation() { Komoditas = Komoditas, Id = input.Id };
+
+            try
+            {
+
+                double ureaVal = 0;
+                double sp36Val = 0;
+                double kclVal = 0;
+                switch (Komoditas)
+                {
+                    case "Padi":
+                        ureaVal = calc.GetFertilizerDoze(input.KJELDAHL_N, Komoditas, "Urea") * ureaConst;
+                        sp36Val = calc.GetFertilizerDoze(input.HCl25_P2O5, Komoditas, "SP36") * sp36Const;
+                        kclVal = calc.GetFertilizerDoze(input.HCl25_K2O, Komoditas, "KCL") * kclConst;
+                        break;
+                    case "Jagung":
+                        ureaVal = calc.GetFertilizerDoze(input.KJELDAHL_N, Komoditas, "Urea") * ureaConst;
+                        sp36Val = calc.GetFertilizerDoze(input.Bray1_P2O5, Komoditas, "SP36") * sp36Const;
+                        kclVal = calc.GetFertilizerDoze(input.HCl25_K2O, Komoditas, "KCL") * kclConst;
+                        break;
+                    case "Kedelai":
+                        ureaVal = calc.GetFertilizerDoze(input.KJELDAHL_N, Komoditas, "Urea") * ureaConst;
+                        sp36Val = calc.GetFertilizerDoze(input.Bray1_P2O5, Komoditas, "SP36") * sp36Const;
+                        kclVal = calc.GetFertilizerDoze(input.K, Komoditas, "KCL") * kclConst;
+                        break;
+
+                }
+                ureaVal = ureaVal < UreaMin ? UreaMin : ureaVal;
+                sp36Val = sp36Val < SP36Min ? SP36Min : sp36Val;
+                kclVal = kclVal < KCLMin ? KCLMin : kclVal;
+                newItem.Urea = ureaVal;
+                newItem.KCL = kclVal;
+                newItem.SP36 = sp36Val;
+
+                String TxtUrea = String.Format("{0:n2}", ureaVal);
+                String TxtSP36 = String.Format("{0:n2}", sp36Val);
+                String TxtKCL = String.Format("{0:n2}", kclVal);
+                Console.WriteLine(String.Format("Rekomendasi KCL : {0}, SP36 : {1}, Urea : {2}", TxtKCL, TxtSP36, TxtUrea));
+
+                var x = calc.GetNPKDoze(input.HCl25_P2O5, input.HCl25_K2O, Komoditas);
+                newItem.Urea_15 = x.Urea;
+                newItem.NPK_15 = x.NPK;
+
+
+                Console.WriteLine(String.Format("Rekomendasi NPK 15:15:15 = {0}", newItem.NPK_15));
+                Console.WriteLine(String.Format("UREA 15:15:15 = {0}", newItem.Urea_15));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"error recommendation: {ex}");
+            }
+            return newItem;
+        }
+        #endregion
         #endregion
         #region preprocess
         public static DataTable ConvertCSVtoDataTable(string strFilePath)
