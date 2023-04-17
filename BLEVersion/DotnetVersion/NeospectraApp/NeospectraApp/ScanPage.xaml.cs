@@ -80,9 +80,7 @@ namespace NeospectraApp
         public ScanPage()
         {
             this.InitializeComponent();
-            ChartItems.Add(new ChartItem() { Ax = "item-1", Ay=10 });
-            ChartItems.Add(new ChartItem() { Ax = "item-2", Ay=20 });
-            ChartItems.Add(new ChartItem() { Ax = "item-3", Ay=30 });
+            
           
             loadPreferences();
             if (GlobalVariables.bluetoothAPI == null)
@@ -92,6 +90,7 @@ namespace NeospectraApp
             }
             if (engine == null) engine = new SSKEngine();
             LoadData();
+            TxtSpectrum.Text = $"Spectral Length ({SSKEngine.WaveFreq.First()} nm - {SSKEngine.WaveFreq.Last()} nm)";
         }
 
         void LoadData()
